@@ -1,0 +1,7 @@
+{
+  "name": "tcc ",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
