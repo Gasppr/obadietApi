@@ -1,0 +1,65 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <h1>Informações</h1>
+    </ion-row>
+    <ion-row>
+      <ion-input
+      label="Nome completo"
+      labelPlacement="stacked"
+      type="text"
+      [clearInput]="true"
+      placeholder="Nome"
+    >
+    </ion-input>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-select aria-label="Sexo" interface="popover" placeholder="Sexo:">
+          <ion-select-option value="f">Feminino</ion-select-option>
+          <ion-select-option value="m">Masculino</ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col>
+        <ion-input
+        label="Idade:"
+        labelPlacement="stacked"
+        type="number"
+        [clearInput]="true"
+        placeholder="00"
+      >
+      </ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input
+        label="Peso:"
+        labelPlacement="stacked"
+        type="number"
+        [clearInput]="true"
+        placeholder="00"
+      >
+      </ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input
+        label="Altura:"
+        labelPlacement="stacked"
+        type="number"
+        [clearInput]="true"
+        placeholder="00"
+      >
+      </ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button>Cancelar</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button>Continuar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
