@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'cadastro1',
+    loadChildren: () => import('./cadastro1/cadastro1.module').then( m => m.Cadastro1PageModule)
+  },
 ];
 
 @NgModule({
