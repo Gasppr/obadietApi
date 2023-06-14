@@ -4,10 +4,42 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="padding">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">recuperacao</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-grid>
+
+  <ion-input label="Digite seu email" label-placement="floating" fill="solid" placeholder="Enter"></ion-input>
+
+<br />
+
+<ion-img
+  src="https://www.horlix.com/wp-content/uploads/2019/09/google-invisible-recaptcha-1.jpg"
+  alt="Captcha"
+></ion-img>
+
+<br />
+
+<ion-input label="Digite o captcha" label-placement="floating" fill="solid" placeholder="Enter
+"></ion-input>
+
+<br />
+
+<ion-row>
+  <ion-col>
+    <ion-button color="success">Enviar Solicitação</ion-button>
+  </ion-col>
+  <ion-col>
+    <ion-button color="danger">Voltar</ion-button>
+  </ion-col>
+</ion-row>
+
+</ion-grid>
+
 </ion-content>
+
+
