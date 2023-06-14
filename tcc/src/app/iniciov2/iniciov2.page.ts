@@ -9,6 +9,14 @@ export class Iniciov2Page implements OnInit {
 
   constructor() { }
 
+  loginFacebook() {
+
+  }
+
+  loginGoogle() {
+
+  }
+  
   ngOnInit() {
   }
 
