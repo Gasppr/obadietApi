@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'iniciov2',
+    loadChildren: () => import('./iniciov2/iniciov2.module').then( m => m.Iniciov2PageModule)
+  },
 ];
 
 @NgModule({
