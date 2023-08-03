@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
+    path: 'iniciov2',
+    loadChildren: () => import('./iniciov2/iniciov2.module').then( m => m.Iniciov2PageModule)
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
