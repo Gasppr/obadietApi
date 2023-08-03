@@ -1,0 +1,29 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <h1>Mais sobre você:</h1>
+    </ion-row>
+    <ion-row>
+      <ion-select aria-label="Doencas" placeholder="Doenças:" [multiple]="true">
+        <ion-select-option value="lorem ipsum">Nenhuma</ion-select-option>
+        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
+        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
+      </ion-select>
+    </ion-row>
+    <ion-row>
+      <ion-select aria-label="Restricoes" placeholder="Restrições:" [multiple]="true">
+        <ion-select-option value="lorem ipsum">Nenhuma</ion-select-option>
+        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
+        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
+      </ion-select>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button [routerLink]="['/cadastro2']">Voltar</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button>Cadastrar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

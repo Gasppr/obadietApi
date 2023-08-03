@@ -1,0 +1,37 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-avatar>
+        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+      </ion-avatar>
+    </ion-row>
+    <ion-row>
+      <ion-input
+      label="E-mail"
+      labelPlacement="stacked"
+      type="email"
+      [clearInput]="true"
+      placeholder="E-mail"
+    >
+    </ion-input>
+    </ion-row>
+    <ion-row>
+      <ion-input
+      label="Senha"
+      labelPlacement="stacked"
+      type="password"
+      [clearInput]="true"
+      placeholder="Senha"
+    >
+    </ion-input>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button>Voltar</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button [routerLink]="['/cadastro2']">Continuar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
