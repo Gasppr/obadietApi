@@ -38,6 +38,22 @@ const routes: Routes = [
   {
     path: 'cadastro3',
     loadChildren: () => import('./cadastro3/cadastro3.module').then( m => m.Cadastro3PageModule)
+  },
+  {
+    path: 'receita',
+    loadChildren: () => import('./receita/receita.module').then( m => m.ReceitaPageModule)
+  },
+  {
+    path: 'meus-remedios',
+    loadChildren: () => import('./meus-remedios/meus-remedios.module').then( m => m.MeusRemediosPageModule)
+  },
+  {
+    path: 'minhas-refeicoes',
+    loadChildren: () => import('./minhas-refeicoes/minhas-refeicoes.module').then( m => m.MinhasRefeicoesPageModule)
+  },
+  {
+    path: 'programacao',
+    loadChildren: () => import('./programacao/programacao.module').then( m => m.ProgramacaoPageModule)
   }
 ];
 
