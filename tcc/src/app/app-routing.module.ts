@@ -3,8 +3,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
+    path: 'obaDiet',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: '',
@@ -12,8 +12,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'inicio',
+    loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioPageModule)
   },
   {
     path: 'iniciov2',
@@ -40,20 +40,16 @@ const routes: Routes = [
     loadChildren: () => import('./cadastro3/cadastro3.module').then( m => m.Cadastro3PageModule)
   },
   {
-    path: 'receita',
+    path: 'obaDiet/receita',
     loadChildren: () => import('./receita/receita.module').then( m => m.ReceitaPageModule)
   },
   {
-    path: 'meus-remedios',
+    path: 'obaDiet/meus-remedios',
     loadChildren: () => import('./meus-remedios/meus-remedios.module').then( m => m.MeusRemediosPageModule)
   },
   {
-    path: 'minhas-refeicoes',
+    path: 'obaDiet/minhas-refeicoes',
     loadChildren: () => import('./minhas-refeicoes/minhas-refeicoes.module').then( m => m.MinhasRefeicoesPageModule)
-  },
-  {
-    path: 'programacao',
-    loadChildren: () => import('./programacao/programacao.module').then( m => m.ProgramacaoPageModule)
   }
 ];
 
