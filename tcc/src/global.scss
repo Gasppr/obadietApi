@@ -24,3 +24,17 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+*, *::after, *::before{
+    margin: 0;
+    padding: 0;
+    --ion-font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    box-sizing: inherit;
+}
+
+ion-content{
+    box-sizing: border-box;
+}
