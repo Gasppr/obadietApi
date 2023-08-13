@@ -1,0 +1,24 @@
+ion-row
+{
+    padding: 2rem 1rem 1rem 1rem;
+
+    ion-avatar{
+
+        margin: auto;
+    
+
+        img{
+            margin: 0 auto; 
+            transform: scale(2, 2);
+        }
+    
+    }
+    
+   
+}
+
+.adicionarFoto{
+    margin: 0 0 0 50px;
+    transform: scale(1.2, 1.3);
+    background-color: #7C7C7C;
+}

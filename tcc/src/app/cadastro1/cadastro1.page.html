@@ -1,36 +1,62 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-grid>
     <ion-row>
-      <ion-avatar>
-        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
-      </ion-avatar>
+      <ion-col></ion-col>
+      <ion-col >
+        <ion-avatar aria-label="Foto de perfil do usuário" >
+        <img alt="Foto de perfil do usuário" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+        <ion-button class="adicionarFoto" fill="solid" shape="round" size="small">+</ion-button>
+      </ion-avatar></ion-col>
+      <ion-col>
+      </ion-col>
     </ion-row>
     <ion-row>
-      <ion-input
-      label="E-mail"
+      <ion-input   
+      labelPlacement="stacked"
+      type="name"
+      [clearInput]="true"
+      placeholder="Nome Completo*:"
+      aria-label="Nome completo do usuário"
+    >
+    </ion-input>
+    </ion-row>
+    <ion-row>
+      <ion-input   
       labelPlacement="stacked"
       type="email"
       [clearInput]="true"
-      placeholder="E-mail"
+      placeholder="E-mail*:"
+      aria-label="E-mail do usuário"
     >
     </ion-input>
     </ion-row>
     <ion-row>
       <ion-input
-      label="Senha"
       labelPlacement="stacked"
       type="password"
       [clearInput]="true"
-      placeholder="Senha"
+      placeholder="Senha*:"
+      aria-label="Senha do usuário"
     >
     </ion-input>
     </ion-row>
     <ion-row>
+      <ion-input
+      labelPlacement="stacked"
+      type="password"
+      [clearInput]="true"
+      placeholder="Confirme sua Senha"
+      aria-label="Confirme sua Senha de usuário"
+    >
+    </ion-input>
+    </ion-row>
+    
+    <ion-row>
       <ion-col>
-        <ion-button [routerLink]="['/iniciov2']">Voltar</ion-button>
+        <ion-button [routerLink]="['/iniciov2']" aria-label="Botão voltar">Voltar</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button [routerLink]="['/cadastro2']">Continuar</ion-button>
+        <ion-button [routerLink]="['/cadastro2']" aria-label="botão continuar cadastro" >Continuar</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
