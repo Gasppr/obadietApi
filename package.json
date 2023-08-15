@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "ionici": "npm i -g @ionic/cli",
+    "nesti" : " npm i -g @nestjs/cli",
 
     "gitconfig-paulo" : "git config --local user.name \"Paulo Roberto Antunes De Carvalho\" && git config --local user.email \"paulornatunes57@gmail.com\"",
     "all-paulo" : "npm run gitconfig-paulo && npm run ionici",
