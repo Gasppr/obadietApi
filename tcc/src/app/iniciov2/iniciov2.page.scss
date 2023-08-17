@@ -1,17 +1,23 @@
-.buttons {
-    display: flex;
-    justify-content: center;
+.oba-logo{
+  ion-img{
+    height: 30vh;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%) translateY(-80%);
   }
-  
-  button {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px;
-  }
+}
+
+.enter-options{
+  position: absolute;
+  left: 50%;
+  bottom: 40%;
+  transform: translateX(-50%) translateY(80%);
+}
+
+.buttons{
+  height: 5vh;
+}
   
   .facebook {
     background-color: #3b5998;

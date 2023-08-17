@@ -31,8 +31,12 @@ $color-verde-grama: rgba(190, 207, 152, 1);
 $color-laranja: rgba(244, 179, 119, 1);
 $color-amarelo: rgba(235, 229, 94, 1);
 $color-vermelho: rgba(200, 100, 100, 1);
+$color-preto: rgba(1, 1, 1, 1);
+$color-branco: rgba(254, 254, 254, 1);
 
-*, *::after, *::before{
+*,
+*::after,
+*::before {
     margin: 0;
     padding: 0;
     --ion-font-family: 'Raleway', sans-serif;
@@ -40,10 +44,25 @@ $color-vermelho: rgba(200, 100, 100, 1);
     box-sizing: inherit;
 }
 
-ion-content{
+ion-content {
     box-sizing: border-box;
 }
 
-.tela-start{
+.tela-start {
     --ion-background-color: #{$color-verde-grama};
+}
+
+.title{
+    text-align: center;
+    font-weight: bolder;
+    margin: 1rem;
+}
+
+.btn {
+    width: 50vw;
+}
+
+.btn-amarelo {
+    --color: #{$color-preto};
+    --background: #{$color-amarelo};
 }

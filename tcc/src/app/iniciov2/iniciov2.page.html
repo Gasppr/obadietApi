@@ -1,26 +1,24 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>iniciov2</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <img src="" alt="Logo">
-
-  <div class="bem-vindo">
-    <h2>Seja bem-vindo</h2>
+<ion-content [fullscreen]="true" class="tela-start">
+  <div class="oba-logo">
+    <ion-img src="assets/images/oba-logo.svg" alt="Logo"></ion-img>
   </div>
 
-  <ion-button size="default" [routerLink]="['/cadastro1']">Cadastre-se</ion-button> <br><br>
-  <ion-button size="default" [routerLink]="['/login']">Login</ion-button>
-  
-  <div class="buttons">
-    <button class="facebook" (click)="loginFacebook()">
-      <ion-icon name="logo-facebook"></ion-icon>
-    </button>
-    <button class="google" (click)="loginGoogle()">
-      <ion-icon name="logo-google"></ion-icon>
-    </button>
+  <div class="enter-options">
+    <div class="title">
+      <h3>Seja bem-vindo!</h3>
+    </div>
+
+    <ion-button class="btn btn-amarelo" size="default" [routerLink]="['/cadastro1']">Cadastre-se</ion-button> <br><br>
+    <ion-button class="btn btn-amarelo" size="default" [routerLink]="['/login']">Login</ion-button>
+
+    <div class="buttons">
+      <button class="facebook" (click)="loginFacebook()">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </button>
+      <button class="google" (click)="loginGoogle()">
+        <ion-icon name="logo-google"></ion-icon>
+      </button>
+    </div>
+
   </div>
-  
 </ion-content>
