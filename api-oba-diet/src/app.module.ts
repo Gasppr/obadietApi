@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 
 
 import { UsuarioController } from './usuario/usuario.controller';
-import { LoginController } from './login/login.controller';
+import { LoginController } from './usuario/login/login.controller';
 import { ReceitasController } from './receitas/receitas.controller';
 
 @Module({
