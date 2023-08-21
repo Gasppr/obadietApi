@@ -8,7 +8,7 @@
     "nesti" : " npm i -g @nestjs/cli",
 
     "gitconfig-paulo" : "git config --local user.name \"Paulo Roberto Antunes De Carvalho\" && git config --local user.email \"paulornatunes57@gmail.com\"",
-    "all-paulo" : "npm run gitconfig-paulo && npm run ionici",
+    "all-paulo" : "npm run gitconfig-paulo && npm run ionici && npm run nesti",
 
     "gitconfig-mariana": "git config --local user.name \"Mariana Ayumi Konno\" && git config --local user.email \"marianakonno@gmail.com\"",
     "all-mariana": "npm run gitconfig-mariana && npm run ionici",
