@@ -9,6 +9,12 @@ export class ProgramacaoPage implements OnInit {
 
   constructor() { }
 
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  } 
+  
   ngOnInit() {
   }
 
