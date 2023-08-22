@@ -24,3 +24,45 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+$color-verde-grama: rgba(190, 207, 152, 1);
+$color-laranja: rgba(244, 179, 119, 1);
+$color-amarelo: rgba(235, 229, 94, 1);
+$color-vermelho: rgba(200, 100, 100, 1);
+$color-preto: rgba(1, 1, 1, 1);
+$color-branco: rgba(254, 254, 254, 1);
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    --ion-font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    box-sizing: inherit;
+}
+
+ion-content {
+    box-sizing: border-box;
+}
+
+.tela-start {
+    --ion-background-color: #{$color-verde-grama};
+}
+
+.title{
+    text-align: center;
+    font-weight: bolder;
+    margin: 1rem;
+}
+
+.btn {
+    width: 50vw;
+}
+
+.btn-amarelo {
+    --color: #{$color-preto};
+    --background: #{$color-amarelo};
+}

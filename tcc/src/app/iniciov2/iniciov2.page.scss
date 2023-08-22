@@ -1,24 +1,55 @@
-.buttons {
-    display: flex;
-    justify-content: center;
+.oba-logo {
+  ion-img {
+    height: 30vh;
+    width: 50vw;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%) translateY(-80%);
   }
-  
-  button {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px;
+}
+
+.title{
+  width: 60vw;
+  h3{
+    font-weight: bolder;
   }
-  
+}
+
+.enter-options {
+  position: absolute;
+  left: 50%;
+  bottom: 40%;
+  transform: translateX(-50%) translateY(80%);
+}
+
+.buttons{
+  text-align: center;
+
+  ion-button{
+    margin-block: .3rem;
+  }
+}
+
+.redes-sociais {
+  height: fit-content;
+  text-align: center;
+  padding-block: 1rem;
+
+  ion-button {
+    --color: rgba(254, 254, 254, 1);
+    --border-radius: 100rem;
+    height: 3.5rem;
+    width: 3.5rem;
+    text-align: center;
+    margin: .7rem;
+  }
+
   .facebook {
-    background-color: #3b5998;
-    color: #fff;
+    --background: #3b5998;
   }
-  
+
   .google {
-    background-color: #db4437;
-    color: #fff;
+    --background: #db4437;
   }
+}
