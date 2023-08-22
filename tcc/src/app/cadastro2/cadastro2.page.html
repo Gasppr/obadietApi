@@ -1,28 +1,18 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-grid>
     <ion-row>
-      <h1>Informações</h1>
+      <h1>Informações Fisicas</h1>
     </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-input
-        label="Nome completo"
-        labelPlacement="stacked"
-        type="text"
-        [clearInput]="true"
-        placeholder="Nome"
-      >
-      </ion-input>
-      </ion-col>
-    </ion-row>
+    
     <ion-row>
       <ion-col>
         <ion-input
         label="Peso:"
+        aria-label="Peso do usuário"
         labelPlacement="stacked"
         type="number"
         [clearInput]="true"
-        placeholder="00"
+        placeholder=""
       >
       </ion-input>
       </ion-col>
@@ -31,38 +21,42 @@
       <ion-col>
         <ion-input
         label="Altura:"
+        aria-label="Altura do usuário"
         labelPlacement="stacked"
         type="number"
         [clearInput]="true"
-        placeholder="00"
+        placeholder=""
       >
       </ion-input>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-select aria-label="Sexo" interface="popover" placeholder="Sexo:">
+        <ion-select aria-label="Sexo" interface="popover" 
+        aria-label="Sexo do usuário"
+        placeholder="Sexo:">
           <ion-select-option value="f">Feminino</ion-select-option>
           <ion-select-option value="m">Masculino</ion-select-option>
         </ion-select>
       </ion-col>
       <ion-col>
         <ion-input
-        label="Idade:"
+        label="Idade*:"
+        aria-label="Idade do usuário"
         labelPlacement="stacked"
         type="number"
         [clearInput]="true"
-        placeholder="00"
+        placeholder=""
       >
       </ion-input>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button [routerLink]="['/cadastro1']">Voltar</ion-button>
+        <ion- aria-label="Botão de voltar" [routerLink]="['/cadastro1']">Voltar</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button [routerLink]="['/cadastro3']">Continuar</ion-button>
+        <ion-button aria-label="Botão de continuar"[routerLink]="['/cadastro3']">Continuar</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
