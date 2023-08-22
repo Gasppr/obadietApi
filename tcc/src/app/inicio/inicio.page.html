@@ -1,31 +1,54 @@
 <ion-content [fullscreen]="true" class="ion-padding tela-start" scroll-y="false">
-  <swiper-container>
-      <swiper-slide>
-          <img src="./slide-1.png" />
-          <h2>Bem vindo!</h2>
-      </swiper-slide>
+  <ion-row>
+    <ion-col>
+      <ion-button class="prev" (click)="goPrev()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
 
-      <swiper-slide>
-        <img src="" />
-        <h2>O que é o ObaDiet?</h2>
-        <p>
-          <b>ObaDiet</b> E um aplicativo voltado para pessoas com doenças cronicas, que necessitam de auxílio para suas alimentações
-        </p>
-      </swiper-slide>
+    <ion-col>
+      <swiper-container 
+      #swiper
+      (afterinit)="swiperReady()"
+      (slidechange)="swiperSlideChanged($event)"
+      [loop]="true"
+      [pagination]="true">
+    
+          <swiper-slide>
+            <ion-img src="assets/images/oba-logo.svg" />
+            <div class="texto">
+            <h2>Seja bem vindo ao ObaDiet!</h2>
+            <p>
+              <b>ObaDiet</b> é um aplicativo voltado para pessoas que necessitam de auxílio para suas alimentações
+            </p>
+          </div>
+          </swiper-slide>
+    
+          <swiper-slide>
+            <ion-img src="assets/images/oba-logo.svg" />
+            <div class="texto">
+            <h2>Por que utilizar o ObaDiet?</h2>
+            <p>
+              Existem diversas funções diferentes, que vão te auxiliar com o controle da sua alimentação e saúde.
+            </p>
+          </div>
+          </swiper-slide>
+    
+          <swiper-slide>
+            <ion-img src="assets/images/oba-logo.svg" />
+            <div class="texto">
+              <h2>Aproveite o aplicativo, explore novas funcionalidades, tenha uma vida mais saudavel!</h2>
+            </div>
+            <ion-button [routerLink]="['/iniciov2']">Começar</ion-button>
+          </swiper-slide>
+      </swiper-container>    
+    </ion-col>
 
-      <swiper-slide>
-        <img src="" />
-        <h2>Por que utilizar o ObaDiet?</h2>
-        <p>
-          <b>ObaDiet</b> E um aplicativo incrível que possui diversas funções diferentes, que poderão te auxiliar desde a alimentação até o lembrete de horários, mercados e farmácias próximas, tudo de fácil e rápido acesso.
-        </p>
-      </swiper-slide>
-
-      <swiper-slide>
-        <img src="./slide-4.png" />
-        <h2>Aproveite o aplicativo, explore novas funcionalidades, tenha uma vida mais saudavel!</h2>
-        <ion-button fill="clear" [routerLink]="['/iniciov2']">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
-      </swiper-slide>
-  </swiper-container>
+    <ion-col>
+      <ion-button class="next" (click)="goNext()">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+</ion-row>
 </ion-content>
 
