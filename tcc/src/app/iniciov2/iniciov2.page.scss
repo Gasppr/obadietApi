@@ -1,6 +1,7 @@
-.oba-logo{
-  ion-img{
+.oba-logo {
+  ion-img {
     height: 30vh;
+    width: 50vw;
     position: absolute;
     left: 50%;
     top: 40%;
@@ -8,7 +9,14 @@
   }
 }
 
-.enter-options{
+.title{
+  width: 60vw;
+  h3{
+    font-weight: bolder;
+  }
+}
+
+.enter-options {
   position: absolute;
   left: 50%;
   bottom: 40%;
@@ -16,15 +24,32 @@
 }
 
 .buttons{
-  height: 5vh;
+  text-align: center;
+
+  ion-button{
+    margin-block: .3rem;
+  }
 }
-  
+
+.redes-sociais {
+  height: fit-content;
+  text-align: center;
+  padding-block: 1rem;
+
+  ion-button {
+    --color: rgba(254, 254, 254, 1);
+    --border-radius: 100rem;
+    height: 3.5rem;
+    width: 3.5rem;
+    text-align: center;
+    margin: .7rem;
+  }
+
   .facebook {
-    background-color: #3b5998;
-    color: #fff;
+    --background: #3b5998;
   }
-  
+
   .google {
-    background-color: #db4437;
-    color: #fff;
+    --background: #db4437;
   }
+}

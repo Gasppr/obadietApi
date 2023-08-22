@@ -22,13 +22,13 @@
 swiper-container{
     --swiper-pagination-color: rgba(235, 229, 94, 1);
     width: 80vw;
-    height: 60vh;
-    margin-top: 10vh;
+    height: 80vh;
     position: relative;
     
     swiper-slide{
         ion-img{
             width: 75vw;
+            height: 50vh;
             margin-inline: auto;
         }
 
