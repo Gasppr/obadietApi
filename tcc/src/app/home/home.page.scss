@@ -1,3 +1,30 @@
+  ion-header{
+    height: 8vh;
+    background-color: rgba(190, 207, 152, 1);
+
+    ion-toolbar{
+      --background: rgba(190, 207, 152, 1);
+      height:max-content;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      ion-searchbar{
+        width: 75vw;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+  
+      .btn-mapa{
+        --background: transparent;
+        --color: rgba(1, 1, 1, 1);
+        --box-shadow: none;
+      }
+    }
+  }
+
+
 .calendario{
   width: 90vw;
   margin-block-start: 1.5rem;
