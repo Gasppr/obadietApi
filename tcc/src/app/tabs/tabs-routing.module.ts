@@ -27,8 +27,8 @@ const routes: Routes = [
       },
       {
         path: 'perfil',
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
-      },
+        loadChildren: () => import('../perfil/perfil.module').then(m => m.PerfilPageModule)
+      }
     ]
   }
 ];

@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'obaDiet/minhas-refeicoes',
     loadChildren: () => import('./minhas-refeicoes/minhas-refeicoes.module').then( m => m.MinhasRefeicoesPageModule)
+  },
+  {
+    path: 'obaDiet/perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
   }
 ];
 
