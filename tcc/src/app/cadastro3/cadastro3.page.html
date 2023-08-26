@@ -1,7 +1,7 @@
-<ion-content [fullscreen]="true">
-  <ion-grid>
+<ion-content [fullscreen]="true" class="tela-start">
+  <ion-grid class="formulario">
     <ion-row>
-      <h1>Comorbidades e restrições</h1>
+      <h1 class="title">Comorbidades e restrições</h1>
     </ion-row>
     <ion-row>
       <ion-select aria-label="Doencas" placeholder="Doenças:" [multiple]="true">
@@ -20,19 +20,21 @@
       
     </ion-row>
 
-    <ion-row>
-      <div [routerLink]="['/home']">
+    <ion-row class="ion-justify-content-center">
+      <h5 class="opcao-none" [routerLink]="['/obaDiet']">
       Não tenho nenhuma restrição ou comorbidade
-      </div>
+      </h5>
     </ion-row>
     
     <ion-row>
+      <div class="buttons">
       <ion-col>
-        <ion-button aria-label="Botão voltar"[routerLink]="['/cadastro2']">Voltar</ion-button>
+        <ion-button aria-label="Botão voltar"[routerLink]="['/cadastro2']" class="btn-voltar">Voltar</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button aria-label="Botão Cadastrar" [routerLink]="['/obaDiet']">Cadastrar</ion-button>
+        <ion-button aria-label="Botão Cadastrar" [routerLink]="['/obaDiet']" class="btn-continuar">Cadastrar</ion-button>
       </ion-col>
+    </div>
     </ion-row>
   </ion-grid>
 </ion-content>

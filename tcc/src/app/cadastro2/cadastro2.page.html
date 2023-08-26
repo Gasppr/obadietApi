@@ -1,7 +1,7 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-  <ion-grid>
+<ion-content [fullscreen]="true" class="tela-start">
+  <ion-grid class="formulario">
     <ion-row>
-      <h1>Informações Fisicas</h1>
+      <h1 class="title">Informações Fisicas</h1>
     </ion-row>
     
     <ion-row>
@@ -31,15 +31,15 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
+      <ion-col class="ion-align-items-center">
         <ion-select aria-label="Sexo" interface="popover" 
         aria-label="Sexo do usuário"
-        placeholder="Sexo:">
+        placeholder="Sexo:" class="select-sexo">
           <ion-select-option value="f">Feminino</ion-select-option>
           <ion-select-option value="m">Masculino</ion-select-option>
         </ion-select>
       </ion-col>
-      <ion-col>
+      <ion-col class="ion-align-items-center">
         <ion-input
         label="Idade*:"
         aria-label="Idade do usuário"
@@ -52,12 +52,14 @@
       </ion-col>
     </ion-row>
     <ion-row>
+      <div class="buttons">
       <ion-col>
-        <ion-button aria-label="Botão de voltar" [routerLink]="['/cadastro1']">Voltar</ion-button>
+        <ion-button aria-label="Botão de voltar" [routerLink]="['/cadastro1']" class="btn-voltar">Voltar</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button aria-label="Botão de continuar"[routerLink]="['/cadastro3']">Continuar</ion-button>
+        <ion-button aria-label="Botão de continuar"[routerLink]="['/cadastro3']" class="btn-continuar">Continuar</ion-button>
       </ion-col>
+    </div>
     </ion-row>
   </ion-grid>
 </ion-content>

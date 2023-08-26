@@ -50,6 +50,71 @@ ion-content {
 
 .tela-start {
     --ion-background-color: #{$color-verde-grama};
+
+    .btn-voltar{
+        --background: #{$color-vermelho};
+        --color: #{$color-branco};
+        margin-inline: 2vw;
+    }
+
+    .btn-continuar{
+        --background: #{$color-amarelo};
+        --color: #{$color-preto};
+        margin-inline: 2vw;
+    }
+
+    .formulario{
+        position: absolute;
+        left: 50%;
+        top: 45%;
+        transform: translateX(-50%) translateY(-50%);
+        width: 80vw;
+        height: fit-content;
+        margin-top: 3vh;
+
+        ion-button{
+            width: 35vw;
+        }
+    
+        ion-avatar {
+            margin-block: 3rem;
+            position: relative;
+            img {
+                transform: scale(2, 2);
+            }
+    
+            .adicionarFoto {
+                width: 2.5rem;
+                height: 2.5rem;
+                --border-radius: 100rem;
+                position: absolute;
+                left: 80%;
+                top: 85%;
+                --background: rgba(124, 124, 124, 1);
+                --opacity: 90%;
+            }
+        }
+    
+        ion-input{
+            margin-block: 2vh;
+            --padding-start: 1rem;
+            --padding-end: 1rem;
+            --border-radius: .5rem;
+            --background: #{$color-branco};
+        }
+
+        ion-select{
+            --background: #{$color-branco};
+            --border-radius: .5rem;
+            --padding-start: 1rem;
+            --padding-end: 1rem;
+            margin-block: 1rem;
+        }
+    
+        .buttons{
+            margin-block: 1.5rem;
+        }
+    }
 }
 
 .title{

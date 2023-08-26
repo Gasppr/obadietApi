@@ -1,24 +1,11 @@
-ion-row
-{
-    padding: 2rem 1rem 1rem 1rem;
+.tela-start{
+    --background: rgba(244, 179, 119, 1);
 
-    ion-avatar{
-
-        margin: auto;
-    
-
-        img{
-            margin: 0 auto; 
-            transform: scale(2, 2);
-        }
-    
+    .btn-continuar{
+        --background: rgba(190, 207, 152, 1);
     }
-    
-   
-}
 
-.adicionarFoto{
-    margin: 0 0 0 50px;
-    transform: scale(1.2, 1.3);
-    background-color: #7C7C7C;
+    .title{
+        text-align: left;
+    }
 }

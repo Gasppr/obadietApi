@@ -1,3 +1,17 @@
-ion-row{
-    padding: 2rem 1rem 1rem 1rem;
+.tela-start{
+    --background: rgba(235, 229, 94, 1);
+    
+    .btn-continuar{
+        --background: rgba(244, 179, 119, 1);
+    }
+
+    .opcao-none{
+        text-decoration: underline;
+        text-align: center;
+        margin-block: 1.5rem;
+    }
+
+    .title{
+        text-align: left;
+    }
 }

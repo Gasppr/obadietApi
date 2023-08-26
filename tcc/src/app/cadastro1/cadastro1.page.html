@@ -1,63 +1,48 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-  <ion-grid>
-    <ion-row>
-      <ion-col></ion-col>
-      <ion-col >
-        <ion-avatar aria-label="Foto de perfil do usuário" >
-        <img alt="Foto de perfil do usuário" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
-        <ion-button class="adicionarFoto" fill="solid" shape="round" size="small">+</ion-button>
-      </ion-avatar></ion-col>
-      <ion-col>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-input   
-      label="Nome Completo*:"
-      labelPlacement="stacked"
-      type="name"
-      [clearInput]="true"
-      aria-label="Nome completo do usuário"
-    >
-    </ion-input>
-    </ion-row>
-    <ion-row>
-      <ion-input   
-      label="Email*:"
-      labelPlacement="stacked"
-      type="email"
-      [clearInput]="true"
-       aria-label="E-mail do usuário"
-    >
-    </ion-input>
-    </ion-row>
-    <ion-row>
-      <ion-input
-      labelPlacement="stacked"
-      type="password"
-      [clearInput]="true"
-      label="Senha*:"
-      aria-label="Senha do usuário"
-    >
-    </ion-input>
-    </ion-row>
-    <ion-row>
-      <ion-input
-      labelPlacement="stacked"
-      type="password"
-      [clearInput]="true"
-      label="Confirme sua Senha"
-      aria-label="Confirme sua Senha de usuário"
-    >
-    </ion-input>
-    </ion-row>
-    
-    <ion-row>
-      <ion-col>
-        <ion-button [routerLink]="['/iniciov2']" aria-label="Botão voltar">Voltar</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button [routerLink]="['/cadastro2']" aria-label="botão continuar cadastro" >Continuar</ion-button>
-      </ion-col>
-    </ion-row>
+<ion-content [fullscreen]="true" class="tela-start">
+  <ion-grid class="formulario">
+        <ion-row class="ion-justify-content-center">
+          <ion-avatar aria-label="Foto de perfil do usuário" class="foto-user">
+            <img alt="Foto de perfil do usuário" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            <ion-button class="adicionarFoto" fill="solid">
+              <ion-icon name="add-outline"></ion-icon>
+            </ion-button>
+          </ion-avatar>
+      </ion-row>
+
+      <ion-row>
+        <h1 class="title">Informações pessoais</h1>
+      </ion-row>
+
+        <ion-row>
+          <ion-input label="Nome Completo*:" labelPlacement="stacked" type="name" [clearInput]="true"
+          aria-label="Nome completo do usuário">
+        </ion-input>
+        </ion-row>
+        <ion-row>
+          <ion-input label="Email*:" labelPlacement="stacked" type="email" [clearInput]="true"
+            aria-label="E-mail do usuário">
+          </ion-input>
+        </ion-row>
+        <ion-row>
+          <ion-input labelPlacement="stacked" type="password" [clearInput]="true" label="Senha*:"
+            aria-label="Senha do usuário">
+          </ion-input>
+        </ion-row>
+        <ion-row>
+          <ion-input labelPlacement="stacked" type="password" [clearInput]="true" label="Confirme sua Senha"
+            aria-label="Confirme sua Senha de usuário">
+          </ion-input>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center">
+          <div class="buttons">
+            <ion-col>
+              <ion-button [routerLink]="['/iniciov2']" aria-label="Botão voltar" class="btn-voltar">Voltar</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button [routerLink]="['/cadastro2']" aria-label="botão continuar cadastro" class="btn-continuar">Continuar</ion-button>
+            </ion-col>  
+          </div>
+        </ion-row>
   </ion-grid>
 </ion-content>
