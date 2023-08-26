@@ -1,6 +1,8 @@
 .calendario{
     --border-radius: 10rem;
     --border-color: rgba(190, 207, 152, 1);
+    width: 90vw;
+    margin-block-start: 1.5rem;
     //--background: grey;
     ion-picker{
         --background: rgba(235, 229, 94, 1);
@@ -27,6 +29,8 @@
 }
 
 .btn-contorno-amarelo{
+    width: 35vw;
+    margin-inline: 2vw;
     --border-radius: 10rem;
     --background: transparent;
     --border-color: rgba(235, 229, 94, 1);

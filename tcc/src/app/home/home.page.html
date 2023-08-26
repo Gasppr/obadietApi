@@ -15,83 +15,85 @@
 </ion-header>
 
 <ion-content [fullscreen]="false">
-  <ion-row class="ion-justify-content-center">
-    <ion-datetime class="calendario" presentation="date"></ion-datetime>
-  </ion-row>
-
-  <ion-row class="ion-justify-content-center">
-    <ion-button class="btn-contorno-amarelo" fill="outline" [routerLink]="['/obaDiet/programacao']">
-      Programação completa
-      <ion-icon name="arrow-forward-outline"></ion-icon>
-    </ion-button>
-  </ion-row>
-
-  <ion-row class="ion-justify-content-center">
-    <h1 class="titulo">Hoje dia <b>14</b></h1>
-  </ion-row>
-
-  <div class="cards">
+  <ion-grid class="content">
     <ion-row class="ion-justify-content-center">
-      <ion-card class="card-refeicoes">
-        <swiper-container #swiper (afterinit)="swiperReady()" (slidechange)="swiperSlideChanged($event)"
-          space-between="10" slides-per-view="2.5">
-
-          <swiper-slide *ngFor="let comida of comidas">
-            <ion-img [src]="comida.image" [routerLink]="['/obaDiet/receita']" />
-          </swiper-slide>
-
-        </swiper-container>
-
-        <ion-card-header>
-          <ion-card-subtitle>Próxima refeição</ion-card-subtitle>
-          <ion-card-title class="titulo">Café da manhã</ion-card-title>
-
-        </ion-card-header>
-
-        <ion-card-content>
-          <ion-row class="ion-justify-content-center">
-            <ion-col class="checkboxes">
-              <ion-checkbox labelPlacement="end">camarão</ion-checkbox>
-              <ion-checkbox labelPlacement="end">camarão</ion-checkbox>
-              <ion-checkbox labelPlacement="end">camarão</ion-checkbox>
-            </ion-col>
-          </ion-row>
-          <ion-row class="ion-justify-content-center">
-            <ion-button class="btn-card" [routerLink]="['/obaDiet/minhas-refeicoes']">
-              Ver cardápio completo
-              <ion-icon name="arrow-forward-outline"></ion-icon>
-            </ion-button>
-          </ion-row>
-        </ion-card-content>
-      </ion-card>
+      <ion-datetime class="calendario" presentation="date"></ion-datetime>
     </ion-row>
 
     <ion-row class="ion-justify-content-center">
-      <ion-card class="card-remedios">
-        <ion-card-header>
-          <ion-card-title class="titulo">próximo remédio</ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-          <ion-row class="detalhes-remedio">
-            <ion-col>
-              <ion-label>coca-cola</ion-label>
-              <ion-label>guaraná</ion-label>
-            </ion-col>
-
-            <ion-col class="ion-align-items-center">
-              <h1>00:00h</h1>
-            </ion-col>
-          </ion-row>
-
-          <ion-row class="ion-justify-content-center">
-            <ion-button class="btn-card" [routerLink]="['/obaDiet/meus-remedios']">
-              Ver todos os remédios
-              <ion-icon name="arrow-forward-outline"></ion-icon>
-            </ion-button>
-          </ion-row>
-        </ion-card-content>
-      </ion-card>
+      <ion-button class="btn-contorno-amarelo" fill="outline" [routerLink]="['/obaDiet/programacao']">
+        Programação completa
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
     </ion-row>
-  </div>
+
+    <ion-row class="ion-justify-content-center">
+      <h1 class="titulo">Hoje dia <b>14</b></h1>
+    </ion-row>
+
+    <div class="cards">
+      <ion-row class="ion-justify-content-center">
+        <ion-card class="card-refeicoes">
+          <swiper-container #swiper (afterinit)="swiperReady()" (slidechange)="swiperSlideChanged($event)"
+            space-between="10" slides-per-view="2.5">
+
+            <swiper-slide *ngFor="let comida of comidas">
+              <ion-img [src]="comida.image" [routerLink]="['/obaDiet/receita']" />
+            </swiper-slide>
+
+          </swiper-container>
+
+          <ion-card-header>
+            <ion-card-subtitle>Próxima refeição</ion-card-subtitle>
+            <ion-card-title class="titulo">Café da manhã</ion-card-title>
+
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-row class="ion-justify-content-center">
+              <ion-col class="checkboxes">
+                <ion-checkbox labelPlacement="end">camarão</ion-checkbox>
+                <ion-checkbox labelPlacement="end">camarão</ion-checkbox>
+                <ion-checkbox labelPlacement="end">camarão</ion-checkbox>
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-justify-content-center">
+              <ion-button class="btn-card" [routerLink]="['/obaDiet/minhas-refeicoes']">
+                Ver cardápio completo
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </ion-button>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-card class="card-remedios">
+          <ion-card-header>
+            <ion-card-title class="titulo">próximo remédio</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-row class="detalhes-remedio">
+              <ion-col>
+                <ion-label>coca-cola</ion-label>
+                <ion-label>guaraná</ion-label>
+              </ion-col>
+
+              <ion-col class="ion-align-items-center">
+                <h1>00:00h</h1>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-center">
+              <ion-button class="btn-card" [routerLink]="['/obaDiet/meus-remedios']">
+                Ver todos os remédios
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </ion-button>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-row>
+    </div>
+  </ion-grid>
 </ion-content>
