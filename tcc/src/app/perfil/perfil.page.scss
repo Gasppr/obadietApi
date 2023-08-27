@@ -14,5 +14,20 @@ ion-row
     
     }
     
-   
+}
+
+
+.btn-laranja{
+    --background: rgba(244, 179, 119, 1);
+    --color: rgba(1, 1, 1, 1);
+    padding: 1.5rem;
+    height: 5vh;
+}
+
+.informacoes{
+    padding: 1.5rem;
+}
+
+.informacao{
+    padding-block: .5rem;
 }
