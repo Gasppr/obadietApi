@@ -1,107 +1,77 @@
-  ion-header{
-    height: 8vh;
-    background-color: rgba(190, 207, 152, 1);
+  .cards {
+    width: 90vw;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 
-    ion-toolbar{
+    .card-refeicoes {
       --background: rgba(190, 207, 152, 1);
-      height:max-content;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
 
-      ion-searchbar{
-        width: 75vw;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
+      ion-checkbox {
+        --checkbox-background: transparent;
+        --checkmark-color: rgba(254, 254, 254, 1);
+        --checkbox-background-checked: rgba(235, 229, 94, 1);
+        --border-color: rgba(1, 1, 1, 1);
+        --border-color-checked: rgba(235, 229, 94, 1);
       }
-  
-      .btn-mapa{
-        --background: transparent;
-        --color: rgba(1, 1, 1, 1);
-        --box-shadow: none;
+
+      swiper-container {
+        margin-block: .5rem;
       }
     }
-  }
 
+    .card-remedios {
+      --background: rgba(235, 229, 94, 1);
 
-.calendario{
-  width: 90vw;
-  margin-block-start: 1.5rem;
-}
-
-.title{
-  font-weight: bolder;
-}
-
-.cards{
-  width: 90vw;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-
-  .card-refeicoes{
-    --background: rgba(190, 207, 152, 1);
-
-    ion-checkbox{
-      --checkbox-background: transparent;
-      --checkmark-color: rgba(254, 254, 254, 1);
-      --checkbox-background-checked: rgba(235, 229, 94, 1);
-      --border-color: rgba(1, 1, 1, 1);
-      --border-color-checked: rgba(235, 229, 94, 1);
-    }
-
-    swiper-container{
-      margin-block: .5rem;
+      .detalhes-remedio {
+        margin-block: .5rem;
+      }
     }
   }
-  
-  .card-remedios{
-    --background: rgba(235, 229, 94, 1);
 
-    .detalhes-remedio{
-      margin-block: .5rem;
+  ion-card {
+    padding: 1.5rem;
+    --color: rgba(1, 1, 1, 1);
+    margin-block: .5rem;
+
+    ion-card-subtitle,
+    ion-card-title {
+      margin-block: .3rem;
+    }
+
+    .checkboxes {
+      margin-block: 1rem;
     }
   }
-}
 
-ion-card{
-  padding: 1.5rem;
-  --color: rgba(1, 1, 1, 1);
-  margin-block: .5rem;
 
-  ion-card-subtitle, ion-card-title{
+  .btn-contorno-amarelo,
+  .btn-card {
+    --border-radius: 100rem;
+    --color: rgba(1, 1, 1, 1);
+    width: 80vw;
+    &:active,
+    &:focus {
+      --background: rgba(235, 229, 94, 1);
+    }
+
+    ion-icon {
+      margin-inline-start: 10vw;
+    }
+  }
+
+  .btn-contorno-amarelo {
+    --border-radius: 100rem;
+    --border-color: rgba(235, 229, 94, 1);
+  }
+
+  .btn-card {
+    --border-radius: 100rem;
+    --background: rgba(254, 254, 254, 1);
+  }
+
+  ion-checkbox,
+  ion-label {
+    display: block;
     margin-block: .3rem;
   }
-
-  .checkboxes{
-    margin-block: 1rem;
-  }
-}
-
-
-
-.btn-contorno-amarelo, .btn-card{
-  --border-radius: 100rem;
-  --color: rgba(1, 1, 1, 1);
-  width: 80vw;
-
-  ion-icon{
-    margin-inline-start: 10vw;
-  }
-}
-
-.btn-contorno-amarelo{
-  --border-radius: 100rem;
-  --border-color: rgba(235, 229, 94, 1);
-}
-
-.btn-card{
-  --border-radius: 100rem;
-  --background: rgba(254, 254, 254, 1);
-}
-
-ion-checkbox, ion-label{
-  display: block;
-  margin-block: .3rem;
-}

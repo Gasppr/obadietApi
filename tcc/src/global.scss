@@ -48,6 +48,33 @@ ion-content {
     box-sizing: border-box;
 }
 
+ion-header {
+    height: 8vh;
+    background-color: rgba(190, 207, 152, 1);
+
+    ion-toolbar {
+      --background: rgba(190, 207, 152, 1);
+      height: max-content;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      ion-searchbar {
+        width: 75vw;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        --border-radius: 2rem;
+      }
+
+      .btn-mapa {
+        --background: transparent;
+        --color: rgba(1, 1, 1, 1);
+        --box-shadow: none;
+      }
+    }
+  }
+
 .tela-start {
     --ion-background-color: #{$color-verde-grama};
 
@@ -117,10 +144,23 @@ ion-content {
     }
 }
 
+.content{
+    .calendario{
+        --border-radius: 10rem;
+        --border-color: rgba(190, 207, 152, 1);
+        width: 90vw;
+        margin-block-start: 1.5rem;
+        //--background: grey;
+        ion-picker{
+            --background: rgba(235, 229, 94, 1);
+        }
+    }
+}
+
 .title{
     text-align: center;
     font-weight: bolder;
-    margin: 1rem;
+    padding-block: 1rem;
 }
 
 .btn {
@@ -130,4 +170,10 @@ ion-content {
 .btn-amarelo {
     --color: #{$color-preto};
     --background: #{$color-amarelo};
+}
+
+.btn-laranja{
+    --background: rgba(244, 179, 119, 1);
+    --color: rgba(1, 1, 1, 1);
+    height: 5vh;
 }
