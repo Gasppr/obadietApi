@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 
 
 import { UsuarioController } from './usuario/usuario.controller';
-import { LoginController } from './usuario/login/login.controller';
 import { ReceitasController } from './receitas/receitas.controller';
+import { UsuarioRepository } from './usuario/repository/Usuario.repository';
 
 @Module({
   imports: [],
-  controllers: [UsuarioController, LoginController, ReceitasController],
-  providers: [],
+  controllers: [UsuarioController, ReceitasController],
+  providers: [UsuarioRepository],
 })
 export class AppModule {}
