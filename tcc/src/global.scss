@@ -75,6 +75,7 @@ ion-header {
     }
   }
 
+
 .tela-start {
     --ion-background-color: #{$color-verde-grama};
 
@@ -82,14 +83,39 @@ ion-header {
         --background: #{$color-vermelho};
         --color: #{$color-branco};
         margin-inline: 2vw;
+        width: 35vw;
     }
 
     .btn-continuar{
         --background: #{$color-amarelo};
         --color: #{$color-preto};
         margin-inline: 2vw;
+        width: 35vw;
     }
 
+    .redes-sociais{
+        height: fit-content;
+        text-align: center;
+        padding-block: 1rem;
+      
+        ion-button {
+          --color: rgba(254, 254, 254, 1);
+          --border-radius: 100rem;
+          height: 3.5rem;
+          width: 3.5rem;
+          text-align: center;
+          margin: .7rem;
+        }
+      
+        .facebook {
+          --background: #3b5998;
+        }
+      
+        .google {
+          --background: #db4437;
+        }
+      }
+    
     .formulario{
         position: absolute;
         left: 50%;
@@ -99,14 +125,11 @@ ion-header {
         height: fit-content;
         margin-top: 3vh;
 
-        ion-button{
-            width: 35vw;
-        }
     
         ion-avatar {
             margin-block: 3rem;
             position: relative;
-            img {
+            img, ion-img {
                 transform: scale(2, 2);
             }
     
@@ -163,9 +186,6 @@ ion-header {
     padding-block: 1rem;
 }
 
-.btn {
-    width: 50vw;
-}
 
 .btn-amarelo {
     --color: #{$color-preto};
@@ -173,7 +193,7 @@ ion-header {
 }
 
 .btn-laranja{
-    --background: rgba(244, 179, 119, 1);
-    --color: rgba(1, 1, 1, 1);
+    --background: #{$color-laranja};
+    --color: #{$color-preto};
     height: 5vh;
 }

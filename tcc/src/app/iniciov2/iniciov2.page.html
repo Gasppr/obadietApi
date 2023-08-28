@@ -1,31 +1,42 @@
 <ion-content [fullscreen]="true" class="tela-start">
-  <div class="oba-logo">
-    <ion-img src="assets/images/oba-logo.svg" alt="Logo"></ion-img>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <div class="oba-logo">
+        <ion-img src="assets/images/oba-logo.svg" alt="Logo"></ion-img>
+      </div>
+    </ion-row>
 
-  <div class="enter-options">
-    <div class="title">
-      <h3>Seja bem-vindo!</h3>
+
+    <div class="enter-options">
+      <ion-row>
+        <h3 class="title">Seja bem-vindo!</h3>
+      </ion-row>
+
+      <div class="buttons">
+        <ion-row class="ion-justify-content-center">
+          <ion-button class="btn-amarelo" [routerLink]="['/cadastro1']">
+            Cadastre-se
+          </ion-button>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center">
+          <ion-button class="btn-amarelo" [routerLink]="['/login']">
+            Login
+          </ion-button>
+        </ion-row>
+
+
+        <div class="redes-sociais">
+          <ion-row class="ion-justify-content-center">
+            <ion-button class="facebook" (click)="loginFacebook()">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </ion-button>
+            <ion-button class="google" (click)="loginGoogle()">
+              <ion-icon name="logo-google"></ion-icon>
+            </ion-button>
+          </ion-row>
+        </div>
+      </div>
     </div>
-
-    <div class="buttons">
-      <ion-button class="btn btn-amarelo" size="default" [routerLink]="['/cadastro1']">
-        Cadastre-se
-      </ion-button>
-  
-      <ion-button class="btn btn-amarelo" size="default" [routerLink]="['/login']">
-        Login
-      </ion-button>
-  
-      <div class="redes-sociais">
-        <ion-button class="facebook" (click)="loginFacebook()">
-          <ion-icon name="logo-facebook"></ion-icon>
-        </ion-button>
-        <ion-button class="google" (click)="loginGoogle()">
-          <ion-icon name="logo-google"></ion-icon>
-        </ion-button>
-      </div>  
-    </div>
-
-  </div>
+  </ion-grid>
 </ion-content>

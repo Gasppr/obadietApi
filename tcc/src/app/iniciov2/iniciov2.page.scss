@@ -9,11 +9,8 @@
   }
 }
 
-.title{
+.title {
   width: 60vw;
-  h3{
-    font-weight: bolder;
-  }
 }
 
 .enter-options {
@@ -21,35 +18,9 @@
   left: 50%;
   bottom: 40%;
   transform: translateX(-50%) translateY(80%);
-}
 
-.buttons{
-  text-align: center;
-
-  ion-button{
+  .btn-amarelo{
     margin-block: .3rem;
-  }
-}
-
-.redes-sociais {
-  height: fit-content;
-  text-align: center;
-  padding-block: 1rem;
-
-  ion-button {
-    --color: rgba(254, 254, 254, 1);
-    --border-radius: 100rem;
-    height: 3.5rem;
-    width: 3.5rem;
-    text-align: center;
-    margin: .7rem;
-  }
-
-  .facebook {
-    --background: #3b5998;
-  }
-
-  .google {
-    --background: #db4437;
+    width: 50vw;
   }
 }
