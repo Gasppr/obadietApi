@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="auto">
+        <ion-button class="btn-mapa">
+          <ion-icon name="map-outline" size="large"></ion-icon>
+        </ion-button>
+      </ion-col>
+
+      <ion-col>
+        <ion-searchbar show-clear-button="focus"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-grid class="content">
+    <ion-row>
+      <h3 class="title">
+        Receitas salvas
+      </h3>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngFor="let comida of comidas" size="6">
+        <ion-card [routerLink]="['/obaDiet/receita']">
+          <ion-card-header>
+            <ion-img [src]="comida.image"></ion-img>
+          </ion-card-header>
+        
+          <ion-card-content>
+            {{ comida.title }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

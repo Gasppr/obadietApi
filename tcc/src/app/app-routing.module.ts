@@ -54,6 +54,10 @@ const routes: Routes = [
   {
     path: 'obaDiet/perfil',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'obaDiet/receitas-salvas',
+    loadChildren: () => import('./receitas-salvas/receitas-salvas.module').then( m => m.ReceitasSalvasPageModule)
   }
 ];
 

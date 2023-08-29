@@ -18,8 +18,8 @@ const routes: Routes = [
         loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
-        path: 'salvos',
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+        path: 'receitas-salvas',
+        loadChildren: () => import('../receitas-salvas/receitas-salvas.module').then(m => m.ReceitasSalvasPageModule)
       },
       {
         path: 'programacao',
