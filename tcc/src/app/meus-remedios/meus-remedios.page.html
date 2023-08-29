@@ -8,42 +8,57 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">meusRemedios</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <h3>Meus remédios</h3>
+  <ion-grid class="content">
+    <ion-row>
+      <h3 class="title">Meus remédios</h3>
+    </ion-row>
+    <div class="cards">
+    <ion-row>
+        <ion-card class="card-remedios">
+          <ion-card-header>
+            <ion-card-title class="titulo">próximo remédio</ion-card-title>
+          </ion-card-header>
 
-  <ion-card class="card-amarelo">
-    <ion-card-header>
-      <ion-card-title>Próximo remédio</ion-card-title>
-      <ion-card-subtitle>Glifage XR 500mg</ion-card-subtitle>
-      <ion-card-subtitle>Trayenta 5mg</ion-card-subtitle>
-    </ion-card-header>
-  <ion-card-content>16:30h</ion-card-content>
-  </ion-card>
+          <ion-card-content>
+            <ion-row class="detalhes-remedio">
+              <ion-col>
+                <ion-label>Glifage XR 500mg</ion-label>
+                <ion-label>Trayenta 5mg</ion-label>
+              </ion-col>
 
+              <ion-col class="ion-align-items-center">
+                <h1>16:30h</h1>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+    </ion-row>
 
-<h3>00:00h</h3>
-<ion-button class="btn-laranja" expand="block">Remédio 1</ion-button>
+    <div class="horarios">
+      <div class="horario">
+        <h3>00:00h</h3>
+        <ion-button class="btn-laranja" expand="block">Remédio 1</ion-button>
+      </div>
 
-<h3>00:00h</h3>
-<ion-button class="btn-laranja" expand="block">Remédio 2</ion-button>
+      <div class="horario">
+        <h3>00:00h</h3>
+        <ion-button class="btn-laranja" expand="block">Remédio 2</ion-button>
+      </div>
 
+      <div class="horario">
+        <h3>00:00h</h3>
+        <ion-button class="btn-laranja" expand="block">Remédio 3</ion-button>
+      </div>
 
-<h3>00:00h</h3>
-<ion-button class="btn-laranja" expand="block">Remédio 3</ion-button>
+      <div class="horario">
+        <h3>00:00h</h3>
+        <ion-button class="btn-laranja" expand="block">Remédio 4</ion-button>
+      </div>
+    </div>
 
-<h3>00:00h</h3>
-<ion-button class="btn-laranja" expand="block">Remédio 4</ion-button>
-
-<ion-row class="ion-justify-content-center">
-  <ion-col size-lg="4" size-md="4" size-sm="4" size="8">
-    <ion-button class="btn-amarelo" expand="block">Adicionar remédio</ion-button>
-  </ion-col>
-</ion-row>
-
+    <ion-row class="ion-justify-content-center">
+        <ion-button class="btn-amarelo">Adicionar remédio</ion-button>
+    </ion-row>
+    </div>
+  </ion-grid>
 </ion-content>
-

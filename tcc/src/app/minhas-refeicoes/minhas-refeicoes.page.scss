@@ -1,3 +1,8 @@
+.btn-amarelo{
+  margin-bottom: 5vh;
+  width: 65vw;
+}
+
 ion-card {
     padding: 1.5rem;
     --color: rgba(1, 1, 1, 1);
@@ -14,30 +19,10 @@ ion-card {
   }
 
 
-  .btn-contorno-amarelo,
-  .btn-card {
-    --border-radius: 100rem;
-    --color: rgba(1, 1, 1, 1);
-    width: 80vw;
-    &:active,
-    &:focus {
-      --background: rgba(235, 229, 94, 1);
-    }
-
     ion-icon {
       margin-inline-start: 10vw;
     }
-  }
 
-  .btn-contorno-amarelo {
-    --border-radius: 100rem;
-    --border-color: rgba(235, 229, 94, 1);
-  }
-
-  .btn-card {
-    --border-radius: 100rem;
-    --background: rgba(254, 254, 254, 1);
-  }
 
   ion-checkbox,
   ion-label {

@@ -11,6 +11,9 @@
 <ion-content [fullscreen]="false">
   <ion-grid class="content">
     <div class="cards">
+      <ion-row>
+        <h3 class="title">Minhas refeições</h3>
+      </ion-row>
       <ion-row class="ion-justify-content-center">
         <ion-card class="card-refeicoes">
           <swiper-container #swiper (afterinit)="swiperReady()" (slidechange)="swiperSlideChanged($event)"
@@ -120,9 +123,9 @@
         </ion-modal>
       </div>
     </div>
-
-    <ion-button class="btn-amarelo" expand="block">Adicionar Refeição</ion-button>
-
+    <ion-row class="ion-justify-content-center">
+      <ion-button class="btn-amarelo" expand="block">Adicionar Refeição</ion-button>
+    </ion-row>
   </div>
   </ion-grid>
 </ion-content>

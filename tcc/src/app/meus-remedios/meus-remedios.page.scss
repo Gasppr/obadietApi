@@ -1,3 +1,7 @@
+.title{
+    padding-inline: 5vw;
+}
+
 .btn-laranja{
     --background: rgba(244, 179, 119, 1);
     --color: rgba(1, 1, 1, 1);
@@ -8,10 +12,34 @@
     --background: rgba(235, 229, 94, 1);
     --color: rgba(1, 1, 1, 1);
     height: 5vh;
-
+    margin-bottom: 5vh;
+    width: 65vw;
 }
 
 .card-amarelo{
     --background: rgba(235, 229, 94, 1);
     --color: rgba(1, 1, 1, 1);
 }
+
+.horarios{
+    padding: 1.5rem;
+
+    .horario{
+        padding-block: .5rem;
+    }
+}
+
+ion-card {
+    padding: 1.5rem;
+    --color: rgba(1, 1, 1, 1);
+    margin-block: .5rem;
+
+    ion-card-subtitle,
+    ion-card-title {
+      margin-block: .3rem;
+    }
+
+    .checkboxes {
+      margin-block: 1rem;
+    }
+  }
