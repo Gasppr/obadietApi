@@ -1,27 +1,14 @@
-ion-row
-{
-    padding: 2rem 1rem 1rem 1rem;
-
-    ion-avatar{
-
-        margin: auto;
-    
-
-        img{
-            margin: 0 auto; 
-            transform: scale(2, 2);
-        }
-    
-    }
-    
+.btn-laranja{
+    padding-block: .5rem;
+    width: 65vw;
 }
 
+.btn-amarelo{
+    padding-block: 1rem;
 
-.btn-laranja{
-    --background: rgba(244, 179, 119, 1);
-    --color: rgba(1, 1, 1, 1);
-    padding: 1.5rem;
-    height: 5vh;
+    ion-icon{
+        margin-inline-end: 3vh;
+    }
 }
 
 .informacoes{
@@ -30,4 +17,12 @@ ion-row
 
 .informacao{
     padding-block: .5rem;
+}
+
+.title{
+    text-align: left;
+}
+
+ion-avatar{
+    margin-block-end: 1rem;
 }

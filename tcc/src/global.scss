@@ -115,59 +115,60 @@ ion-header {
           --background: #db4437;
         }
       }
-    
-    .formulario{
-        position: absolute;
-        left: 50%;
-        top: 45%;
-        transform: translateX(-50%) translateY(-50%);
-        width: 80vw;
-        height: fit-content;
-        margin-top: 3vh;
+}
 
-    
-        ion-avatar {
-            margin-block: 3rem;
-            position: relative;
-            img, ion-img {
-                transform: scale(2, 2);
-            }
-    
-            .adicionarFoto {
-                width: 2.5rem;
-                height: 2.5rem;
-                --border-radius: 100rem;
-                position: absolute;
-                left: 80%;
-                top: 85%;
-                --background: rgba(124, 124, 124, 1);
-                --opacity: 90%;
-            }
-        }
-    
-        ion-input{
-            margin-block: 2vh;
-            --padding-start: 1rem;
-            --padding-end: 1rem;
-            --border-radius: .5rem;
-            --background: #{$color-branco};
+.formulario{
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 80vw;
+    height: fit-content;
+    margin-top: 3vh;
+
+
+    ion-avatar {
+        margin-block: 3rem;
+        position: relative;
+        img, ion-img {
+            transform: scale(2, 2);
         }
 
-        ion-select{
-            --background: #{$color-branco};
-            --border-radius: .5rem;
-            --padding-start: 1rem;
-            --padding-end: 1rem;
-            margin-block: 1rem;
+        .adicionarFoto {
+            width: 2.5rem;
+            height: 2.5rem;
+            --border-radius: 100rem;
+            position: absolute;
+            left: 80%;
+            top: 85%;
+            --background: rgba(124, 124, 124, 1);
+            --opacity: 90%;
         }
-    
-        .buttons{
-            margin-block: 1.5rem;
-        }
+    }
+
+    ion-input{
+        margin-block: 2vh;
+        --padding-start: 1rem;
+        --padding-end: 1rem;
+        --border-radius: .5rem;
+        --background: #{$color-branco};
+    }
+
+    ion-select{
+        --background: #{$color-branco};
+        --border-radius: .5rem;
+        --padding-start: 1rem;
+        --padding-end: 1rem;
+        margin-block: 1rem;
+    }
+
+    .buttons{
+        margin-block: 1.5rem;
     }
 }
 
 .content{
+    position: relative;
     .calendario{
         --border-radius: 10rem;
         --border-color: rgba(190, 207, 152, 1);
@@ -178,6 +179,56 @@ ion-header {
             --background: rgba(235, 229, 94, 1);
         }
     }
+
+    ion-avatar {
+        margin-block: 3rem;
+        position: relative;
+        img, ion-img {
+            transform: scale(2, 2);
+        }
+
+        .adicionarFoto {
+            width: 2.5rem;
+            height: 2.5rem;
+            --border-radius: 100rem;
+            position: absolute;
+            left: 80%;
+            top: 85%;
+            --background: rgba(124, 124, 124, 1);
+            --opacity: 90%;
+        }
+    }
+
+    .cards {
+        width: 90vw;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    
+        .card-refeicoes {
+          --background: rgba(190, 207, 152, 1);
+    
+          ion-checkbox {
+            --checkbox-background: transparent;
+            --checkmark-color: rgba(254, 254, 254, 1);
+            --checkbox-background-checked: rgba(235, 229, 94, 1);
+            --border-color: rgba(1, 1, 1, 1);
+            --border-color-checked: rgba(235, 229, 94, 1);
+          }
+    
+          swiper-container {
+            margin-block: .5rem;
+          }
+        }
+    
+        .card-remedios {
+          --background: rgba(235, 229, 94, 1);
+    
+          .detalhes-remedio {
+            margin-block: .5rem;
+          }
+        }
+      }
 }
 
 .title{
