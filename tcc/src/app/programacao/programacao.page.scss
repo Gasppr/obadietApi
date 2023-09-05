@@ -6,15 +6,7 @@
     }
 }
 
-
 .btn-contorno-amarelo{
     width: 35vw;
     margin-inline: 2vw;
-    --border-radius: 10rem;
-    --background: transparent;
-    --border-color: rgba(235, 229, 94, 1);
-    --color: rgba(1, 1, 1, 1);
-    &:active, &:focus{
-        --background: rgba(235, 229, 94, 1);
-    }
 }

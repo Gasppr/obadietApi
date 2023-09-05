@@ -204,6 +204,21 @@ ion-header {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+
+        ion-card {
+          padding: 1.5rem;
+          --color: #{$color-preto};
+          margin-block: .5rem;
+      
+          ion-card-subtitle,
+          ion-card-title {
+            margin-block: .3rem;
+          }
+      
+          .checkboxes {
+            margin-block: 1rem;
+          }
+        }
     
         .card-refeicoes {
           --background: rgba(190, 207, 152, 1);
@@ -229,6 +244,29 @@ ion-header {
           }
         }
       }
+    
+    .btn-laranja{
+        --background: #{$color-laranja};
+        --color: #{$color-preto};
+        height: 5vh;
+    }
+
+    .btn-contorno-amarelo {
+      --border-radius: 100rem;
+      --border-color: #{$color-amarelo};
+      --background: transparent;
+      --color: #{$color-preto};
+
+      &:active,
+      &:focus {
+        --background: #{$color-amarelo};
+      }
+    }
+  }
+
+  .btn-amarelo {
+    --color: #{$color-preto};
+    --background: #{$color-amarelo};
 }
 
 .title{
@@ -238,13 +276,3 @@ ion-header {
 }
 
 
-.btn-amarelo {
-    --color: #{$color-preto};
-    --background: #{$color-amarelo};
-}
-
-.btn-laranja{
-    --background: #{$color-laranja};
-    --color: #{$color-preto};
-    height: 5vh;
-}
