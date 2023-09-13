@@ -1,8 +1,7 @@
 
 export enum sexoEnum{
     "MASCULINO" = "Masculino",
-    "FEMININO" = "Feminino",
-    "NEUTRO" = "Neutro"
+    "FEMININO" = "Feminino"
 }
 
 export class UsuarioEntity{

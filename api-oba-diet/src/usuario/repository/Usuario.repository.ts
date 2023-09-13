@@ -1,20 +1,22 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { UsuarioEntity, sexoEnum } from "../entity/UsuarioEntity.entity";
-import { LoginEntity } from "../entity/LoginEntity.entity";
+import { JwtService } from "@nestjs/jwt";
+import { promises } from "dns";
+
 
 
 @Injectable()
 export class UsuarioRepository{
 
-
+    constructor(private jwtService : JwtService){}
     
     private  _usuario : UsuarioEntity[] = [] 
     
+      AdicionarUsuario( user : UsuarioEntity){
 
-    
-      addUser( user : UsuarioEntity){
-            let emailVerify
-            emailVerify = this.verifyEmail(user.email)
+        let emailVerify
+        emailVerify = this.verificarEmail(user.email)
+       
         if(emailVerify){
             return "Email já existe :("
         }
@@ -29,20 +31,34 @@ export class UsuarioRepository{
       
         }
 
+        async FindOne(email: String , pass : String) : Promise<UsuarioEntity | undefined>{
 
 
+            const existsUser = this._usuario.find(n => n.email == email && n.senha == pass)
 
-    verifyLogin(email: String, pass : String){
+            return existsUser
+        }
 
-        let existsUser = this._usuario.find(n => n.email == email && n.senha == pass)
+    async verificarLogin(email: String, pass : String){
 
-        //retorna true se o usuário existir assim podendo confirma a entrada no aplicativo
-        //retorna false se o usuário não existir 
-        return existsUser
+        const user = await this.FindOne(email, pass)
+         if(user?.senha != pass){
+
+            throw new UnauthorizedException("Este usuário não existe")
+         }
+
+         const payload = {id : user.idade, pass : user.senha}
+        
+         return{
+            acess_token : await this.jwtService.signAsync(payload)
+         }
     }
 
+
     
-    verifyEmail( email: String){
+
+    
+    verificarEmail( email: String){
 
         const emailExists =  this._usuario.find( n => n.email == email)
 
@@ -53,7 +69,7 @@ export class UsuarioRepository{
     }
 
 
-    showAllUsers(){
+    mostrarTodosUsuarios(){
        return this._usuario
     }
 

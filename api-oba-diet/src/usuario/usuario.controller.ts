@@ -3,6 +3,9 @@ import { UsuarioDto } from './dto/Usuario.DTO';
 import { UsuarioEntity } from './entity/UsuarioEntity.entity';
 import { UsuarioRepository } from './repository/Usuario.repository';
 import { UseGuards } from '@nestjs/common';
+import { UsuarioGuard } from 'src/guards/usuario/usuario.guard';
+import {LoginDto} from './dto/Login.DTO'
+
 // import { RolesGuard } from './guards/usuario.guard';
 
 @Controller('obadiet')
@@ -13,9 +16,9 @@ export class UsuarioController {
 
     //@Res() monitora o envio de dados 
     //nome do metodo não importa
-    @Post("signup")
-    //@UseGuards(new RolesGuard())
-    showAllUsers(@Body() userDto : UsuarioDto){
+    @Post("register")
+    @UseGuards(UsuarioGuard)
+    createUser(@Body() userDto : UsuarioDto){
 
         const userEntity : UsuarioEntity = new UsuarioEntity();
 
@@ -29,25 +32,29 @@ export class UsuarioController {
         userEntity.altura = userDto.altura
         userEntity.senha = userDto.senha
 
-      return this._usuarioRepository.addUser(userEntity)
+      return this._usuarioRepository.AdicionarUsuario(userEntity)
     }
 
 
 
 
     //Autorization or authetication 
-    @Get("login")
-    signUser(){
+    //Improvisado só para ver os usuários em primeira instância  
+    @Get("showAllUsers")
+    showAllUsers(){
        
-        return this._usuarioRepository.showAllUsers()
+        return this._usuarioRepository.mostrarTodosUsuarios()
 
     }
 
 
     @Post("sign")
-    loginUser(){
+    @UseGuards(UsuarioGuard)
+    loginUser(@Body() loginDto : LoginDto){
 
-        return this._usuarioRepository
+
+      return  this._usuarioRepository.verificarLogin(loginDto.email, loginDto.senha)
+
     }
 
 

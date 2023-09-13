@@ -1,4 +1,4 @@
 export class LoginEntity{
-    email : string
-    senha : string
+    email : String
+    senha : String
 }
