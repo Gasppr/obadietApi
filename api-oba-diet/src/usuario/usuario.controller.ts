@@ -5,6 +5,7 @@ import { UsuarioRepository } from './repository/Usuario.repository';
 import { UseGuards } from '@nestjs/common';
 import { UsuarioGuard } from 'src/guards/usuario/usuario.guard';
 import {LoginDto} from './dto/Login.DTO'
+import { IsPublic } from 'src/auth/guard/isPublic.decorator';
 
 // import { RolesGuard } from './guards/usuario.guard';
 
@@ -17,6 +18,7 @@ export class UsuarioController {
     //@Res() monitora o envio de dados 
     //nome do metodo não importa
     @Post("register")
+    @IsPublic()
     @UseGuards(UsuarioGuard)
     createUser(@Body() userDto : UsuarioDto){
 
@@ -49,6 +51,7 @@ export class UsuarioController {
 
 
     @Post("sign")
+    @IsPublic()
     @UseGuards(UsuarioGuard)
     loginUser(@Body() loginDto : LoginDto){
 
