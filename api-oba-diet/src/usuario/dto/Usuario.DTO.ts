@@ -9,10 +9,6 @@ export class UsuarioDto{
     nome : String 
 
     @IsNotEmpty({"message" : "O campo não deve está vazio"})
-    @IsString({"message" : "O campo deve está escrito por apenas letras"})
-    sobrenome : String
-
-    @IsNotEmpty({"message" : "O campo não deve está vazio"})
     @IsEmail()
     email: String
 

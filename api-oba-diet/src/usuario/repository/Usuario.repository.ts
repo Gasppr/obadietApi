@@ -1,8 +1,9 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { UsuarioEntity, sexoEnum } from "../entity/UsuarioEntity.entity";
 import { JwtService } from "@nestjs/jwt";
-import { promises } from "dns";
 import { ConfigService } from "@nestjs/config";
+import { Sequelize } from "sequelize-typescript";
+import { InjectModel } from "@nestjs/sequelize";
 
 
 // Nossa service 
@@ -10,7 +11,13 @@ import { ConfigService } from "@nestjs/config";
 @Injectable()
 export class UsuarioRepository{
 
-    constructor(private jwtService : JwtService, private configService : ConfigService){}
+    constructor(
+        private jwtService : JwtService, private configService : ConfigService,
+        private sequelize: Sequelize,
+
+        @InjectModel(UsuarioEntity)
+        private userModel: typeof UsuarioEntity
+        ){}
     
 
      dbUser = this.configService.get<string>('database.user')
@@ -22,7 +29,13 @@ export class UsuarioRepository{
 
 
     private  _usuario : UsuarioEntity[] = [] 
+
+   
     
+    
+
+  
+        
       AdicionarUsuario( user : UsuarioEntity){
 
         let emailVerify
@@ -49,6 +62,24 @@ export class UsuarioRepository{
 
             return existsUser
         }
+
+        ProcurarPorID(id: string): Promise<UsuarioEntity> {
+            return this.userModel.findOne({
+              where: {
+                id,
+              },
+            });
+          }
+        
+          async remove(id: string): Promise<void> {
+            const user = await this.ProcurarPorID(id);
+            await user.destroy();
+          }
+
+
+        async ProcurarTodos(): Promise<UsuarioEntity[]> {
+            return this.userModel.findAll();
+          }
 
     async verificarLogin(email: String, pass : String){
 
@@ -81,7 +112,9 @@ export class UsuarioRepository{
 
 
     mostrarTodosUsuarios(){
-       return this._usuario
+       return {usuarios : this._usuario,
+        url: this.dbUrl
+    }
 
     }
 

@@ -26,7 +26,6 @@ export class UsuarioController {
 
         
         userEntity.nome = userDto.nome
-        userEntity.sobrenome = userDto.sobrenome
         userEntity.email = userDto.email
         userEntity.sexo = userDto.sexo
         userEntity.idade = userDto.idade
@@ -37,11 +36,7 @@ export class UsuarioController {
       return this._usuarioRepository.AdicionarUsuario(userEntity)
     }
 
-
-
-
-    //Autorization or authetication 
-    //Improvisado só para ver os usuários em primeira instância  
+    
     @Get("showAllUsers")
     @IsPublic()
     showAllUsers(){
