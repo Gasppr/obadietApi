@@ -2,14 +2,25 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { UsuarioEntity, sexoEnum } from "../entity/UsuarioEntity.entity";
 import { JwtService } from "@nestjs/jwt";
 import { promises } from "dns";
+import { ConfigService } from "@nestjs/config";
 
 
+// Nossa service 
 
 @Injectable()
 export class UsuarioRepository{
 
-    constructor(private jwtService : JwtService){}
+    constructor(private jwtService : JwtService, private configService : ConfigService){}
     
+
+     dbUser = this.configService.get<string>('database.user')
+
+     dbHost = this.configService.get<string>('database.host')
+     dbPort = this.configService.get<string>('database.port')
+     dbPassword = this.configService.get<string>('database.password')
+     dbUrl = this.configService.get<string>('database.url')
+
+
     private  _usuario : UsuarioEntity[] = [] 
     
       AdicionarUsuario( user : UsuarioEntity){
@@ -71,6 +82,7 @@ export class UsuarioRepository{
 
     mostrarTodosUsuarios(){
        return this._usuario
+
     }
 
 

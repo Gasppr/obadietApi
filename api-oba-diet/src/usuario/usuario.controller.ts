@@ -43,6 +43,7 @@ export class UsuarioController {
     //Autorization or authetication 
     //Improvisado só para ver os usuários em primeira instância  
     @Get("showAllUsers")
+    @IsPublic()
     showAllUsers(){
        
         return this._usuarioRepository.mostrarTodosUsuarios()

@@ -10,7 +10,13 @@ import { AuthModule } from './auth/auth.module';
 import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({load: [configuration], isGlobal: true, envFilePath:'.env.development'}),  AuthModule, UsuarioModule],
+  imports: [ConfigModule.forRoot
+    (
+      { load: [configuration], 
+        isGlobal: true,
+        envFilePath:['.env.development', '.env']}
+      ),  
+      AuthModule, UsuarioModule],
   controllers: [ ReceitasController],
   providers: [],
 })
