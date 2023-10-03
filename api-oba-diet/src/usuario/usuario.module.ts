@@ -19,7 +19,7 @@ import { UsuarioEntity } from './entity/UsuarioEntity.entity';
       ],
 
     providers:[UsuarioRepository, JwtService,],
-    exports:[UsuarioRepository],
+    exports:[UsuarioRepository,],
     controllers: [UsuarioController]
 })
 export class UsuarioModule {}

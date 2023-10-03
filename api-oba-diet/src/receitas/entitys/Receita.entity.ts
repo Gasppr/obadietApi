@@ -1,10 +1,12 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript"
+import { Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript"
+import { UsuarioEntity } from "src/usuario/entity/UsuarioEntity.entity"
 
 
 @Table
 export class ReceitaEntity extends Model{
 
     @PrimaryKey
+    @ForeignKey(() => UsuarioEntity)
     @Column
     id : number
 

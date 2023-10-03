@@ -41,7 +41,7 @@ export class UsuarioController {
     @IsPublic()
     showAllUsers(){
        
-        return this._usuarioRepository.mostrarTodosUsuarios()
+        return this._usuarioRepository.ProcurarTodos()
 
     }
 

@@ -25,15 +25,17 @@ import { Doenca } from './receitas/entitys/Doenca.entity';
       SequelizeModule.forRoot(
         {
           dialect: 'mysql',
-          host: process.env.DATABASE_USER,
+          host: process.env.DATABASE_URL,
           port: 3306,
           username: process.env.DATABASE_USER,
           password: process.env.DATABASE_PASSWORD,
-          database: process.env.DATABASE_URL,
-          models: [UsuarioEntity, ReceitaEntity, ],
-          retryAttempts: 10,
-          synchronize: true
-     
+          database: process.env.DATABASE_NAME,
+          models: [UsuarioEntity, ReceitaEntity ],
+          retryAttempts: 100,
+          synchronize: true,
+          define:{
+            timestamps: false
+          }
         
       }),
         

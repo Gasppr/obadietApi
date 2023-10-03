@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { UsuarioEntity, sexoEnum } from "../entity/UsuarioEntity.entity";
+import { UsuarioEntity } from "../entity/UsuarioEntity.entity";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
 import { Sequelize } from "sequelize-typescript";
@@ -16,16 +16,10 @@ export class UsuarioRepository{
         private sequelize: Sequelize,
 
         @InjectModel(UsuarioEntity)
-        private userModel: typeof UsuarioEntity
+        private usuarioBD: typeof UsuarioEntity,
         ){}
     
 
-     dbUser = this.configService.get<string>('database.user')
-
-     dbHost = this.configService.get<string>('database.host')
-     dbPort = this.configService.get<string>('database.port')
-     dbPassword = this.configService.get<string>('database.password')
-     dbUrl = this.configService.get<string>('database.url')
 
 
     private  _usuario : UsuarioEntity[] = [] 
@@ -63,33 +57,37 @@ export class UsuarioRepository{
             return existsUser
         }
 
-        ProcurarPorID(id: string): Promise<UsuarioEntity> {
-            return this.userModel.findOne({
+
+
+
+        ProcurarPorID(id: string ): Promise<UsuarioEntity> {
+            return this.usuarioBD.findOne({
               where: {
                 id,
               },
             });
           }
         
-          async remove(id: string): Promise<void> {
-            const user = await this.ProcurarPorID(id);
-            await user.destroy();
-          }
-
+        
 
         async ProcurarTodos(): Promise<UsuarioEntity[]> {
-            return this.userModel.findAll();
+            return this.usuarioBD.findAll(); ;
           }
 
     async verificarLogin(email: String, pass : String){
 
-        const user = await this.FindOne(email, pass)
+        const user = await this.usuarioBD.findOne({
+          where:{
+            email
+          }
+        })
+
          if(user?.senha != pass){
 
             throw new UnauthorizedException("Este usuário não existe")
          }
 
-         const payload = {id : user.idade, pass : user.senha}
+         const payload = {id : user.id, pass : user.senha}
         
          return{
             acess_token : await this.jwtService.signAsync(payload)
@@ -112,11 +110,10 @@ export class UsuarioRepository{
 
 
     mostrarTodosUsuarios(){
-       return {usuarios : this._usuario,
-        url: this.dbUrl
+       return this._usuario
+        
     }
 
     }
 
 
-}
