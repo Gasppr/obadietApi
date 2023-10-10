@@ -35,7 +35,8 @@ import { Doenca } from './receitas/entitys/Doenca.entity';
           synchronize: true,
           define:{
             timestamps: false
-          }
+          },
+      
         
       }),
         

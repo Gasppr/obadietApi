@@ -11,7 +11,7 @@ export class AuthController {
 
     @IsPublic()
     @HttpCode(HttpStatus.OK)
-    @Post('login')
+    @Post('entrar')
     signIn(@Body() loginEntity: LoginDto) {
       return this.authService.verificarLogin(loginEntity.email, loginEntity.senha);
     }

@@ -6,20 +6,19 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { UsuarioEntity } from './entity/UsuarioEntity.entity';
 
 @Module({
+  imports: [
+    UsuarioModule,
+    JwtModule.register({
+      global: true,
+      // secret: env.development.process.acess_token,
+      signOptions: { expiresIn: '60s' },
+    }),
 
-    imports: [
-        UsuarioModule,
-        JwtModule.register({
-          global: true,
-         // secret: env.development.process.acess_token,
-          signOptions: { expiresIn: '60s' },
-        }),
-        
-        SequelizeModule.forFeature([UsuarioEntity]),
-      ],
+    SequelizeModule.forFeature([UsuarioEntity]),
+  ],
 
-    providers:[UsuarioRepository, JwtService,],
-    exports:[UsuarioRepository,],
-    controllers: [UsuarioController]
+  providers: [UsuarioRepository, JwtService],
+  exports: [UsuarioRepository],
+  controllers: [UsuarioController],
 })
 export class UsuarioModule {}

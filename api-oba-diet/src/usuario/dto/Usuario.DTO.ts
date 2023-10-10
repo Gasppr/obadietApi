@@ -4,6 +4,10 @@ import { sexoEnum } from "../entity/UsuarioEntity.entity"
 
 export class UsuarioDto{
     
+
+    
+
+
     @IsNotEmpty({"message" : "O campo não deve está vazio"})
     @IsString({"message" : "O campo deve está escrito por apenas letras"})
     nome : String 

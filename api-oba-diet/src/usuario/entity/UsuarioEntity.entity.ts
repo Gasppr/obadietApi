@@ -1,4 +1,4 @@
-import { Model,Column, Table, IsUUID, PrimaryKey, BelongsToMany, HasMany, ForeignKey } from "sequelize-typescript"
+import { Model,Column, Table, IsUUID, PrimaryKey, BelongsToMany, HasMany, ForeignKey, BelongsTo } from "sequelize-typescript"
 import { ReceitaEntity } from "src/receitas/entitys/Receita.entity"
 import { Restricao } from "src/receitas/entitys/Restricao.entity"
 
@@ -8,10 +8,10 @@ export enum sexoEnum{
     "FEMININO" = "Feminino"
 }
 
-@Table({tableName : 'usuarios'})
+@Table({tableName : 'usuarios', deletedAt : false, createdAt: false} ,)
 export class UsuarioEntity extends Model{
 
-
+ 
     
     @IsUUID("all")
     @PrimaryKey
@@ -40,11 +40,7 @@ export class UsuarioEntity extends Model{
     @Column
     senha: String
 
-    @HasMany(() => ReceitaEntity)
+    @HasMany(() => ReceitaEntity, {onDelete: "cascade"})
     receitas : ReceitaEntity[]
 
- 
-
-
-    
 }
