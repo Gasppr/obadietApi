@@ -69,29 +69,16 @@ export class UsuarioRepository {
     return emailExists;
   }
 
-  async deletarUsuario(Idusuario: string): Promise<Object> {
-    const usuario = await this.ProcurarPorID(Idusuario);
+  
+  async deletarUsuario(idUsuario: string): Promise<Object> {
+    const usuario = await this.ProcurarPorID(idUsuario);
 
     await this.sequelize.transaction(async (transaction) => {
-      const query = `
-          DELETE 
-            usuarios_has_doencas, 
-            usuarios_has_restricoes 
-          FROM usuarios
-          LEFT JOIN usuarios_has_doencas
-            ON usuarios_has_doencas.usuarios_id = usuarios.id 
-          LEFT JOIN usuarios_has_restricoes
-            ON usuarios_has_restricoes.usuarios_id = usuarios.id
-          WHERE usuarios.id = ? 
-        `;
 
-      await this.sequelize.query(
-        { query, values: [Idusuario] },
-        { transaction },
-      );
+      await usuario.destroy();
+    })
 
-      await usuario.destroy({ transaction });
-    });
+    
 
     return {
       message:
@@ -99,53 +86,52 @@ export class UsuarioRepository {
     };
   }
 
-  async deletarUsuario2(Idusuario: string): Promise<Object> {
-    const usuario = await this.ProcurarPorID(Idusuario);
-
-    await usuario.destroy();
-
-    return {
-      message:
-        'Conta excluida com sucesso. Obrigado por confiar em nossos serviços ',
-    };
-  }
-
-  async criarUsuario(usuario: UsuarioEntity) : Promise<Object>  {
+  async criarUsuario(usuario: UsuarioEntity): Promise<Object> {
     try {
       await this.sequelize.transaction(async (transaction) => {
-        await this.usuarioBD.create({
-          id : usuario.id,
-          nome: usuario.nome,
-          email: usuario.email,
-          sexo: usuario.sexo,
-          idade: usuario.idade,
-          peso: usuario.peso,
-          altura: usuario.altura,
-          senha: usuario.senha,
-        }, {transaction});
-
+        await this.usuarioBD.create(
+          {
+            id: usuario.id,
+            nome: usuario.nome,
+            email: usuario.email,
+            sexo: usuario.sexo,
+            idade: usuario.idade,
+            peso: usuario.peso,
+            altura: usuario.altura,
+            senha: usuario.senha,
+          },
+          { transaction },
+        );
       });
 
-      return { message : "Usuário criado com sucesso!!"}
+      return { message: 'Usuário criado com sucesso!!' };
+      
     } catch (err) {
       return err.message;
     }
   }
 
-  editarUsuario(usuario : UsuarioEntity){
+  async editarUsuario(usuario: UsuarioEntity, id: string) {
+    const usuarioNovo = await this.usuarioBD.update(
+      {
+        nome: usuario.nome,
+        idade: usuario.idade,
+        altura: usuario.altura,
+        peso: usuario.peso,
+        senha: usuario.senha,
+      },
+      {
+        where: {
+          id: id,
+        },
+      },
+    );
 
-    this.usuarioBD.update({
-      nome: usuario.nome,
-      idade: usuario.idade,
-      altura: usuario.altura,
-      peso: usuario.peso,
-      senha: usuario.senha,
-    },
-    {
-      where:{
-        id: usuario.id
-      }
-    })
+    if(usuarioNovo[0] == 0) {
+      return "Modificações já foram feitas"
+    }
+
+    return "Perfil modificado com sucesso"
     
     
   }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
 import { UsuarioDto } from './dto/Usuario.DTO';
 import { UsuarioEntity } from './entity/UsuarioEntity.entity';
 import { UsuarioRepository } from './repository/Usuario.repository';
@@ -53,17 +53,28 @@ export class UsuarioController {
 
   @Delete('delete')
   @IsPublic()
+  @UseGuards(UsuarioGuard)
   apagarUsuario(@Body() { id }: { id: string }) {
     return this._usuarioRepository.deletarUsuario(id);
   }
 
-  @Patch('EditarPerfil')
+  @Patch('EditarPerfil/:id')
   @IsPublic()
-  editarPerfil(@Body()  usuario: UsuarioDto){
+  async editarPerfil(@Body()  usuarioDto: UsuarioDto, @Param('id') id : string ){
 
-    
+    const usuario : UsuarioEntity = new UsuarioEntity()
+
+    usuario.id = id
+    usuario.nome = usuarioDto.nome
+    usuario.idade = usuarioDto.idade
+    usuario.altura = usuarioDto.altura
+    usuario.peso = usuarioDto.peso
+    usuario.senha = usuarioDto.senha
+
+   return  this._usuarioRepository.editarUsuario(usuario, id)
 
   }
+
 
 
 }

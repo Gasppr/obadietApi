@@ -3,18 +3,14 @@ import { sexoEnum } from "../entity/UsuarioEntity.entity"
 
 
 export class UsuarioDto{
-    
-
-    
-
 
     @IsNotEmpty({"message" : "O campo não deve está vazio"})
     @IsString({"message" : "O campo deve está escrito por apenas letras"})
-    nome : String 
+    nome : string 
 
     @IsNotEmpty({"message" : "O campo não deve está vazio"})
     @IsEmail()
-    email: String
+    email: string
 
     @IsNotEmpty({"message" : "O campo não deve está vazio"})
     @IsEnum(sexoEnum)
@@ -34,5 +30,5 @@ export class UsuarioDto{
 
     @IsNotEmpty()
     @IsString()
-    senha: String
+    senha: string
 }

@@ -4,7 +4,6 @@ import { AuthService } from './service/auth.service';
 import { UsuarioRepository } from 'src/usuario/repository/Usuario.repository';
 import { UsuarioModule } from 'src/usuario/usuario.module';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constants';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './guard/auth.guard';
 import { SequelizeModule } from '@nestjs/sequelize';
@@ -16,7 +15,7 @@ import { UsuarioEntity } from 'src/usuario/entity/UsuarioEntity.entity';
     
     JwtModule.register({
       global: true,
-      secret : jwtConstants.secret,
+      secret : process.env.SECRET,
       signOptions: {expiresIn: '1h'}
     }),
 

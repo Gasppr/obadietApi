@@ -12,14 +12,14 @@ export class AuthController {
     @IsPublic()
     @HttpCode(HttpStatus.OK)
     @Post('entrar')
-    signIn(@Body() loginEntity: LoginDto) {
+    entrar(@Body() loginEntity: LoginDto) {
       return this.authService.verificarLogin(loginEntity.email, loginEntity.senha);
     }
 
     
     @UseGuards(AuthGuard)
     @Get('perfil')
-    pegarUsuario(@Request() req){
-      return req.perfil;
+    pegarUsuario(@Request() req ){
+      return {email : req.perfil.email , senha: req.perfil.senha};
     }
 }
