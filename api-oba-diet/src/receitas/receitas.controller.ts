@@ -50,19 +50,19 @@ export class ReceitasController {
             } as ReceitaEntity);
     }
 
-    @Post()
-    createReceita(@Body() receita: ReceitaDto) {
-        const receitaEntity: ReceitaEntity = new ReceitaEntity();
+    // @Post()
+    // createReceita(@Body() receita: ReceitaDto) {
+    //     const receitaEntity: ReceitaEntity = new ReceitaEntity();
 
-        receitaEntity.id = receita.id;
-        receitaEntity.restricoes = receita.restricoes;
-        receitaEntity.doencas = receita.doencas;
-        receitaEntity.nome = receita.nome;
-        receitaEntity.ingredientes = receita.ingredientes;
-        receitaEntity.modoPreparo = receita.modoPreparo;
+    //     receitaEntity.id = receita.id;
+    //     receitaEntity.restricoes = receita.restricoes;
+    //     receitaEntity.doencas = receita.doencas;
+    //     receitaEntity.nome = receita.nome;
+    //     receitaEntity.ingredientes = receita.ingredientes;
+    //     receitaEntity.modoPreparo = receita.modoPreparo;
 
-        return this._repository.add(receitaEntity);
-    }
+    //     return this._repository.add(receitaEntity);
+    // }
 
     @Get()
     getReceitas() {
@@ -74,18 +74,18 @@ export class ReceitasController {
         return this._repository.search(id);
     }
 
-    @Put(':id')
-    updateReceita(@Param('id') id, @Body() receita: ReceitaDto) {
-        const receitaEntity: ReceitaEntity = new ReceitaEntity();
+    // @Put(':id')
+    // updateReceita(@Param('id') id, @Body() receita: ReceitaDto) {
+    //     const receitaEntity: ReceitaEntity = new ReceitaEntity();
 
-        receitaEntity.restricoes = receita.restricoes;
-        receitaEntity.doencas = receita.doencas;
-        receitaEntity.nome = receita.nome;
-        receitaEntity.ingredientes = receita.ingredientes;
-        receitaEntity.modoPreparo = receita.modoPreparo;
+    //     receitaEntity.restricoes = receita.restricoes;
+    //     receitaEntity.doencas = receita.doencas;
+    //     receitaEntity.nome = receita.nome;
+    //     receitaEntity.ingredientes = receita.ingredientes;
+    //     receitaEntity.modoPreparo = receita.modoPreparo;
 
-        return this._repository.update(id, receitaEntity);
-    }
+    //     return this._repository.update(id, receitaEntity);
+    // }
 
     @Delete(':id')
     removeReceita(@Param() param) {
