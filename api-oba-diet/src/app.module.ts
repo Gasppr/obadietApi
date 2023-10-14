@@ -6,10 +6,11 @@ import { AuthModule } from './auth/auth.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsuarioEntity, Usuario_Has_Doencas, Usuario_Has_Restricoes } from './usuario/entity/UsuarioEntity.entity';
-import { ReceitaEntity } from './receitas/entities/Receita.entity';
+import { ReceitaEntity, Receita_has_doencas, Receita_has_restricoes } from './receitas/entities/Receita.entity';
 import { RestricaoEntity } from './receitas/entities/Restricao.entity';
 import { DoencaEntity } from './receitas/entities/Doenca.entity';
 import { ReceitasRepository } from './receitas/repository/Receitas.repository';
+import { ReceitasModule } from './receitas/receitas.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ReceitasRepository } from './receitas/repository/Receitas.repository';
     }),
     AuthModule,
     UsuarioModule,
+    ReceitasModule,
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: process.env.DATABASE_URL,
@@ -33,7 +35,9 @@ import { ReceitasRepository } from './receitas/repository/Receitas.repository';
         RestricaoEntity, 
         DoencaEntity, 
         Usuario_Has_Restricoes,
-        Usuario_Has_Doencas
+        Usuario_Has_Doencas,
+        Receita_has_doencas,
+        Receita_has_restricoes
       ],
       retryAttempts: 100,
       synchronize: true,
@@ -41,8 +45,9 @@ import { ReceitasRepository } from './receitas/repository/Receitas.repository';
         timestamps: false,
       },
     }),
+    ReceitasModule,
   ],
-  controllers: [ReceitasController],
-  providers: [ReceitasRepository],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

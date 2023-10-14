@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsString, ValidateNested } from "class-validator"
+import { IsEmpty, IsInt, IsNotEmpty, IsString, ValidateNested } from "class-validator"
 import { DoencaDto } from "./Doenca.dto"
 import { RestricaoDto } from "./Restricao.dto"
 import { Type } from "class-transformer"
@@ -10,10 +10,12 @@ export class ReceitaDto {
 
     @ValidateNested()
     @Type(() => RestricaoDto)
+    @IsEmpty()
     restricoes: RestricaoDto[]
 
     @ValidateNested()
     @Type(() => DoencaDto)
+    @IsEmpty()
     doencas: DoencaDto[]
 
     @IsString({ message: 'O nome tem que ser um texto' })
