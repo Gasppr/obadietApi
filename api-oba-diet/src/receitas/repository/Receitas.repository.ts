@@ -18,12 +18,17 @@ export class ReceitasRepository {
 
   private readonly _receitas: ReceitaEntity[] = [];
 
-  async add(Receita: ReceitaEntity) {
-    this._receitas.push(Receita);
+  async criarReceita(receita: ReceitaEntity) {
+    const resultado = this.receitaDB.create({
+      id: receita.id,
+      nome: receita.nome,
+      ingredientes: receita.ingredientes,
+      modoPreparo: receita.modoPreparo,
+    });
 
     return {
       message: 'Receita cadastrada com sucesso',
-      data: Receita,
+      data: resultado,
     };
   }
 
@@ -41,47 +46,35 @@ export class ReceitasRepository {
     return Receita;
   }
 
-  private _getIndex(id: number) {
-    const index: number = this._receitas.findIndex(
-      (a: ReceitaEntity) => a.id === id,
+  async editarReceita(id: number, receita: ReceitaEntity) {
+    const receitaEditada = this.receitaDB.update(
+      {
+        nome: receita.nome,
+        ingredientes: receita.ingredientes,
+        modoPreparo: receita.modoPreparo,
+      },
+      {
+        where: {
+          id: id,
+        },
+      },
     );
-
-    return index;
-  }
-
-  async update(id: number, Receita: ReceitaEntity) {
-    let index = this._getIndex(id);
-
-    if (index < 0) {
-      return {
-        message: 'Receita não encontrada',
-      };
-    }
-
-    Receita.id = id;
-
-    this._receitas[index] = Receita;
 
     return {
       message: 'Receita atualizada com sucesso',
-      data: this._receitas[index],
+      data: receitaEditada,
     };
   }
 
-  async remove(id: number) {
-    let index = this._getIndex(id);
+  async deletarReceita(id: number) {
+    const usuario = await this.receitaDB.findOne({
+      where: {
+        id: id,
+      },
+    });
 
-    if (index < 0) {
-      return {
-        message: 'Receita não encontrada',
-      };
-    }
+    const mensagem = usuario.destroy();
 
-    let Receita = this._receitas.splice(index, 1);
-
-    return {
-      message: 'Receita removida com sucesso',
-      data: Receita,
-    };
+    return mensagem;
   }
 }

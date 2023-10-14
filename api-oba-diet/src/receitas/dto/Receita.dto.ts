@@ -2,20 +2,18 @@ import { IsEmpty, IsInt, IsNotEmpty, IsString, ValidateNested } from "class-vali
 import { DoencaDto } from "./Doenca.dto"
 import { RestricaoDto } from "./Restricao.dto"
 import { Type } from "class-transformer"
+import { IsNull } from "sequelize-typescript"
 
 export class ReceitaDto {
-    @IsInt({ message: 'O id tem que ser um número inteiro' })
-    @IsNotEmpty({ message: 'Esse campo não pode ser vazio' })
+
     id: number
 
     @ValidateNested()
     @Type(() => RestricaoDto)
-    @IsEmpty()
     restricoes: RestricaoDto[]
 
     @ValidateNested()
     @Type(() => DoencaDto)
-    @IsEmpty()
     doencas: DoencaDto[]
 
     @IsString({ message: 'O nome tem que ser um texto' })
