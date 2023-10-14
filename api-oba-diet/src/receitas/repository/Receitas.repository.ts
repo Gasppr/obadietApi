@@ -1,10 +1,21 @@
-import { Injectable } from "@nestjs/common";
-import { DoencaEntity } from "../entities/Doenca.entity";
-import { RestricaoEntity } from "../entities/Restricao.entity";
+import { Injectable } from '@nestjs/common';
+import { DoencaEntity } from '../entities/Doenca.entity';
+import { RestricaoEntity } from '../entities/Restricao.entity';
 import { ReceitaEntity } from '../entities/Receita.entity';
+import { Sequelize } from 'sequelize-typescript';
+import { ConfigService } from '@nestjs/config';
+import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class ReceitasRepository {
+  constructor(
+    private sequelize: Sequelize,
+    private configService: ConfigService,
+
+    @InjectModel(ReceitaEntity)
+    private receitaDB: typeof ReceitaEntity,
+  ) {}
+
   private readonly _receitas: ReceitaEntity[] = [];
 
   async add(Receita: ReceitaEntity) {
@@ -16,14 +27,16 @@ export class ReceitasRepository {
     };
   }
 
-  async list() {
-    return this._receitas;
+  async listarReceitas() {
+    return this.receitaDB.findAll();
   }
 
-  async search(id: number) {
-    const Receita: ReceitaEntity = this._receitas.find(
-      (a: ReceitaEntity) => a.id === id,
-    );
+  async procurarReceita(id: number) {
+    const Receita: any = this.receitaDB.findOne({
+      where: {
+        id: id,
+      },
+    });
 
     return Receita;
   }
@@ -68,7 +81,7 @@ export class ReceitasRepository {
 
     return {
       message: 'Receita removida com sucesso',
-      data: Receita
+      data: Receita,
     };
   }
 }
