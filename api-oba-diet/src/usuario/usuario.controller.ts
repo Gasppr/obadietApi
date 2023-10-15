@@ -1,18 +1,19 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
-import { UsuarioDto } from './dto/Usuario.DTO';
+import { UsuarioDto } from './dto/Usuario.dto';
 import { UsuarioEntity } from './entity/UsuarioEntity.entity';
 import { UsuarioRepository } from './repository/Usuario.repository';
 import { UseGuards } from '@nestjs/common';
 import { UsuarioGuard } from 'src/guards/usuario/usuario.guard';
-import { LoginDto } from './dto/Login.DTO';
+import { LoginDto } from './dto/Login.dto';
 import { IsPublic } from 'src/auth/guard/isPublic.decorator';
-import { v4 as uuid} from 'uuid'
+import { v4 as uuid} from 'uuid';
+import {ApiBody, ApiTags} from '@nestjs/swagger'
 
 
 
 
 // import { RolesGuard } from './guards/usuario.guard';
-
+@ApiTags('Usuarios')
 @Controller('obadiet')
 export class UsuarioController {
   constructor(private readonly _usuarioRepository: UsuarioRepository) {}
@@ -51,13 +52,6 @@ export class UsuarioController {
     );
   }
 
-  @Delete('delete')
-  @IsPublic()
-  @UseGuards(UsuarioGuard)
-  apagarUsuario(@Body() { id }: { id: string }) {
-    return this._usuarioRepository.deletarUsuario(id);
-  }
-
   @Patch('EditarPerfil/:id')
   @IsPublic()
   async editarPerfil(@Body()  usuarioDto: UsuarioDto, @Param('id') id : string ){
@@ -74,6 +68,15 @@ export class UsuarioController {
    return  this._usuarioRepository.editarUsuario(usuario, id)
 
   }
+
+  @Delete('delete')
+  @IsPublic()
+  @UseGuards(UsuarioGuard)
+  apagarUsuario(@Body() { id }: { id: string }) {
+    return this._usuarioRepository.deletarUsuario(id);
+  }
+
+ 
 
 
 

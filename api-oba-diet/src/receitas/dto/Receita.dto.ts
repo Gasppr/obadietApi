@@ -1,8 +1,8 @@
-import { IsEmpty, IsInt, IsNotEmpty, IsString, ValidateNested } from "class-validator"
-import { DoencaDto } from "./Doenca.dto"
-import { RestricaoDto } from "./Restricao.dto"
-import { Type } from "class-transformer"
-import { IsNull } from "sequelize-typescript"
+import { IsEmpty, IsInt, IsNotEmpty, IsString, ValidateNested } from "class-validator";
+import { DoencaDto } from "./Doenca.dto";
+import { RestricaoDto } from "./Restricao.dto";
+import { Type } from "class-transformer";
+import { ApiProperty } from '@nestjs/swagger';
 
 export class ReceitaDto {
 

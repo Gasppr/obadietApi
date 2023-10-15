@@ -11,7 +11,9 @@ import { ReceitasRepository } from './repository/Receitas.repository';
 import { ReceitaEntity } from './entities/Receita.entity';
 import { ReceitaDto } from './dto/Receita.dto';
 import { IsPublic } from 'src/auth/guard/isPublic.decorator';
+import { ApiBody, ApiTags} from "@nestjs/swagger"
 
+@ApiTags('Receitas')
 @Controller('obadiet')
 export class ReceitasController {
   constructor(private readonly _repository: ReceitasRepository) {}
@@ -24,7 +26,7 @@ export class ReceitasController {
 
   @IsPublic()
   @Get('receita/:id')
-  getReceita(@Param() id) {
+  getReceita(@Param('id') id : number) {
     return this._repository.procurarReceita(id);
   }
 
