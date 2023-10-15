@@ -21,8 +21,8 @@ export class AuthService {
 
         const user = await this.usuarioBD.findOne({
          where:{
-            email,
-            senha
+            email : email,
+            senha : senha
          }
         })
          if(user?.senha != senha){

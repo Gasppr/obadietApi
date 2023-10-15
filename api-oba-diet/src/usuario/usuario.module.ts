@@ -10,7 +10,6 @@ import { UsuarioEntity } from './entity/UsuarioEntity.entity';
     UsuarioModule,
     JwtModule.register({
       global: true,
-      // secret: env.development.process.acess_token,
       signOptions: { expiresIn: '60s' },
     }),
 

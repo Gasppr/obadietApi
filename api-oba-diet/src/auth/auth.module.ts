@@ -8,6 +8,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './guard/auth.guard';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsuarioEntity } from 'src/usuario/entity/UsuarioEntity.entity';
+import { jwtConstants } from './constants';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { UsuarioEntity } from 'src/usuario/entity/UsuarioEntity.entity';
     
     JwtModule.register({
       global: true,
-      secret : process.env.SECRET,
+      secret : jwtConstants.secret,
       signOptions: {expiresIn: '1h'}
     }),
 
