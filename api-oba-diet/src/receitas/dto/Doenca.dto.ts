@@ -1,6 +1,6 @@
 import { IsInt, IsNotEmpty, IsString } from "class-validator"
 
-export class DoencaDto {
+export class DoencaDto{
     @IsInt({ message: 'O id tem que ser um número inteiro' })
     @IsNotEmpty({ message: 'Esse campo não pode ser vazio' })
     idDoenca : number

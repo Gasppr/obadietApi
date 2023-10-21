@@ -40,7 +40,9 @@ export class ReceitasController {
     receitaEntity.ingredientes = receita.ingredientes;
     receitaEntity.modoPreparo = receita.modoPreparo;
 
-    return this._repository.criarReceita(receitaEntity);
+
+
+    return this._repository.criarReceita(receitaEntity, receita.doencas, receita.restricoes);
   }
 
   @IsPublic()
@@ -57,7 +59,7 @@ export class ReceitasController {
 
   @IsPublic()
   @Delete('deletarReceita/:id')
-  removeReceita(@Param('id') id) {
+  removeReceita(@Param('id') id : number) {
     return this._repository.deletarReceita(id);
   }
 }

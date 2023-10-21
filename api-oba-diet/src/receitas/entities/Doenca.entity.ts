@@ -1,6 +1,6 @@
 import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
 
-@Table({modelName:'doencas' , createdAt: false, deletedAt: false})
+@Table({modelName:'doencas' })
 export class DoencaEntity extends Model {
   @PrimaryKey
   @Column
