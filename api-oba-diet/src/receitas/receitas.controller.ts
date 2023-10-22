@@ -19,6 +19,17 @@ export class ReceitasController {
   constructor(private readonly _repository: ReceitasRepository) {}
 
   @IsPublic()
+  @Get('doencas')
+  BuscarDoencas(){
+    return this._repository.buscarDoencas()
+  }
+  @IsPublic()
+  @Get('restricoes')
+  BuscarRestricoes(){
+    return this._repository.buscarRestricoes()
+  }
+
+  @IsPublic()
   @Get('receitas')
   getReceitas() {
     return this._repository.listarReceitas();
@@ -47,7 +58,7 @@ export class ReceitasController {
 
   @IsPublic()
   @Put('editarReceita/:id')
-  updateReceita(@Param('id') id, @Body() receita: ReceitaDto) {
+  updateReceita(@Param('id') id : number, @Body() receita: ReceitaDto) {
     const receitaEntity: ReceitaEntity = new ReceitaEntity();
 
     receitaEntity.nome = receita.nome;
@@ -62,4 +73,6 @@ export class ReceitasController {
   removeReceita(@Param('id') id : number) {
     return this._repository.deletarReceita(id);
   }
+
+
 }

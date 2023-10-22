@@ -142,4 +142,17 @@ export class ReceitasRepository {
       receita: resultado,
     };
   }
+
+
+  buscarDoencas(){
+    const doencas = this.doencaDB.findAll()
+
+    return doencas
+  }
+
+  buscarRestricoes(){
+    const restricoes = this.restricaoDB.findAll()
+
+    return restricoes
+  }
 }
