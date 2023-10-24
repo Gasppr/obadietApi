@@ -1,39 +1,51 @@
 <ion-content [fullscreen]="true" class="tela-start">
   <ion-grid class="formulario">
-
     <ion-row class="ion-justify-content-start">
       <h3 class="title">
         Solicitar nova senha
       </h3>
     </ion-row>
+    <ion-input label="Digite seu email" label-placement="stacked" placeholder="Enter"></ion-input>
 
-  <ion-input label="Digite seu email" label-placement="stacked" placeholder="Enter"></ion-input>
-
-<br />
-
-<ion-img
-  src="https://www.horlix.com/wp-content/uploads/2019/09/google-invisible-recaptcha-1.jpg"
-  alt="Captcha"
-></ion-img>
-
-<br />
-
-<ion-input label="Digite o captcha" label-placement="stacked" placeholder="Enter
-"></ion-input>
-
-<br />
-
-<ion-row>
-  <ion-col>
-    <ion-button class="btn-continuar">Solicitar</ion-button>
-  </ion-col>
-  <ion-col>
-    <ion-button class="btn-voltar" [routerLink]="['/iniciov2']">Voltar</ion-button>
-  </ion-col>
-</ion-row>
-
-</ion-grid>
-
+    <br />
+    <div>
+      <script src="https://www.google.com/recaptcha/api.js"></script>
+      <div class="g-recaptcha" data-sitekey="SUA_CHAVE_DO_RECAPTCHA">
+        <div style="width: 304px; height: 78px;">
+          <div>
+            <iframe title="reCAPTCHA" width="304" height="78" role="presentation" name="a-6ogdtrqw1x50" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=key&amp;co=aHR0cHM6Ly92M3JtaWxsaW9u.lm5ldDo0NDM.&amp;hl=pt-BR&amp;v=vm_YDiq1BiI3a8zfbIPZjtF2&amp;size=normal&amp;cb=w9s3bzckv18d"></iframe>
+          </div>
+          <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
+        </div>
+        <iframe style="display: none;"></iframe>
+      </div>
+    </div>
+    <br />
+    <ion-row>
+      <ion-col>
+        <ion-button class="btn-continuar" id="solicitar-button">Solicitar</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button class="btn-voltar" [routerLink]="['/iniciov2']">Voltar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
-
-
+<script src="https://www.google.com/recaptcha/api.js?render=PAULO_KEY"></script>
+<script>
+  window.addEventListener('load', function() {
+    const solicitarButton = document.getElementById('solicitar-button');
+    solicitarButton.disabled = true;
+    solicitarButton.addEventListener('click', function() {
+      grecaptcha.ready(function() {
+        grecaptcha.execute('PAULO_KEY', { action: 'submit' }).then(function(token) {
+          if (token) {
+            
+          } else {
+            alert('Por favor, verifique o reCAPTCHA antes de enviar o formulário.');
+          }
+        });
+      });
+    });
+  });
+</script>
