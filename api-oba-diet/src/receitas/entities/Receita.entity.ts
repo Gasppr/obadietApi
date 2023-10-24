@@ -33,6 +33,9 @@ export  class ReceitaEntity extends Model {
   @Column
   modoPreparo: string;
 
+  @Column 
+  categoria : number
+
   @BelongsToMany(() => DoencaEntity, ()=> Receita_has_doencas)
   doencas: DoencaEntity[];
 
