@@ -1,8 +1,56 @@
-ion-tab-bar{
-    height: 8vh;
-    ion-tab-button {
-        --background: rgba(190, 207, 152, 1);
-        --color: rgba(1, 1, 1, .5);
-        --color-selected: rgba(1, 1, 1, 1);
+ion-tabs {
+    ion-tab-bar {
+        height: 8vh;
+    
+        ion-tab-button {
+            --background: rgba(190, 207, 152, 1);
+            --color: rgba(1, 1, 1, .5);
+            --color-selected: rgba(1, 1, 1, 1);
+        }
+    }
+
+    ion-fab {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .adicionar-horario {
+        --background: rgba(254, 254, 254, 1);
+        --color: rgba(1, 1, 1, 1);
+    }
+}
+
+
+ion-modal#modalHorario {
+    --width: fit-content;
+    --min-width: 75vw;
+    --height: fit-content;
+    --border-radius: 1rem;
+    --box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.4);
+}
+
+ion-modal#modalHorario h1 {
+    margin: 2rem 2rem 1rem 2rem;
+}
+
+ion-modal#modalHorario ion-icon {
+    margin-right: 1rem;
+
+    width: 5rem;
+    height: 5rem;
+
+    padding: 0.4rem 0;
+
+    color: #aaaaaa;
+}
+
+ion-modal#modalHorario .wrapper {
+    margin-bottom: 1rem;
+}
+
+ion-modal#modalHorario{
+    ion-icon{
+        color: rgba(190, 207, 152, 1);
     }
 }

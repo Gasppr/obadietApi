@@ -8,6 +8,7 @@
       <ion-icon name="bookmark"></ion-icon>
       Salvos
     </ion-tab-button>
+    <ion-tab-button></ion-tab-button>
     <ion-tab-button tab="programacao">
       <ion-icon name="calendar-outline"></ion-icon>
       Programação
@@ -17,4 +18,29 @@
       Perfil
     </ion-tab-button>
   </ion-tab-bar>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed" id="criarModalHorario">
+    <ion-fab-button id="popover-button" class="adicionar-horario">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-tabs>
+
+<ion-modal id="modalHorario" #modal trigger="criarModalHorario">
+  <ng-template>
+    <div class="wrapper">
+      <h1>Adicionar:</h1>
+
+      <ion-list lines="none">
+        <ion-item button="true" detail="false" (click)="modal.dismiss()">
+          <ion-icon src="/assets/icon/icon-meal.svg"></ion-icon>
+          <ion-label>Refeição</ion-label>
+        </ion-item>
+        <ion-item button="true" detail="false" (click)="modal.dismiss()">
+          <ion-icon src="/assets/icon/icon-pill.svg"></ion-icon>
+          <ion-label>Remédio</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ng-template>
+</ion-modal>
