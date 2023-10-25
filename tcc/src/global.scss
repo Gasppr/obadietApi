@@ -244,7 +244,7 @@ ion-header {
           }
         }
       }
-    
+
     .btn-laranja{
         --background: #{$color-laranja};
         --color: #{$color-preto};
@@ -257,8 +257,7 @@ ion-header {
       --background: transparent;
       --color: #{$color-preto};
 
-      &:active,
-      &:focus {
+      &:active {
         --background: #{$color-amarelo};
       }
     }
@@ -273,6 +272,13 @@ ion-header {
     text-align: center;
     font-weight: bolder;
     padding-block: 1rem;
+}
+
+.back-btn{
+  --background: transparent;
+  --box-shadow: none;
+  --color: #{$color-preto};
+  padding: 1rem;
 }
 
 
