@@ -3,32 +3,35 @@
       <ion-button class="back-btn" slot="start" (click)="cancel()">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
-    <ion-title>Adicionar refeição</ion-title>
+    <ion-title>Adicionar remédio</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="content">
-  <ion-grid class="formulario">
-    <ion-row>
+  <ion-grid class="criar-horario">
+    <ion-row class="criar-horario-item">
       <ion-input label="Nome do remédio*:" labelPlacement="stacked" type="name" [clearInput]="true"
           aria-label="Nome do remédio">
         </ion-input>
     </ion-row>
-    <ion-row>
+    <ion-row class="criar-horario-item">
+      <ion-label>
+        Repetição
+      </ion-label>
       <ion-select aria-label="Repetir" interface="popover" placeholder="Repetir...">
         <ion-select-option value="nao-repetir">Não repetir</ion-select-option>
         <ion-select-option value="todo-dia">Repetir todos os dias</ion-select-option>
         <ion-select-option value="personalizado">Personalizado</ion-select-option>
       </ion-select>
     </ion-row>
-    <ion-row>
+    <ion-row class="criar-horario-item">
       <ion-label>
         Horário
       </ion-label>
       <ion-datetime presentation="time"></ion-datetime>
     </ion-row>
-    <ion-row>
-      <ion-button class="btn-amarelo">
+    <ion-row class="criar-horario-item">
+      <ion-button class="btn-amarelo adicionar">
         Adicionar
       </ion-button>
     </ion-row>
