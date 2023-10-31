@@ -31,14 +31,27 @@
       </ion-button>
     </ion-row>
     <ion-row class="criar-horario-item">
-      <ion-label>
-        Repetição
-      </ion-label>
-      <ion-select aria-label="Repetir" interface="popover" placeholder="Repetir...">
-        <ion-select-option value="nao-repetir">Não repetir</ion-select-option>
-        <ion-select-option value="todo-dia">Repetir todos os dias</ion-select-option>
-        <ion-select-option value="personalizado">Personalizado</ion-select-option>
-      </ion-select>
+      <ion-button id="criarModalRepeticao" fill="outline" class="btn-contorno-amarelo">
+        <ion-icon slot="end" name="caret-down-outline"></ion-icon>
+        Repetir</ion-button>
+      <ion-modal id="modalRepeticao" #modal trigger="criarModalRepeticao">
+        <ng-template>
+          <div class="wrapper">
+            <h2>Repetir:</h2>
+            <ion-list lines="none">
+              <ion-item button="true" detail="false" value="nao-repetir">
+                <ion-label>Não repetir</ion-label>
+              </ion-item>
+              <ion-item button="true" detail="false" value="todo-dia">
+                <ion-label>Todos os dias</ion-label>
+              </ion-item>
+              <ion-item button="true" detail="false" (click)="openModalHrPers()" value="personalizado">
+                <ion-label>Personalizado</ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+        </ng-template>
+      </ion-modal>
     </ion-row>
     <ion-row class="criar-horario-item">
       <ion-label>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { HorarioPersonalizadoComponent } from '../horario-personalizado/horario-personalizado.component';
 
 @Component({
   selector: 'app-horario-refeicao',
@@ -18,5 +19,18 @@ export class HorarioRefeicaoComponent  implements OnInit {
 
   confirm() {
     return this.modalCtrl.dismiss('confirm');
+  }
+
+  async openModalHrPers() {
+    const modal = await this.modalCtrl.create({
+      component: HorarioPersonalizadoComponent,
+    });
+    modal.present();
+
+    /*const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.message = `Hello, ${data}!`;
+    }*/
   }
 }
