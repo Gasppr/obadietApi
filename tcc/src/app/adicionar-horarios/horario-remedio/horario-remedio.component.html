@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-button class="back-btn" slot="start" (click)="cancel()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    <ion-title>Adicionar remédio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content">
+  <ion-grid class="criar-horario">
+    <ion-row class="criar-horario-item">
+      <ion-input label="Nome do remédio*:" labelPlacement="stacked" type="name" [clearInput]="true"
+          aria-label="Nome do remédio">
+        </ion-input>
+    </ion-row>
+    <ion-row class="criar-horario-item">
+      <ion-button id="criarModalRepeticao" fill="outline" class="btn-contorno-amarelo">
+        <ion-icon slot="end" name="caret-down-outline"></ion-icon>
+        Repetir</ion-button>
+      <ion-modal id="modalRepeticao" #modal trigger="criarModalRepeticao">
+        <ng-template>
+          <div class="wrapper">
+            <h2>Repetir:</h2>
+      
+            <ion-list lines="none">
+              <ion-item button="true" detail="false" value="nao-repetir">
+                <ion-label>Não repetir</ion-label>
+              </ion-item>
+              <ion-item button="true" detail="false" value="todo-dia">
+                <ion-label>Todos os dias</ion-label>
+              </ion-item>
+              <ion-item button="true" detail="false" (click)="openModalHrPers()" value="personalizado">
+                <ion-label>Personalizado</ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+        </ng-template>
+      </ion-modal>
+    </ion-row>
+    <ion-row class="criar-horario-item">
+      <ion-label>
+        Horário
+      </ion-label>
+      <ion-datetime presentation="time"></ion-datetime>
+    </ion-row>
+    <ion-row class="criar-horario-item">
+      <ion-button class="btn-amarelo adicionar">
+        Adicionar
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+</ion-content>

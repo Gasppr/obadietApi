@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { TabsPage } from './tabs.page';
+import { HorarioRefeicaoModule } from '../adicionar-horarios/horario-refeicao/horario-refeicao.module';
+import { HorarioRemedioModule } from '../adicionar-horarios/horario-remedio/horario-remedio.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
+    HorarioRefeicaoModule,
+    HorarioRemedioModule
   ],
   declarations: [TabsPage]
 })

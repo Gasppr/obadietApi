@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-button class="back-btn" slot="start" (click)="cancel()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Horário personalizado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content">
+  <ion-grid class="criar-horario">
+    <ion-row class="criar-horario-item">
+      <ion-label>
+        Repete a cada:
+      </ion-label>
+      <ion-input type="number" placeholder="000" min="1"></ion-input>
+      <ion-select aria-label="Repetir" interface="popover" placeholder="Repetir a cada">
+        <ion-select-option value="dia">Dia</ion-select-option>
+        <ion-select-option value="semana">Semana</ion-select-option>
+        <ion-select-option value="mês">Mês</ion-select-option>
+        <ion-select-option value="ano">Ano</ion-select-option>
+      </ion-select>
+    </ion-row>
+    <ion-row class="criar-horario-item">
+      <ion-label>
+        Repetir às/aos:
+      </ion-label>
+      <div class="btns-semana">
+        <ion-button value="domingo" fill="outline" class="btn-contorno-amarelo">D</ion-button>
+        <ion-button value="segunda" fill="outline" class="btn-contorno-amarelo">S</ion-button>
+        <ion-button value="terça" fill="outline" class="btn-contorno-amarelo">T</ion-button>
+        <ion-button value="quarta" fill="outline" class="btn-contorno-amarelo">Q</ion-button>
+        <ion-button value="quinta" fill="outline" class="btn-contorno-amarelo">Q</ion-button>
+        <ion-button value="sexta" fill="outline" class="btn-contorno-amarelo">S</ion-button>
+        <ion-button value="sábado" fill="outline" class="btn-contorno-amarelo">S</ion-button>
+      </div>
+    </ion-row>
+    <ion-row class="criar-horario-item">
+      <ion-label>
+        Termina
+      </ion-label>
+      <ion-radio-group value="nunca">
+        <ion-radio value="nunca" labelPlacement="end" justify="start">Nunca</ion-radio>
+        <ion-radio value="em" labelPlacement="end" justify="start">Em</ion-radio>
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="datetime"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        <ion-radio value="apos" labelPlacement="end" justify="start">Após
+          ocorrência
+        </ion-radio>
+        <ion-input type="number" placeholder="000" min="1"></ion-input>
+      </ion-radio-group>
+    </ion-row>
+    <ion-row class="criar-horario-item">
+      <ion-button class="btn-amarelo adicionar">
+        Concluir
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+</ion-content>
