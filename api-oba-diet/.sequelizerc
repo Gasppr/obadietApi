@@ -1,0 +1,5 @@
+const path = require('');
+
+module.exports ={
+    'config': path.resolve('config' , 'config.js')
+}

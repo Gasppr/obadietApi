@@ -14,6 +14,7 @@ import { DoencaEntity } from './Doenca.entity';
 import { RestricaoEntity } from './Restricao.entity';
 import { UsuarioEntity } from 'src/usuario/entity/UsuarioEntity.entity';
 import { Options } from '@nestjs/common';
+import { CategoriaEntity } from './Categoria.entity';
 
 @Table({ tableName: 'receita'})
 export  class ReceitaEntity extends Model {
@@ -26,7 +27,6 @@ export  class ReceitaEntity extends Model {
   @Column
   nome: string;
 
-  
   @Column
   ingredientes: string;
 
@@ -36,11 +36,19 @@ export  class ReceitaEntity extends Model {
   @Column 
   categoria : number
 
-  @BelongsToMany(() => DoencaEntity, ()=> Receita_has_doencas)
-  doencas: DoencaEntity[];
+  @Column
+  imagem : string
 
-  @BelongsToMany(() => RestricaoEntity,()=> Receita_has_restricoes )
-  restricoes: RestricaoEntity[];
+  @HasMany(()=> DoencaEntity, 'idDoenca' )
+  doencas : DoencaEntity[]
+
+  @HasMany(()=> RestricaoEntity, 'idRestricao' )
+  restricoes : RestricaoEntity[]
+
+  @HasMany(()=> CategoriaEntity, 'idCategoria' )
+  categorias : CategoriaEntity[]
+
+
 }
 
 @Table({ modelName: 'receita_has_doencas', deletedAt: 'cascade', createdAt: false })

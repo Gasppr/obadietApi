@@ -1,7 +1,9 @@
-import { Column, PrimaryKey, Table, Model } from "sequelize-typescript";
+import { Column, PrimaryKey, Table, Model, BelongsTo, ForeignKey } from "sequelize-typescript";
+import { ReceitaEntity } from "./Receita.entity";
 
 @Table({modelName: 'restricoes', deletedAt:false, createdAt:false})
 export class RestricaoEntity extends Model {
+
 
   @PrimaryKey
   @Column
@@ -9,6 +11,8 @@ export class RestricaoEntity extends Model {
   @Column
   nomeRestricao: string;
 
+  @BelongsTo(()=> ReceitaEntity , 'idRestricao')
+  receitas : ReceitaEntity[]
 }
 
 

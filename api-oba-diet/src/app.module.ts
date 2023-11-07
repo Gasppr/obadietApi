@@ -11,6 +11,7 @@ import { RestricaoEntity } from './receitas/entities/Restricao.entity';
 import { DoencaEntity } from './receitas/entities/Doenca.entity';
 import { ReceitasRepository } from './receitas/repository/Receitas.repository';
 import { ReceitasModule } from './receitas/receitas.module';
+import { CategoriaEntity } from './receitas/entities/Categoria.entity';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { ReceitasModule } from './receitas/receitas.module';
         Usuario_Has_Restricoes,
         Usuario_Has_Doencas,
         Receita_has_doencas,
-        Receita_has_restricoes
+        Receita_has_restricoes,
+        CategoriaEntity
       ],
       retryAttempts: 100,
       synchronize: true,

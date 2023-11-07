@@ -1,4 +1,5 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsTo, Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { ReceitaEntity } from "./Receita.entity";
 
 @Table({modelName:'doencas' })
 export class DoencaEntity extends Model {
@@ -8,5 +9,8 @@ export class DoencaEntity extends Model {
 
   @Column
   nomeDoenca: string;
+
+  @BelongsTo(()=> ReceitaEntity , 'idDoenca')
+  receitas : ReceitaEntity[]
   
 }

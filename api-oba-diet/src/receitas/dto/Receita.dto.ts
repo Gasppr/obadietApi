@@ -2,6 +2,7 @@ import {  IsNotEmpty, IsString, ValidateNested } from "class-validator";
 import { DoencaDto } from "./Doenca.dto";
 import { RestricaoDto } from "./Restricao.dto";
 import { Type } from "class-transformer";
+import { CategoriaEntity } from "../entities/Categoria.entity";
 
 export class ReceitaDto {
 
@@ -21,6 +22,9 @@ export class ReceitaDto {
     @IsNotEmpty({ message: 'Esse campo não pode ser vazio' })
     modoPreparo: string
 
+    @IsString({message: "Precisa ser uma URL válida"})
+    imagem: string
+
    
 
     @ValidateNested()
@@ -30,4 +34,8 @@ export class ReceitaDto {
      @ValidateNested()
     @Type(() => RestricaoDto)
     restricoes: RestricaoDto[]
+
+    @ValidateNested()
+    @Type(()=> CategoriaEntity)
+    categorias: CategoriaEntity[]
 }

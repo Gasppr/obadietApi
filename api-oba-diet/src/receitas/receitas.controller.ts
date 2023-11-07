@@ -51,9 +51,7 @@ export class ReceitasController {
     receitaEntity.ingredientes = receita.ingredientes;
     receitaEntity.modoPreparo = receita.modoPreparo;
 
-
-
-    return this._repository.criarReceita(receitaEntity, receita.doencas, receita.restricoes);
+    return this._repository.criarReceita(receitaEntity, receita.doencas, receita.restricoes, receita.categorias);
   }
 
   @IsPublic()

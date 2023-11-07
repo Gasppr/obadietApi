@@ -11,6 +11,7 @@ import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/sequelize';
 import { DoencaDto } from '../dto/Doenca.dto';
 import { RestricaoDto } from '../dto/Restricao.dto';
+import { CategoriaEntity } from '../entities/Categoria.entity';
 
 @Injectable()
 export class ReceitasRepository {
@@ -32,9 +33,9 @@ export class ReceitasRepository {
 
     @InjectModel(RestricaoEntity)
     private restricaoDB: typeof RestricaoEntity,
-  ) {}
+  ) { }
 
-  async criarReceita(receita: ReceitaEntity, doencas : DoencaDto[], restricoes : RestricaoDto[]) {
+  async criarReceita(receita: ReceitaEntity, doencas: DoencaDto[], restricoes: RestricaoDto[], categorias: CategoriaEntity[]) {
 
     await this.receitaDB.create({
       id: receita.id,
@@ -43,24 +44,26 @@ export class ReceitasRepository {
       modoPreparo: receita.modoPreparo,
     });
 
-    const id = await this.receitaDB.findOne({where:{nome : receita.nome}})
+    const id = await this.receitaDB.findOne({ where: { nome: receita.nome } })
 
     for (let i = 0; i < restricoes.length; i++) {
       await this.constraintRestricoes.create({
-        receita_id : id.id,
+        receita_id: id.id,
         restricoes_idRestricao: restricoes[i].idRestricao,
       });
     }
-     for (let i = 0; i < doencas.length; i++) {
+    for (let i = 0; i < doencas.length; i++) {
       await this.constraintDoencas.create({
-        receita_id : id.id,
+        receita_id: id.id,
         doencas_idDoenca: doencas[i].idDoenca
       });
     }
 
-   const resultado = await this.receitaDB.findOne({where: {
-    nome: receita.nome
-   }})
+    const resultado = await this.receitaDB.findOne({
+      where: {
+        nome: receita.nome
+      }
+    })
 
     return {
       message: 'Receita cadastrada com sucesso',
@@ -72,29 +75,34 @@ export class ReceitasRepository {
     const receita = await this.receitaDB.findAll({
       include: [
         {
-          model: RestricaoEntity,
           required: false,
-          attributes: ['idRestricao', 'nomeRestricao'],
-          through: { attributes: [] },
+          model: RestricaoEntity,
+          
+
         },
         {
-          model: DoencaEntity,
           required: false,
-          attributes: ['idDoenca', 'nomeDoenca'],
-          through: { attributes: [] },
+          model: DoencaEntity,
+          
+
         },
+        {
+          required: false,
+          model: CategoriaEntity,
+
+        }
       ],
     });
 
     return receita;
   }
 
-  async procurarReceita(id: number ) {
+  async procurarReceita(id: number) {
     const Receita: any = this.receitaDB.findOne({
       where: {
-        id: id ,
+        id: id,
       },
-      include: [{ model: DoencaEntity }, { model: RestricaoEntity }],
+      include: [{ required: false, model: DoencaEntity }, { model: RestricaoEntity, required: false }, { model: CategoriaEntity, required: false }],
     });
 
     return Receita;
@@ -144,13 +152,13 @@ export class ReceitasRepository {
   }
 
 
-  buscarDoencas(){
+  buscarDoencas() {
     const doencas = this.doencaDB.findAll()
 
     return doencas
   }
 
-  buscarRestricoes(){
+  buscarRestricoes() {
     const restricoes = this.restricaoDB.findAll()
 
     return restricoes
