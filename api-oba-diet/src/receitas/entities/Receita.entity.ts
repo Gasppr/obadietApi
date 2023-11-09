@@ -12,7 +12,7 @@ import {
 } from 'sequelize-typescript';
 import { DoencaEntity } from './Doenca.entity';
 import { RestricaoEntity } from './Restricao.entity';
-import { UsuarioEntity } from 'src/usuario/entity/UsuarioEntity.entity';
+import { UsuarioEntity } from '../../usuario/entity/UsuarioEntity.entity';
 import { Options } from '@nestjs/common';
 import { CategoriaEntity } from './Categoria.entity';
 

@@ -9,9 +9,9 @@ import {
   ForeignKey,
   BelongsTo,
 } from 'sequelize-typescript';
-import { DoencaEntity } from 'src/receitas/entities/Doenca.entity';
-import { ReceitaEntity } from 'src/receitas/entities/Receita.entity';
-import { RestricaoEntity } from 'src/receitas/entities/Restricao.entity';
+import { DoencaEntity } from '../../receitas/entities/Doenca.entity';
+import { ReceitaEntity } from '../../receitas/entities/Receita.entity';
+import { RestricaoEntity } from '../../receitas/entities/Restricao.entity';
 
 export enum sexoEnum {
   'MASCULINO' = 'Masculino',
