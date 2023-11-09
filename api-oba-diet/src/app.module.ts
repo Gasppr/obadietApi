@@ -12,6 +12,7 @@ import { DoencaEntity } from './receitas/entities/Doenca.entity';
 import { ReceitasRepository } from './receitas/repository/Receitas.repository';
 import { ReceitasModule } from './receitas/receitas.module';
 import { CategoriaEntity } from './receitas/entities/Categoria.entity';
+import mysql2 from 'mysql2';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { CategoriaEntity } from './receitas/entities/Categoria.entity';
     ReceitasModule,
     SequelizeModule.forRoot({
       dialect: 'mysql',
+      dialectModule: mysql2,
       host: process.env.DATABASE_URL,
       port: 3306,
       username: process.env.DATABASE_USER,
