@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ReceitasController } from './receitas/receitas.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import configuration from 'src/config/configuration';
+import configuration from './config/configuration';
 import { AuthModule } from './auth/auth.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { SequelizeModule } from '@nestjs/sequelize';
