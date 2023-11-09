@@ -3,9 +3,9 @@ import { UsuarioDto } from './dto/Usuario.dto';
 import { UsuarioEntity } from './entity/UsuarioEntity.entity';
 import { UsuarioRepository } from './repository/Usuario.repository';
 import { UseGuards } from '@nestjs/common';
-import { UsuarioGuard } from 'src/guards/usuario/usuario.guard';
+import { UsuarioGuard } from '../guards/usuario/usuario.guard';
 import { LoginDto } from './dto/Login.dto';
-import { IsPublic } from 'src/auth/guard/isPublic.decorator';
+import { IsPublic } from '../auth/guard/isPublic.decorator';
 import { v4 as uuid} from 'uuid';
 import {ApiBody, ApiTags} from '@nestjs/swagger'
 

@@ -3,7 +3,7 @@ import { AuthService } from '../service/auth.service';
 import { LoginDto } from 'src/usuario/dto/Login.dto';
 import { AuthGuard } from '../guard/auth.guard';
 import { IsPublic } from '../guard/isPublic.decorator';
-import { ApiBody, ApiTags} from "@nestjs/swagger"
+import { ApiBody, ApiTags} from "@nestjs/swagger";
 
 
 @ApiTags('Login')

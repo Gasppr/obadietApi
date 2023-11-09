@@ -10,7 +10,7 @@ import {
 import { ReceitasRepository } from './repository/Receitas.repository';
 import { ReceitaEntity } from './entities/Receita.entity';
 import { ReceitaDto } from './dto/Receita.dto';
-import { IsPublic } from 'src/auth/guard/isPublic.decorator';
+import { IsPublic } from '../auth/guard/isPublic.decorator';
 import { ApiBody, ApiTags} from "@nestjs/swagger"
 
 @ApiTags('Receitas')
