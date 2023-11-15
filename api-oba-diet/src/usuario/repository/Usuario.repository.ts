@@ -5,6 +5,9 @@ import { ConfigService } from '@nestjs/config';
 import { Sequelize } from 'sequelize-typescript';
 import { InjectModel } from '@nestjs/sequelize';
 import { find } from 'rxjs';
+import { RestricaoEntity } from '../../receitas/entities/Restricao.entity';
+import { DoencaEntity } from '../../receitas/entities/Doenca.entity';
+import { ReceitaEntity } from '../../receitas/entities/Receita.entity';
 
 @Injectable()
 export class UsuarioRepository {
@@ -41,6 +44,11 @@ export class UsuarioRepository {
   async ProcurarTodos(): Promise<UsuarioEntity[]> {
     return this.usuarioBD.findAll({
       attributes: ['id', 'nome', 'email', 'peso', 'idade', 'altura', 'sexo'],
+      include:[
+        {required: false , model: RestricaoEntity},
+        {required: false , model: DoencaEntity},
+        {required: false , model: ReceitaEntity},
+      ]
     });
   }
 

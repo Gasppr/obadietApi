@@ -48,6 +48,9 @@ export  class ReceitaEntity extends Model {
   @HasMany(()=> CategoriaEntity, 'idCategoria' )
   categorias : CategoriaEntity[]
 
+  @BelongsTo(()=> UsuarioEntity , 'id')
+  usuarios : UsuarioEntity[]
+
 
 }
 

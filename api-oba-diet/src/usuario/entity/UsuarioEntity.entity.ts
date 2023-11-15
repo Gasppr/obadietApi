@@ -47,13 +47,13 @@ export class UsuarioEntity extends Model {
   @Column
   senha: String;
 
-  @BelongsToMany(()=> RestricaoEntity , ()=> Usuario_Has_Restricoes)
+  @HasMany(()=> RestricaoEntity ,'idRestricao')
   restricoes : RestricaoEntity[]
 
-  @BelongsToMany(() => DoencaEntity , ()=> Usuario_Has_Doencas)
+  @HasMany(() => DoencaEntity , 'idDoenca')
   doencas: DoencaEntity[]
 
-  @HasMany(() => ReceitaEntity, { onDelete: 'cascade' })
+  @HasMany(() => ReceitaEntity, 'id')
   receitas: ReceitaEntity[]
 }
 
