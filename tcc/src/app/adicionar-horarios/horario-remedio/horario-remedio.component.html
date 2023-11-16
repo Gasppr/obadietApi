@@ -9,12 +9,18 @@
 
 <ion-content [fullscreen]="true" class="content">
   <ion-grid class="criar-horario">
-    <ion-row class="criar-horario-item">
-      <ion-input label="Nome do remédio*:" labelPlacement="stacked" type="name" [clearInput]="true"
-          aria-label="Nome do remédio">
-        </ion-input>
+    <ion-row class="criar-horario-item ion-justify-content-center">
+      <ion-label>
+        Data(s) do medicamento
+      </ion-label>
+      <ion-datetime locale="pt-BR" class="calendario" presentation="date" (ionChange)="selecionarData($event)"></ion-datetime>
     </ion-row>
     <ion-row class="criar-horario-item">
+      <ion-input label="Nome do remédio*:" labelPlacement="stacked" type="name" [clearInput]="true"
+          aria-label="Nome do remédio" (ionChange)="selecionarNome($event)">
+        </ion-input>
+    </ion-row>
+    <!--<ion-row class="criar-horario-item">
       <ion-button id="criarModalRepeticao" fill="outline" class="btn-contorno-amarelo">
         <ion-icon slot="end" name="caret-down-outline"></ion-icon>
         Repetir</ion-button>
@@ -37,12 +43,12 @@
           </div>
         </ng-template>
       </ion-modal>
-    </ion-row>
+    </ion-row>-->
     <ion-row class="criar-horario-item">
       <ion-label>
         Horário
       </ion-label>
-      <ion-datetime presentation="time"></ion-datetime>
+      <ion-datetime presentation="time" (ionChange)="selecionarHorario($event)"></ion-datetime>
     </ion-row>
     <ion-row class="criar-horario-item">
       <ion-button class="btn-amarelo adicionar">

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { HorarioRefeicaoComponent } from './horario-refeicao.component';
 import { HorarioPersonalizadoModule } from '../horario-personalizado/horario-personalizado.module';
+import { ExibirReceitasSalvasModule } from './exibir-receitas-salvas/exibir-receitas-salvas.module';
 
 
 
@@ -11,8 +12,8 @@ import { HorarioPersonalizadoModule } from '../horario-personalizado/horario-per
   imports: [
     CommonModule,
     IonicModule,
-    HorarioPersonalizadoModule
-  ],
-  exports: [HorarioRefeicaoComponent]
+    HorarioPersonalizadoModule,
+    ExibirReceitasSalvasModule
+  ]
 })
 export class HorarioRefeicaoModule { }

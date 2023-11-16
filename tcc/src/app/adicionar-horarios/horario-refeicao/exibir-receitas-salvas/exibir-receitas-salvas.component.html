@@ -1,3 +1,26 @@
-<p>
-  exibir-receitas-salvas works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-button class="back-btn" slot="start" (click)="cancel()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Adicionar receita salva</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content">
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let receitaSalva of receitasSalvas" size="6">
+        <ion-card (click)="selecionarReceita(receitaSalva.idReceita, receitaSalva.nome, receitaSalva.img)" (click)="confirm()">
+          <ion-card-header>
+            <ion-img [src]="receitaSalva.img"></ion-img>
+          </ion-card-header>
+        
+          <ion-card-content>
+            {{ receitaSalva.nome }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
