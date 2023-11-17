@@ -8,10 +8,12 @@ import {
   HasMany,
   ForeignKey,
   BelongsTo,
+  IsNull,
 } from 'sequelize-typescript';
 import { DoencaEntity } from '../../receitas/entities/Doenca.entity';
 import { ReceitaEntity } from '../../receitas/entities/Receita.entity';
 import { RestricaoEntity } from '../../receitas/entities/Restricao.entity';
+import { IncludeThroughOptions } from 'sequelize';
 
 export enum sexoEnum {
   'MASCULINO' = 'Masculino',
@@ -47,14 +49,14 @@ export class UsuarioEntity extends Model {
   @Column
   senha: String;
 
-  @HasMany(()=> RestricaoEntity ,'idRestricao')
+  @BelongsToMany(()=> RestricaoEntity, ()=> Usuario_Has_Restricoes)
   restricoes : RestricaoEntity[]
 
-  @HasMany(() => DoencaEntity , 'idDoenca')
-  doencas: DoencaEntity[]
+  @BelongsToMany(()=> DoencaEntity , ()=> Usuario_Has_Doencas)  
+  doencas : DoencaEntity[]
 
-  @HasMany(() => ReceitaEntity, 'id')
-  receitas: ReceitaEntity[]
+
+  
 }
 
 @Table({modelName:'usuarios_has_restricoes', createdAt:false, deletedAt:false})
@@ -67,7 +69,11 @@ export class Usuario_Has_Restricoes extends Model{
 
   @ForeignKey(()=> RestricaoEntity)
   @Column
-  restricoes_idRestricoes:number
+  restricoes_idRestricao:number
+
+  @BelongsTo(()=> UsuarioEntity)
+  usuarios: UsuarioEntity[]
+
 
 }
 
@@ -82,5 +88,10 @@ export class Usuario_Has_Doencas extends Model{
   @ForeignKey(()=> DoencaEntity)
   @Column
   doencas_idDoenca:number
+
+  @BelongsTo(()=> UsuarioEntity)
+  usuarios: UsuarioEntity[]
+
+
 
 }

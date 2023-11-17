@@ -1,14 +1,14 @@
-import {  IsNotEmpty, IsString, ValidateNested } from "class-validator";
+import {  IsArray, IsEmpty, IsNotEmpty, IsNumber, IsString, ValidateNested, isArray } from "class-validator";
 import { DoencaDto } from "./Doenca.dto";
 import { RestricaoDto } from "./Restricao.dto";
 import { Type } from "class-transformer";
 import { CategoriaEntity } from "../entities/Categoria.entity";
 
+
 export class ReceitaDto {
 
-
+    @IsNumber()
     id: number
-
 
     @IsString({ message: 'O nome tem que ser um texto' })
     @IsNotEmpty({ message: 'Esse campo não pode ser vazio' })
@@ -23,19 +23,16 @@ export class ReceitaDto {
     modoPreparo: string
 
     @IsString({message: "Precisa ser uma URL válida"})
+    @IsEmpty()
     imagem: string
 
-   
+   @IsArray()
+   restricoes : number[]
 
-    @ValidateNested()
-    @Type(() => DoencaDto)
-    doencas: DoencaDto[]
+   @IsArray()
+    doencas : number[]
 
-     @ValidateNested()
-    @Type(() => RestricaoDto)
-    restricoes: RestricaoDto[]
+    @IsArray()
+    categorias : number[]
 
-    @ValidateNested()
-    @Type(()=> CategoriaEntity)
-    categorias: CategoriaEntity[]
 }

@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum, IsInt, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsArray, IsEmail, IsEnum, IsInt, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { sexoEnum } from "../entity/UsuarioEntity.entity";
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -32,4 +32,10 @@ export class UsuarioDto{
     @IsNotEmpty()
     @IsString()
     senha: string
+
+    @IsArray()
+    doencas : number[]
+
+    @IsArray()
+    restricao : number[]
 }

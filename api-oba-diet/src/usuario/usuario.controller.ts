@@ -29,6 +29,7 @@ export class UsuarioController {
   createUser(@Body() userDto: UsuarioDto) {
     const userEntity: UsuarioEntity = new UsuarioEntity();
 
+
     userEntity.id = uuid()
     userEntity.nome = userDto.nome;
     userEntity.email = userDto.email;
@@ -38,7 +39,10 @@ export class UsuarioController {
     userEntity.altura = userDto.altura;
     userEntity.senha = userDto.senha;
 
-    this._usuarioRepository.criarUsuario(userEntity)
+    const mensagem = this._usuarioRepository.criarUsuario(userEntity, userDto.doencas, userDto.restricao)
+
+
+    return mensagem
     
   }
 

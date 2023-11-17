@@ -1,6 +1,6 @@
-import { Column, PrimaryKey, Table, Model, BelongsTo, ForeignKey } from "sequelize-typescript";
-import { ReceitaEntity } from "./Receita.entity";
-import { UsuarioEntity } from "../../usuario/entity/UsuarioEntity.entity";
+import { Column, PrimaryKey, Table, Model, BelongsTo, ForeignKey, HasMany, BelongsToMany } from "sequelize-typescript";
+import { ReceitaEntity, Receita_has_restricoes } from "./Receita.entity";
+import { UsuarioEntity, Usuario_Has_Restricoes } from "../../usuario/entity/UsuarioEntity.entity";
 
 @Table({modelName: 'restricoes', deletedAt:false, createdAt:false})
 export class RestricaoEntity extends Model {
@@ -14,9 +14,21 @@ export class RestricaoEntity extends Model {
 
   @BelongsTo(()=> ReceitaEntity , 'idRestricao')
   receitas : ReceitaEntity[]
+    
 
-  @BelongsTo(()=> UsuarioEntity , 'idRestricao')
+
+  @BelongsToMany(()=> UsuarioEntity, ()=> Usuario_Has_Restricoes)
   usuarios : UsuarioEntity[]
+
+  @HasMany(() => Usuario_Has_Restricoes)
+  UsuarioHasRestricoes : Usuario_Has_Restricoes[]
+
+  @HasMany(() => Receita_has_restricoes)
+  ReceitasHasRestricoes : Receita_has_restricoes[]
+
 }
+
+
+
 
 

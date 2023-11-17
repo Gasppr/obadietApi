@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsuarioEntity } from '../entity/UsuarioEntity.entity';
+import { UsuarioEntity, Usuario_Has_Doencas, Usuario_Has_Restricoes } from '../entity/UsuarioEntity.entity';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Sequelize } from 'sequelize-typescript';
@@ -18,7 +18,14 @@ export class UsuarioRepository {
 
     @InjectModel(UsuarioEntity)
     private usuarioBD: typeof UsuarioEntity,
-  ) {}
+
+    @InjectModel(Usuario_Has_Restricoes)
+    private usuarioHasRestricaoBD: typeof Usuario_Has_Restricoes,
+
+    @InjectModel(Usuario_Has_Doencas)
+    private usuarioHasDoencaBD: typeof Usuario_Has_Doencas,
+
+  ) { }
 
   private _usuario: UsuarioEntity[] = [];
 
@@ -44,10 +51,9 @@ export class UsuarioRepository {
   async ProcurarTodos(): Promise<UsuarioEntity[]> {
     return this.usuarioBD.findAll({
       attributes: ['id', 'nome', 'email', 'peso', 'idade', 'altura', 'sexo'],
-      include:[
-        {required: false , model: RestricaoEntity},
-        {required: false , model: DoencaEntity},
-        {required: false , model: ReceitaEntity},
+      include: [
+        { required: false, model: RestricaoEntity },
+        { required: false, model: DoencaEntity },
       ]
     });
   }
@@ -77,16 +83,16 @@ export class UsuarioRepository {
     return emailExists;
   }
 
-  
-  async deletarUsuario(idUsuario: string): Promise<Object> {
-    const usuario = await this.ProcurarPorID(idUsuario);
 
-    await this.sequelize.transaction(async (transaction) => {
+  async deletarUsuario(idUsuario: string){
 
-      await usuario.destroy();
-    })
+    await this.usuarioHasRestricaoBD.destroy({where:{usuarios_id: idUsuario}})
+    await this.usuarioHasDoencaBD.destroy({where:{usuarios_id: idUsuario}})
 
-    
+
+    const usuario = await this.ProcurarPorID(idUsuario);  
+    const usuarioExcluido = await usuario.destroy()
+
 
     return {
       message:
@@ -94,29 +100,42 @@ export class UsuarioRepository {
     };
   }
 
-  async criarUsuario(usuario: UsuarioEntity): Promise<Object> {
-    try {
-      await this.sequelize.transaction(async (transaction) => {
-        await this.usuarioBD.create(
-          {
-            id: usuario.id,
-            nome: usuario.nome,
-            email: usuario.email,
-            sexo: usuario.sexo,
-            idade: usuario.idade,
-            peso: usuario.peso,
-            altura: usuario.altura,
-            senha: usuario.senha,
-          },
-          { transaction },
-        );
-      });
+  async criarUsuario(usuario: UsuarioEntity, doencas: number[], restricoes:number[]){
 
-      return { message: 'Usuário criado com sucesso!!' };
-      
-    } catch (err) {
-      return err.message;
-    }
+    await this.usuarioBD.create(
+      {
+        id: usuario.id,
+        nome: usuario.nome,
+        email: usuario.email,
+        sexo: usuario.sexo,
+        idade: usuario.idade,
+        peso: usuario.peso,
+        altura: usuario.altura,
+        senha: usuario.senha,
+      }
+    );
+
+   const usuarioNovo = await this.usuarioBD.findOne({where: {nome : usuario.nome}})
+
+   for (let i = 0; i < restricoes.length; i++) {
+    await this.usuarioHasRestricaoBD.create({
+      usuarios_id : usuarioNovo.id,
+      restricoes_idRestricao: restricoes[i],
+    });
+  }
+   for (let i = 0; i < doencas.length; i++) {
+    await this.usuarioHasDoencaBD.create({
+      usuarios_id : usuarioNovo.id,
+      doencas_idDoenca: doencas[i]
+    });
+  }
+
+
+
+     return await{ mensagem: `Seja bem-vindo ao ObaDiet ${usuarioNovo.nome}!`,
+     };
+
+
   }
 
   async editarUsuario(usuario: UsuarioEntity, id: string) {
@@ -135,12 +154,12 @@ export class UsuarioRepository {
       },
     );
 
-    if(usuarioNovo[0] == 0) {
+    if (usuarioNovo[0] == 0) {
       return "Modificações já foram feitas"
     }
 
     return "Perfil modificado com sucesso"
-    
-    
+
+
   }
 }

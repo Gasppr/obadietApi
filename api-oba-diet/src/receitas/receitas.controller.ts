@@ -50,6 +50,7 @@ export class ReceitasController {
     receitaEntity.nome = receita.nome;
     receitaEntity.ingredientes = receita.ingredientes;
     receitaEntity.modoPreparo = receita.modoPreparo;
+    receitaEntity.imagem = receita.imagem
 
     return this._repository.criarReceita(receitaEntity, receita.doencas, receita.restricoes, receita.categorias);
   }

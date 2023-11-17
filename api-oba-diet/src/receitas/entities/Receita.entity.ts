@@ -81,7 +81,30 @@ export class Receita_has_restricoes extends Model {
   @ForeignKey(()=> RestricaoEntity)
   @PrimaryKey
   @Column
-  restricoes_idRestricao: number;
+  restricoes_idRestricao: number
+
+  @BelongsTo(()=> RestricaoEntity)
+  restricoes: RestricaoEntity[]
+
+
+}
+
+@Table({ modelName: 'receita_has_categoria' })
+export class Receita_has_categoria extends Model {
+  
+
+  
+  @ForeignKey(()=> ReceitaEntity)
+  @PrimaryKey
+  @Column
+  receita_id: number;
+
+  @ForeignKey(()=> CategoriaEntity)
+  @PrimaryKey
+  @Column
+  categoria_idCategoria: number
+
+
 
 
 }

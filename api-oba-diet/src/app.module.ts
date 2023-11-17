@@ -6,7 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsuarioEntity, Usuario_Has_Doencas, Usuario_Has_Restricoes } from './usuario/entity/UsuarioEntity.entity';
-import { ReceitaEntity, Receita_has_doencas, Receita_has_restricoes } from './receitas/entities/Receita.entity';
+import { ReceitaEntity, Receita_has_categoria, Receita_has_doencas, Receita_has_restricoes } from './receitas/entities/Receita.entity';
 import { RestricaoEntity } from './receitas/entities/Restricao.entity';
 import { DoencaEntity } from './receitas/entities/Doenca.entity';
 import { ReceitasRepository } from './receitas/repository/Receitas.repository';
@@ -41,7 +41,8 @@ import mysql2 from 'mysql2';
         Usuario_Has_Doencas,
         Receita_has_doencas,
         Receita_has_restricoes,
-        CategoriaEntity
+        CategoriaEntity,
+        Receita_has_categoria
       ],
       retryAttempts: 100,
       synchronize: true,
