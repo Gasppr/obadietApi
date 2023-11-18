@@ -6,14 +6,26 @@
         "use": "@vercel/node"
       }
     ],
-    "routes": [
+    
+    "rewrites": [
+      { "source": "/(.*)", "destination": "src/main.ts" }
+  ],
+  "headers": [
       {
-        "src": "/(.*)",
-        "dest": "src/main.ts",
-        "methods": ["OPTIONS", "GET", "POST","PUT", "PATCH", "DELETE"],
-        "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, OPTIONS, PATCH, PUT, DELETE, POST" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }]
-      }
-    ]
+        "source": "/(.*)",
+        "headers": [
+          { "key": "Access-Control-Allow-Origin", "value": "*" },
+          { "key": "Access-Control-Allow-Methods", "value": "GET, OPTIONS, PATCH, PUT, DELETE, POST" },
+          { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
+        ]
+      },
+      {
+        "source": "/obadietapi.vercel.app/(.*)",
+        "headers": [
+          { "key": "Access-Control-Allow-Origin", "value": "*" },
+          { "key": "Access-Control-Allow-Methods", "value": "GET, OPTIONS, PATCH, PUT, DELETE, POST" },
+          { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
+        ]
+      }  
+  ]
   }
