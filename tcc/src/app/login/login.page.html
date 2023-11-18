@@ -6,11 +6,11 @@
       </ion-row>
 
       <ion-row>
-        <ion-input labelPlacement="stacked" label="Email:" type="email"></ion-input>
+        <ion-input labelPlacement="stacked" label="Email:" type="email" id="email" [(ngModel)]="usuario.email" name="email"></ion-input>
       </ion-row>
 
       <ion-row>
-        <ion-input labelPlacement="stacked" label="Senha:" type="password"></ion-input>
+        <ion-input labelPlacement="stacked" label="Senha:" type="password" id="senha" [(ngModel)]="usuario.senha" name="senha"></ion-input>
       </ion-row>
 
       <ion-row>
@@ -25,7 +25,8 @@
           <ion-button class="btn-voltar" [routerLink]="['/iniciov2']">voltar</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button class="btn-continuar" [routerLink]="['/obaDiet']">FAZER LOGIN</ion-button>
+          <ion-button class="btn-continuar" 
+          (click)="logar()">FAZER LOGIN</ion-button>
         </ion-col>
       </ion-row>
 

@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {
     path: 'obaDiet',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    
   },
   {
     path: '',
@@ -21,7 +24,9 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+    canActivate:[LoginGuard]
+
   },
   {
     path: 'recuperacao',
@@ -41,27 +46,38 @@ const routes: Routes = [
   },
   {
     path: 'obaDiet/receita',
-    loadChildren: () => import('./receita/receita.module').then( m => m.ReceitaPageModule)
+    loadChildren: () => import('./receita/receita.module').then( m => m.ReceitaPageModule),
+    canActivate:[AuthGuard]
   },
   {
     path: 'obaDiet/meus-remedios',
-    loadChildren: () => import('./meus-remedios/meus-remedios.module').then( m => m.MeusRemediosPageModule)
+    loadChildren: () => import('./meus-remedios/meus-remedios.module').then( m => m.MeusRemediosPageModule),
+    canActivate:[AuthGuard]
+ 
   },
   {
     path: 'obaDiet/minhas-refeicoes',
-    loadChildren: () => import('./minhas-refeicoes/minhas-refeicoes.module').then( m => m.MinhasRefeicoesPageModule)
+    loadChildren: () => import('./minhas-refeicoes/minhas-refeicoes.module').then( m => m.MinhasRefeicoesPageModule),
+    canActivate:[AuthGuard]
+  
   },
   {
     path: 'obaDiet/perfil',
-    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule),
+    canActivate:[AuthGuard]
+    
   },
   {
     path: 'obaDiet/receitas-salvas',
-    loadChildren: () => import('./receitas-salvas/receitas-salvas.module').then( m => m.ReceitasSalvasPageModule)
+    loadChildren: () => import('./receitas-salvas/receitas-salvas.module').then( m => m.ReceitasSalvasPageModule),
+    canActivate:[AuthGuard]
+ 
   },
   {
     path: 'obaDiet/configuracoes',
-    loadChildren: () => import('./configuracoes/configuracoes.module').then( m => m.ConfiguracoesPageModule)
+    loadChildren: () => import('./configuracoes/configuracoes.module').then( m => m.ConfiguracoesPageModule),
+    canActivate:[AuthGuard]
+    
   }
 ];
 

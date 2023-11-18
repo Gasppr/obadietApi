@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,23 +16,30 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule),
+        canActivate:[AuthGuard]
+        
       },
       {
         path: 'receitas-salvas',
-        loadChildren: () => import('../receitas-salvas/receitas-salvas.module').then(m => m.ReceitasSalvasPageModule)
+        loadChildren: () => import('../receitas-salvas/receitas-salvas.module').then(m => m.ReceitasSalvasPageModule),
+        canActivate:[AuthGuard]
       },
       {
         path: 'programacao',
-        loadChildren: () => import('../programacao/programacao.module').then( m => m.ProgramacaoPageModule)
+        loadChildren: () => import('../programacao/programacao.module').then( m => m.ProgramacaoPageModule),
+        canActivate:[AuthGuard]
+
       },
       {
         path: 'perfil',
-        loadChildren: () => import('../perfil/perfil.module').then(m => m.PerfilPageModule)
+        loadChildren: () => import('../perfil/perfil.module').then(m => m.PerfilPageModule),
+        canActivate:[AuthGuard]
       },
       {
         path: 'configuracoes',
-        loadChildren: () => import('../configuracoes/configuracoes.module').then(m => m.ConfiguracoesPageModule)
+        loadChildren: () => import('../configuracoes/configuracoes.module').then(m => m.ConfiguracoesPageModule),
+        canActivate:[AuthGuard]
       }
     ]
   }
