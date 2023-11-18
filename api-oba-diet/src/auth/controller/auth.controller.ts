@@ -23,6 +23,6 @@ export class AuthController {
     @UseGuards(AuthGuard)
     @Get('perfil')
     pegarUsuario(@Request() req ){
-      return {email : req.perfil.email , senha: req.perfil.senha};
+      return req.perfil
     }
 }
