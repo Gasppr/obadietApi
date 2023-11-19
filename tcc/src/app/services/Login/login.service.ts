@@ -19,8 +19,7 @@ export class LoginService {
   private readonly url_api = 'https://obadietapi.vercel.app/obadiet/'
 
   private sessao = new BehaviorSubject<Boolean | null>(null);
-  tokenAtual = null
-  url = environment.api_url;
+ 
 
   constructor(private http: HttpClient, private router: Router, private storageService: StorageService) {
 
