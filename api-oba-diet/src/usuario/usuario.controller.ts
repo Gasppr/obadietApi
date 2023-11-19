@@ -7,8 +7,10 @@ import { UsuarioGuard } from '../guards/usuario/usuario.guard';
 import { LoginDto } from './dto/Login.dto';
 import { IsPublic } from '../auth/guard/isPublic.decorator';
 import { v4 as uuid} from 'uuid';
-import {ApiBody, ApiTags} from '@nestjs/swagger'
+import { ApiTags} from '@nestjs/swagger'
 
+import * as bcrypt from 'bcrypt'
+import { criptografia } from './criptografia';
 
 
 
@@ -16,7 +18,7 @@ import {ApiBody, ApiTags} from '@nestjs/swagger'
 @ApiTags('Usuarios')
 @Controller('obadiet')
 export class UsuarioController {
-  constructor(private readonly _usuarioRepository: UsuarioRepository) {}
+  constructor(private readonly _usuarioRepository: UsuarioRepository, private cripto : criptografia) {}
 
   @Get('usuarios')
   @IsPublic()
@@ -26,9 +28,10 @@ export class UsuarioController {
 
   @Post('registrar')
   @IsPublic()
-  createUser(@Body() userDto: UsuarioDto) {
+  async createUser(@Body() userDto: UsuarioDto) {
     const userEntity: UsuarioEntity = new UsuarioEntity();
-
+  
+    const senhaCriptografada =  await this.cripto.criptografar(userDto.senha)
 
     userEntity.id = uuid()
     userEntity.nome = userDto.nome;
@@ -37,9 +40,9 @@ export class UsuarioController {
     userEntity.idade = userDto.idade;
     userEntity.peso = userDto.peso;
     userEntity.altura = userDto.altura;
-    userEntity.senha = userDto.senha;
+    userEntity.senha = senhaCriptografada;
 
-    const mensagem = this._usuarioRepository.criarUsuario(userEntity, userDto.doencas, userDto.restricao)
+    const mensagem = await this._usuarioRepository.criarUsuario(userEntity, userDto.doencas, userDto.restricao)
 
 
     return mensagem

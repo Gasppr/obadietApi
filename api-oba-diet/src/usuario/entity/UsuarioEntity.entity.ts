@@ -22,6 +22,7 @@ export enum sexoEnum {
 
 @Table({ tableName: 'usuarios', deletedAt: false, createdAt: false })
 export class UsuarioEntity extends Model {
+  
   @IsUUID('all')
   @PrimaryKey
   @ForeignKey(() => ReceitaEntity)
@@ -29,10 +30,10 @@ export class UsuarioEntity extends Model {
   id: string;
 
   @Column
-  nome: String;
+  nome: string;
 
   @Column
-  email: String;
+  email: string;
 
   @Column
   sexo: sexoEnum;
@@ -47,13 +48,14 @@ export class UsuarioEntity extends Model {
   altura: number;
 
   @Column
-  senha: String;
+  senha: string;
 
   @BelongsToMany(()=> RestricaoEntity, ()=> Usuario_Has_Restricoes)
   restricoes : RestricaoEntity[]
 
   @BelongsToMany(()=> DoencaEntity , ()=> Usuario_Has_Doencas)  
   doencas : DoencaEntity[]
+  userEntity: Promise<string>;
 
 
   

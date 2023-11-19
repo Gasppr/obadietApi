@@ -9,11 +9,12 @@ import { AuthGuard } from './guard/auth.guard';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsuarioEntity } from '../usuario/entity/UsuarioEntity.entity';
 import { jwtConstants } from './constants';
+import { criptografia } from '../usuario/criptografia';
 
 @Module({
   imports: [
     UsuarioModule,
-    
+    criptografia,
     JwtModule.register({
       global: true,
       secret : jwtConstants.secret,
@@ -25,6 +26,6 @@ import { jwtConstants } from './constants';
 
   ],
   controllers: [AuthController],
-  providers: [AuthService, {provide: APP_GUARD, useClass:AuthGuard}]
+  providers: [AuthService, {provide: APP_GUARD, useClass:AuthGuard}, criptografia]
 })
 export class AuthModule {}
