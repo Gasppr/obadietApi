@@ -1,13 +1,38 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>receitas</ion-title>
+    <ion-row>
+      <ion-col size="auto">
+        <ion-button class="btn-mapa">
+          <ion-icon name="map-outline" size="large"></ion-icon>
+        </ion-button>
+      </ion-col>
+
+      <ion-col>
+        <ion-searchbar show-clear-button="focus"></ion-searchbar>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">receitas</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Receitas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let receita of receitas$ | async">
+    <ion-card-header>
+      {{ receita.nome }}
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-img [src]="receita.imagem" alt="Imagem da Receita"></ion-img>
+      <p>Ingredientes: {{ receita.ingredientes }}</p>
+      <p>Modo de Preparo: {{ receita.modoPreparo }}</p>
+      <p>Categoria: {{ receita.categorias[0]?.nomeCategoria }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

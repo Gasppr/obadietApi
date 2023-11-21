@@ -80,7 +80,7 @@ const routes: Routes = [
     
   },
   {
-    path: 'receitas',
+    path: 'obaDiet/receitas',
     loadChildren: () => import('./receitas/receitas.module').then( m => m.ReceitasPageModule)
   }
 ];
