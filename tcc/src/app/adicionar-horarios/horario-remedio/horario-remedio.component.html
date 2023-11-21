@@ -9,18 +9,12 @@
 
 <ion-content [fullscreen]="true" class="content">
   <ion-grid class="criar-horario">
-    <ion-row class="criar-horario-item ion-justify-content-center">
-      <ion-label>
-        Data(s) do medicamento
-      </ion-label>
-      <ion-datetime locale="pt-BR" class="calendario" presentation="date" (ionChange)="selecionarData($event)"></ion-datetime>
-    </ion-row>
     <ion-row class="criar-horario-item">
       <ion-input label="Nome do remédio*:" labelPlacement="stacked" type="name" [clearInput]="true"
-          aria-label="Nome do remédio" (ionChange)="selecionarNome($event)">
+          aria-label="Nome do remédio" [(ngModel)]="horarioRemedio.nomeRemedio">
         </ion-input>
     </ion-row>
-    <!--<ion-row class="criar-horario-item">
+    <ion-row class="criar-horario-item">
       <ion-button id="criarModalRepeticao" fill="outline" class="btn-contorno-amarelo">
         <ion-icon slot="end" name="caret-down-outline"></ion-icon>
         Repetir</ion-button>
@@ -30,20 +24,30 @@
             <h2>Repetir:</h2>
       
             <ion-list lines="none">
-              <ion-item button="true" detail="false" value="nao-repetir">
+              <ion-item button="true" detail="false" (click)="selecionarRepeticao('Não repetir')">
                 <ion-label>Não repetir</ion-label>
               </ion-item>
-              <ion-item button="true" detail="false" value="todo-dia">
+              <ion-item button="true" detail="false" (click)="selecionarRepeticao('Todos os dias')">
                 <ion-label>Todos os dias</ion-label>
               </ion-item>
-              <ion-item button="true" detail="false" (click)="openModalHrPers()" value="personalizado">
+              <ion-item button="true" detail="false" (click)="selecionarRepeticao('Personalizado')" (click)="openModalHrPers()" value="personalizado">
                 <ion-label>Personalizado</ion-label>
               </ion-item>
             </ion-list>
           </div>
         </ng-template>
       </ion-modal>
-    </ion-row>-->
+
+      <ion-label>
+        {{ horarioRemedio.repetir }}
+      </ion-label>
+    </ion-row>
+    <ion-row class="criar-horario-item ion-justify-content-center" *ngIf="horarioRemedio.repetir == 'Não repetir'">
+      <ion-label>
+        Data do medicamento
+      </ion-label>
+      <ion-datetime locale="pt-BR" class="calendario" presentation="date" (ionChange)="selecionarData($event)"></ion-datetime>
+    </ion-row>
     <ion-row class="criar-horario-item">
       <ion-label>
         Horário

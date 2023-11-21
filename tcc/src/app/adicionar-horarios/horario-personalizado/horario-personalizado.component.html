@@ -13,8 +13,8 @@
       <ion-label>
         Repete a cada:
       </ion-label>
-      <ion-input type="number" placeholder="000" min="1"></ion-input>
-      <ion-select aria-label="Repetir" interface="popover" placeholder="Repetir a cada">
+      <ion-input type="number" placeholder="000" min="1" [(ngModel)]="horarioPersonalizado.qtdRepeteCada"></ion-input>
+      <ion-select aria-label="Repetir" interface="popover" placeholder="Repetir a cada" (ionChange)="selecionarQndRepeteCada($event)">
         <ion-select-option value="dia">Dia</ion-select-option>
         <ion-select-option value="semana">Semana</ion-select-option>
         <ion-select-option value="mês">Mês</ion-select-option>
@@ -26,33 +26,32 @@
         Repetir às/aos:
       </ion-label>
       <div class="btns-semana">
-        <ion-button value="domingo" fill="outline" class="btn-contorno-amarelo">D</ion-button>
-        <ion-button value="segunda" fill="outline" class="btn-contorno-amarelo">S</ion-button>
-        <ion-button value="terça" fill="outline" class="btn-contorno-amarelo">T</ion-button>
-        <ion-button value="quarta" fill="outline" class="btn-contorno-amarelo">Q</ion-button>
-        <ion-button value="quinta" fill="outline" class="btn-contorno-amarelo">Q</ion-button>
-        <ion-button value="sexta" fill="outline" class="btn-contorno-amarelo">S</ion-button>
-        <ion-button value="sábado" fill="outline" class="btn-contorno-amarelo">S</ion-button>
+        <ion-checkbox (ionChange)="selecionarDiasSemana($event)" value="domingo" justify="start" labelPlacement="end">Domingo</ion-checkbox>
+        <ion-checkbox (ionChange)="selecionarDiasSemana($event)" value="segunda-feira" justify="start" labelPlacement="end">Segunda-feira</ion-checkbox>
+        <ion-checkbox (ionChange)="selecionarDiasSemana($event)" value="terça-feira" justify="start" labelPlacement="end">Terça-feira</ion-checkbox>
+        <ion-checkbox (ionChange)="selecionarDiasSemana($event)" value="quarta-feira" justify="start" labelPlacement="end">Quarta-feira</ion-checkbox>
+        <ion-checkbox (ionChange)="selecionarDiasSemana($event)" value="quinta-feira" justify="start" labelPlacement="end">Quinta-feira</ion-checkbox>
+        <ion-checkbox (ionChange)="selecionarDiasSemana($event)" value="sexta-feira" justify="start" labelPlacement="end">Sexta-feira</ion-checkbox>
+        <ion-checkbox (ionChange)="selecionarDiasSemana($event)" value="sábado" justify="start" labelPlacement="end">Sábado</ion-checkbox>
       </div>
     </ion-row>
     <ion-row class="criar-horario-item">
       <ion-label>
         Termina
       </ion-label>
-      <ion-radio-group value="nunca">
-        <ion-radio value="nunca" labelPlacement="end" justify="start">Nunca</ion-radio>
-        <ion-radio value="em" labelPlacement="end" justify="start">Em</ion-radio>
-        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+      <ion-radio-group value="nunca" (ionChange)="selecionarTermino($event)">
+        <ion-radio value="nunca" justify="start" labelPlacement="end" justify="start" labelPlacement="end">Nunca</ion-radio>
+        <ion-radio value="em" justify="start" labelPlacement="end" justify="start" labelPlacement="end">Em</ion-radio>
+        <ion-datetime-button presentation="date" datetime="datetime" *ngIf="horarioPersonalizado.qndTermina == 'em'"></ion-datetime-button>
 
           <ion-modal [keepContentsMounted]="true">
             <ng-template>
-              <ion-datetime id="datetime"></ion-datetime>
+              <ion-datetime (ionChange)="selecionarDataHorario($event)" id="datetime"></ion-datetime>
             </ng-template>
           </ion-modal>
-        <ion-radio value="apos" labelPlacement="end" justify="start">Após
-          ocorrência
+        <ion-radio value="apos" justify="start" labelPlacement="end" justify="start" labelPlacement="end">Após {{horarioPersonalizado.nmrRepeticoesTermino}} {{ocorrencia}}
         </ion-radio>
-        <ion-input type="number" placeholder="000" min="1"></ion-input>
+        <ion-input *ngIf="horarioPersonalizado.qndTermina == 'apos'" type="number" placeholder="000" min="1" [(ngModel)]="horarioPersonalizado.nmrRepeticoesTermino" (ionChange)="ocorrenciaString()"></ion-input>
       </ion-radio-group>
     </ion-row>
     <ion-row class="criar-horario-item">

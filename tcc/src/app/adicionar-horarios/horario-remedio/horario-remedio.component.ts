@@ -33,14 +33,17 @@ export class HorarioRemedioComponent  implements OnInit {
     console.log(this.horarioRemedio.data);
   }
 
-  selecionarNome(e: any) {
-    this.horarioRemedio.nomeRemedio = e.detail.value;
-    console.log(this.horarioRemedio.nomeRemedio);
+  selecionarRepeticao(e: string) {
+    this.horarioRemedio.repetir = e;
+    console.log(this.horarioRemedio.repetir);
+    if (e !== 'Personalizado'){
+      this.modalCtrl.dismiss();
+    }
   }
 
   selecionarHorario(e: any) {
     this.horarioRemedio.horario = e.detail.value;
-    console.log(this.horarioRemedio.horario);
+    console.log(this.horarioRemedio.horario, this.horarioRemedio.nomeRemedio);
   }
 
   cancel() {
