@@ -23,3 +23,65 @@
     display: block;
     margin-block: .3rem;
   }
+  //
+  ion-card.mini-card {
+    width: 80vw;
+    max-width: 400px;
+    text-align: center;
+    margin-top: 5vh; /* Ajuste conforme necessário */
+    --background: yellow; /* Cor de fundo amarela */
+  }
+  
+  ion-button.btn-explorar {
+    --background: rgba(254, 254, 254, 1);
+    --color: rgba(1, 1, 1, 1);
+  }
+  
+  .btn-contorno-amarelo,
+  .btn-card {
+    --border-radius: 100rem;
+    --color: rgba(1, 1, 1, 1);
+    width: 80vw;
+    &:active,
+    &:focus {
+      --background: rgba(235, 229, 94, 1);
+    }
+  
+    ion-icon {
+      margin-inline-start: 10vw;
+    }
+  }
+  
+  .btn-card {
+    --border-radius: 100rem;
+    --background: rgba(254, 254, 254, 1);
+  }
+  
+  ion-checkbox,
+  ion-label {
+    display: block;
+    margin-block: 0.3rem;
+  }
+  
+  ion-content {
+    ion-grid.content {
+      ion-row.ion-justify-content-center {
+        ion-datetime.calendario {
+          margin-top: 2vh; 
+        }
+      }
+  
+      ion-row.ion-justify-content-center {
+        ion-card.mini-card {
+          margin-top: 5vh; 
+        }
+      }
+  
+      ion-row.ion-justify-content-center {
+        ion-button.btn-contorno-amarelo {
+          margin-top: 5vh; 
+        }
+      }
+    }
+  }
+  
