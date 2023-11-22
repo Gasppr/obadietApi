@@ -86,7 +86,7 @@ export class LoginService {
     })
 
     if (this.token) {
-      console.log(this.token)
+      
       await this.storageService.guardarToken("token", this.token);
       await this.sessao.next(true)
       await this.router.navigateByUrl('/obaDiet/home', { replaceUrl: true })
