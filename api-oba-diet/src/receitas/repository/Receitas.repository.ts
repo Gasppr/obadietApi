@@ -89,21 +89,24 @@ export class ReceitasRepository {
     const receita = await this.receitaDB.findAll({
       include: [
         {
-          required: false,
-          model: RestricaoEntity,
-          
-
+         
+          model: Receita_has_restricoes,
+          required: true,
+          include: [RestricaoEntity],
         },
         {
-          required: false,
-          model: DoencaEntity,
-          
-
+         
+          model: Receita_has_doencas,
+          required: true,
+          include: [DoencaEntity],
         },
         {
-          required: false,
-          model: CategoriaEntity,
-
+          
+          required: true,
+          
+          model: Receita_has_categoria,
+         
+          include: [CategoriaEntity],
         }
       ],
     });

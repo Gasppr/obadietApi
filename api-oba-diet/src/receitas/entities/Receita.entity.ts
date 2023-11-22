@@ -39,14 +39,16 @@ export  class ReceitaEntity extends Model {
   @Column
   imagem : string
 
-  @HasMany(()=> DoencaEntity, 'idDoenca' )
-  doencas : DoencaEntity[]
+  @HasMany(()=> Receita_has_doencas)
+  doencas : Receita_has_doencas[]
 
-  @HasMany(()=> RestricaoEntity, 'idRestricao' )
-  restricoes : RestricaoEntity[]
+  @HasMany(()=> Receita_has_restricoes)
+  restricoes : Receita_has_restricoes[]
 
-  @HasMany(()=> CategoriaEntity, 'idCategoria' )
-  categorias : CategoriaEntity[]
+  @HasMany(()=> Receita_has_categoria)
+  categorias : Receita_has_categoria[]
+
+ 
 
   @BelongsTo(()=> UsuarioEntity , 'id')
   usuarios : UsuarioEntity[]
@@ -66,6 +68,15 @@ export class Receita_has_doencas extends Model {
   @PrimaryKey
   @Column
   doencas_idDoenca: number;
+
+  @BelongsTo(()=> ReceitaEntity)
+  receitas : ReceitaEntity[]
+ 
+  @BelongsTo(()=> DoencaEntity)
+  doencas : DoencaEntity[]
+
+
+
 }
 
 @Table({ modelName: 'receita_has_restricoes' })
@@ -83,9 +94,11 @@ export class Receita_has_restricoes extends Model {
   @Column
   restricoes_idRestricao: number
 
+  @BelongsTo(()=> ReceitaEntity)
+  receitas : ReceitaEntity[]
+ 
   @BelongsTo(()=> RestricaoEntity)
-  restricoes: RestricaoEntity[]
-
+  restricoes : RestricaoEntity[]
 
 }
 
@@ -104,6 +117,11 @@ export class Receita_has_categoria extends Model {
   @Column
   categoria_idCategoria: number
 
+  @BelongsTo(()=> ReceitaEntity)
+  receitas : ReceitaEntity[]
+ 
+  @BelongsTo(()=> CategoriaEntity)
+  categorias : CategoriaEntity[]
 
 
 
