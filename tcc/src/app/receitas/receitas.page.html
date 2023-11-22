@@ -14,25 +14,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Receitas
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-card *ngFor="let receita of receitas$ | async">
+<ion-content *ngIf="receitas$!=null" class="ion-padding">
+  <ion-card *ngFor="let receita of receitas$ | async" (click)="verDetalhes(receita.id)">
     <ion-card-header>
       {{ receita.nome }}
     </ion-card-header>
 
-    <ion-card-content>
-      <ion-img [src]="receita.imagem" alt="Imagem da Receita"></ion-img>
-      <p>Ingredientes: {{ receita.ingredientes }}</p>
-      <p>Modo de Preparo: {{ receita.modoPreparo }}</p>
-      <p>Categoria: {{ receita.categorias[0]?.nomeCategoria }}</p>
+    <ion-card-content> <br>
+      <ion-img [src]="receita.imagem" alt="Imagem da Receita"></ion-img> <br>
+      <p class="recipe-info">Categoria: {{ receita.categorias[0]?.nomeCategoria }}</p>
+      <p>Restrições: {{ receita.doencas[0]?.nomeDoenca }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>
