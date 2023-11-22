@@ -13,6 +13,7 @@ import { ReceitasRepository } from './receitas/repository/Receitas.repository';
 import { ReceitasModule } from './receitas/receitas.module';
 import { CategoriaEntity } from './receitas/entities/Categoria.entity';
 import mysql2 from 'mysql2';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -33,10 +34,10 @@ import mysql2 from 'mysql2';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       models: [
-        UsuarioEntity, 
-        ReceitaEntity, 
-        RestricaoEntity, 
-        DoencaEntity, 
+        UsuarioEntity,
+        ReceitaEntity,
+        RestricaoEntity,
+        DoencaEntity,
         Usuario_Has_Restricoes,
         Usuario_Has_Doencas,
         Receita_has_doencas,
@@ -51,8 +52,10 @@ import mysql2 from 'mysql2';
       },
     }),
     ReceitasModule,
+
+   
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

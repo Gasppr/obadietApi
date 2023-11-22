@@ -77,12 +77,15 @@ export class UsuarioRepository {
     };
   }
 
-  verificarEmail(email: String) {
-    const emailExists = this._usuario.find((n) => n.email == email);
+  async verificarEmail(emailUser: string) {
+    const emailExists = await this.usuarioBD.findOne({
+      where:{
+        email : emailUser
+      }
+    });
 
     return emailExists;
   }
-
 
   async deletarUsuario(idUsuario: string){
 

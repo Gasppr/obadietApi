@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post, Render, Res } from '@nestjs/common';
 import { UsuarioDto } from './dto/Usuario.dto';
 import { UsuarioEntity } from './entity/UsuarioEntity.entity';
 import { UsuarioRepository } from './repository/Usuario.repository';
@@ -6,11 +6,14 @@ import { UseGuards } from '@nestjs/common';
 import { UsuarioGuard } from '../guards/usuario/usuario.guard';
 import { LoginDto } from './dto/Login.dto';
 import { IsPublic } from '../auth/guard/isPublic.decorator';
-import { v4 as uuid} from 'uuid';
-import { ApiTags} from '@nestjs/swagger'
+import { v4 as uuid } from 'uuid';
+import { ApiTags } from '@nestjs/swagger'
 
 import * as bcrypt from 'bcrypt'
 import { criptografia } from './criptografia';
+import { JwtService } from '@nestjs/jwt';
+import { MailerService } from '@nestjs-modules/mailer';
+import { Response } from 'express';
 
 
 
@@ -18,7 +21,10 @@ import { criptografia } from './criptografia';
 @ApiTags('Usuarios')
 @Controller('obadiet')
 export class UsuarioController {
-  constructor(private readonly _usuarioRepository: UsuarioRepository, private cripto : criptografia) {}
+  constructor(private readonly _usuarioRepository: UsuarioRepository, private cripto: criptografia,
+    private jwt: JwtService,
+    private mailerService: MailerService
+  ) { }
 
   @Get('usuarios')
   @IsPublic()
@@ -30,8 +36,8 @@ export class UsuarioController {
   @IsPublic()
   async createUser(@Body() userDto: UsuarioDto) {
     const userEntity: UsuarioEntity = new UsuarioEntity();
-  
-    const senhaCriptografada =  await this.cripto.criptografar(userDto.senha)
+
+    const senhaCriptografada = await this.cripto.criptografar(userDto.senha)
 
     userEntity.id = uuid()
     userEntity.nome = userDto.nome;
@@ -46,7 +52,7 @@ export class UsuarioController {
 
 
     return mensagem
-    
+
   }
 
   @Post('entrar')
@@ -61,9 +67,9 @@ export class UsuarioController {
 
   @Patch('EditarPerfil/:id')
   @IsPublic()
-  async editarPerfil(@Body()  usuarioDto: UsuarioDto, @Param('id') id : string ){
+  async editarPerfil(@Body() usuarioDto: UsuarioDto, @Param('id') id: string) {
 
-    const usuario : UsuarioEntity = new UsuarioEntity()
+    const usuario: UsuarioEntity = new UsuarioEntity()
 
     usuario.id = id
     usuario.nome = usuarioDto.nome
@@ -72,7 +78,7 @@ export class UsuarioController {
     usuario.peso = usuarioDto.peso
     usuario.senha = usuarioDto.senha
 
-   return  this._usuarioRepository.editarUsuario(usuario, id)
+    return this._usuarioRepository.editarUsuario(usuario, id)
 
   }
 
@@ -83,7 +89,82 @@ export class UsuarioController {
     return this._usuarioRepository.deletarUsuario(id);
   }
 
- 
+
+
+  @Get('esqueci-senha')
+  @Render('esqueciSenha')
+  @IsPublic()
+  esqueci_senha_get(@Res() res: Response) {
+    res.render('esqueciSenha')
+  }
+
+  @Post('esqueci-senha')
+  @IsPublic()
+  async esqueci_senha_post(@Body() { email }: { email: string }, @Res() res: Response) {
+
+
+    const emailVerificado = await this._usuarioRepository.verificarEmail(email)
+
+    if (!emailVerificado) {
+      return { "mensagem": "Este email não existe!" }
+    }
+
+    // const token =  this.cripto.criptografar(email)
+
+    const token = emailVerificado.id
+    const url = `https://obadietapi.vercel.app/obadiet/recuperacao/${token}`
+
+
+
+    await this.mailerService.sendMail({
+      to: email,
+      subject: 'Resetar sua senha!',
+      html: `Click <a href="${url}">Aqui</a> para resetar sua senha`
+    })
+
+
+    return {
+      "mensagem": `Verifique seu email: ${email}`
+    }
+  }
+
+  @Get('recuperacao/:token')
+  @IsPublic()
+  async recuperar_senha_get(
+    @Param('token') token: string, @Res() res: Response) {
+
+
+    const usuario = await this._usuarioRepository.ProcurarPorID(token)
+    res.render('recuperarSenha', { Email: usuario.email })
+  }
+
+  @Post('recuperacao/:token')
+  @IsPublic()
+  async recuperar_senha_post(
+    @Param('token') token: string,
+    @Body('senha') senhaNova: string,
+    @Body('confirmar-senha') confirmar_senha: string,
+    @Res() res: Response
+  ) {
+
+    if (senhaNova !== confirmar_senha) {
+      throw new BadRequestException("A senha não está certa , tente novamente")
+    }
+
+
+    const usuario = await this._usuarioRepository.ProcurarPorID(token)
+
+    const hash = await this.cripto.criptografar(senhaNova)
+    usuario.senha = hash
+
+
+    const usuarioComSenhaNova = await this._usuarioRepository.editarUsuario(usuario, usuario.id)
+
+
+    res.send(usuarioComSenhaNova)
+    return { "Mensagem": "Senha atualizada com sucesso!!" }
+
+  }
 
 
 
