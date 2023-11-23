@@ -1,26 +1,11 @@
-.card-amarelo{
-    --background: rgba(235, 229, 94, 1);
-    --color: rgba(1, 1, 1, 1);
-}
-
-.sub-titulo{
-    --color: rgba(1, 1, 1, 1);
-    padding: 1rem;
-}
-
-.card-cinza, ion-item{
-    --background: rgba(217, 217, 217, 1);
-    --color: rgba(1, 1, 1, 1);
-}
-
-.batman{
-    padding: 1.5rem;
-}
-
-.card-titulo{
-    padding: 1rem;
-}
-
+ion-card-header {
+    margin-bottom: 3%;
+    margin-left: 3%;
+    margin-top: 2%;
+    font-size: 20px;
+    font-weight: bold;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }
 ion-card-title{
     font-weight: bolder;
 }
@@ -32,3 +17,37 @@ ion-img{
 ion-button{
     --color: rgba(1, 1, 1, 1);
 }
+.space {
+    margin-bottom: 5%;
+    margin-top: 3%;
+  }
+
+.preparation-card {
+    .preparation-list {
+      list-style-type: none;
+      padding: 0;
+      
+      li {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 10px; 
+  
+        .step-number {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 20px;
+          height: 20px;
+          background-color: #ffeb3b;
+          color: #000;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  

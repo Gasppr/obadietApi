@@ -6,7 +6,6 @@
           <ion-icon name="map-outline" size="large"></ion-icon>
         </ion-button>
       </ion-col>
-
       <ion-col>
         <ion-searchbar show-clear-button="focus"></ion-searchbar>
       </ion-col>
@@ -22,10 +21,40 @@
 
     <ion-card-content>
       <ion-img [src]="receita.imagem" alt="Imagem da Receita"></ion-img>
-      <p>Ingredientes: {{ receita.ingredientes }}</p>
-      <p>Modo de Preparo: {{ receita.modoPreparo }}</p>
-      <p>Categoria: {{ receita.categorias[0]?.nomeCategoria }}</p>
-      <p>Restrições: {{ receita.doencas[0]?.nomeDoenca }}</p>
+      <div class="space"></div>
+
+      <ion-card class="ingredient-card">
+        <ion-card-header>
+          Ingredientes
+        </ion-card-header>
+        <ion-card-content>
+          <ul class="ingredient-list">
+            <li *ngFor="let ingrediente of receita.ingredientes.split(',')">
+              {{ ingrediente.trim() }}
+            </li>
+          </ul>
+        </ion-card-content>
+      </ion-card>
+
+      <div class="space"></div>
+
+      <ion-card class="preparation-card">
+        <ion-card-header>
+          Modo de Preparo
+        </ion-card-header>
+        <ion-card-content>
+          <ul class="preparation-list">
+            <li *ngFor="let passo of receita.modoPreparo.split('.'); let i = index">
+              <ng-container *ngIf="passo.trim() && passo.trim() !== '.'">
+                <span class="step-number">{{ i + 1 }}.</span> {{ passo.trim() }}
+              </ng-container>
+            </li>
+          </ul>
+        </ion-card-content>
+      </ion-card>
+
+      <p>Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
+      <p>Restrições: {{receita.doencas[0]?.doencas?.nomeDoenca}}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>
