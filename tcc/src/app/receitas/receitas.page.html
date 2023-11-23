@@ -8,14 +8,14 @@
       </ion-col>
 
       <ion-col>
-        <ion-searchbar show-clear-button="focus"></ion-searchbar>
+        <ion-searchbar show-clear-button="focus" (ionChange)="onSearchChange($event)"></ion-searchbar>
       </ion-col>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="receitas$!=null" class="ion-padding">
-  <ion-card *ngFor="let receita of receitas$ | async" (click)="verDetalhes(receita.id)">
+<ion-content *ngIf="filteredReceitas$!=null" class="ion-padding">
+  <ion-card *ngFor="let receita of filteredReceitas$ | async" (click)="verDetalhes(receita.id)">
     <ion-card-header>
       {{ receita.nome }}
     </ion-card-header>
