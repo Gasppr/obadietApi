@@ -78,6 +78,10 @@ const routes: Routes = [
     loadChildren: () => import('./configuracoes/configuracoes.module').then( m => m.ConfiguracoesPageModule),
     canActivate:[AuthGuard]
     
+  },
+  {
+    path: 'obaDiet/receitas',
+    loadChildren: () => import('./receitas/receitas.module').then( m => m.ReceitasPageModule)
   }
 ];
 

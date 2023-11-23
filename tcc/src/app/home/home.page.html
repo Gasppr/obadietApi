@@ -17,7 +17,14 @@
 <ion-content [fullscreen]="false">
   <ion-grid class="content">
     <ion-row class="ion-justify-content-center">
-      <ion-datetime class="calendario" presentation="date"></ion-datetime>
+      <ion-card class="mini-card">
+        <ion-card-content>
+          <p>Comece uma vida mais saudável com as diversas receitas do ObaDiet</p>
+          <ion-button class="btn-explorar" [routerLink]="['/obaDiet/receitas']">
+            Explorar Receitas
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
     </ion-row>
 
     <ion-row class="ion-justify-content-center">
