@@ -15,14 +15,12 @@
         </ion-input>
     </ion-row>
     <ion-row class="criar-horario-item">
-      <ion-button id="criarModalRepeticao" fill="outline" class="btn-contorno-amarelo">
+      <ion-button id="criarModalRepeticao" fill="outline" class="btn-contorno-amarelo btn-repeticao">
         <ion-icon slot="end" name="caret-down-outline"></ion-icon>
         Repetir</ion-button>
       <ion-modal id="modalRepeticao" #modal trigger="criarModalRepeticao">
         <ng-template>
           <div class="wrapper">
-            <h2>Repetir:</h2>
-      
             <ion-list lines="none">
               <ion-item button="true" detail="false" (click)="selecionarRepeticao('Não repetir')">
                 <ion-label>Não repetir</ion-label>
@@ -38,9 +36,12 @@
         </ng-template>
       </ion-modal>
 
-      <ion-label>
+      <h5 class="lbRepeticao" *ngIf="horarioRemedio.repetir !== ''">
         {{ horarioRemedio.repetir }}
-      </ion-label>
+      </h5>
+      <div *ngIf="horarioRemedio.repetir === 'Personalizado'">
+
+      </div>
     </ion-row>
     <ion-row class="criar-horario-item ion-justify-content-center" *ngIf="horarioRemedio.repetir == 'Não repetir'">
       <ion-label>
@@ -55,9 +56,15 @@
       <ion-datetime presentation="time" (ionChange)="selecionarHorario($event)"></ion-datetime>
     </ion-row>
     <ion-row class="criar-horario-item">
-      <ion-button class="btn-amarelo adicionar">
+      <ion-button class="btn-amarelo adicionar" (click)="confirm()">
         Adicionar
       </ion-button>
     </ion-row>
+    <ion-toast
+    [isOpen]="isToastOpen"
+    message="Selecione um horário válido!"
+    [duration]="5000"
+    (didDismiss)="setOpen(false)"
+  ></ion-toast>
   </ion-grid>
 </ion-content>

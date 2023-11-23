@@ -43,14 +43,12 @@ export class HorarioRefeicaoComponent  implements OnInit {
 
   index: number = 0;
   removeReceita(id: number){
-    
     for(let i = 0; i < this.horarioRefeicao.receitas.length; i++){
       if(this.horarioRefeicao.receitas[i].idReceita === id){
         this.index = i;
       }
     }
     
-
     this.horarioRefeicao.receitas.splice(this.index, 1);
     console.log(`receita ${this.index} removida`);
   }
@@ -61,12 +59,14 @@ export class HorarioRefeicaoComponent  implements OnInit {
   }
 
   selecionarData(e: any) {
-    this.horarioRefeicao.data = e.detail.value;
+    let datetime = e.detail.value;
+    this.horarioRefeicao.data = datetime.split('T')[0];
     console.log(this.horarioRefeicao.data);
   }
 
   selecionarHorario(e: any) {
-    this.horarioRefeicao.horario = e.detail.value;
+    let datetime = e.detail.value;
+    this.horarioRefeicao.horario = datetime.split('T')[1];
     console.log(this.horarioRefeicao.horario);
   }
 
@@ -78,7 +78,7 @@ export class HorarioRefeicaoComponent  implements OnInit {
     return this.modalCtrl.dismiss('confirm');
   }
 
-  async openModalHrPers() {
+  /*async openModalHrPers() {
     const modal = await this.modalCtrl.create({
       component: HorarioPersonalizadoComponent,
     });
@@ -88,8 +88,8 @@ export class HorarioRefeicaoComponent  implements OnInit {
 
     if (role === 'confirm') {
       this.message = `Hello, ${data}!`;
-    }*/
-  }
+    }
+  }*/
 
 
   async openModalReceitasSalvas() {
@@ -101,9 +101,6 @@ export class HorarioRefeicaoComponent  implements OnInit {
     const { data, role } = await modal.onWillDismiss();
 
     if (role === 'confirm') {
-      /*this.receita.idReceita = data.idRecSelec;
-      this.receita.nome = data.nomeRecSelec;
-      this.receita.img = data.imgRecSelec;*/
       this.horarioRefeicao.receitas.push({idReceita: data.idRecSelec, nome: data.nomeRecSelec, img: data.imgRecSelec});
       console.log(`receita ${data.nomeRecSelec} adicionada`)
     }

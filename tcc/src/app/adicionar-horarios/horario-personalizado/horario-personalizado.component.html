@@ -14,7 +14,7 @@
         Repete a cada:
       </ion-label>
       <ion-input type="number" placeholder="000" min="1" [(ngModel)]="horarioPersonalizado.qtdRepeteCada"></ion-input>
-      <ion-select aria-label="Repetir" interface="popover" placeholder="Repetir a cada" (ionChange)="selecionarQndRepeteCada($event)">
+      <ion-select value="semana" aria-label="Repetir" interface="popover" placeholder="Repetir a cada" (ionChange)="selecionarQndRepeteCada($event)">
         <ion-select-option value="dia">Dia</ion-select-option>
         <ion-select-option value="semana">Semana</ion-select-option>
         <ion-select-option value="mês">Mês</ion-select-option>
@@ -25,7 +25,7 @@
       <ion-label>
         Repetir às/aos:
       </ion-label>
-      <div class="btns-semana">
+      <div class="btns-semana" *ngIf="horarioPersonalizado.quandoRepeteCada !== 'dia'">
         <ion-checkbox (ionChange)="selecionarDiasSemana($event)" value="domingo" justify="start" labelPlacement="end">Domingo</ion-checkbox>
         <ion-checkbox (ionChange)="selecionarDiasSemana($event)" value="segunda-feira" justify="start" labelPlacement="end">Segunda-feira</ion-checkbox>
         <ion-checkbox (ionChange)="selecionarDiasSemana($event)" value="terça-feira" justify="start" labelPlacement="end">Terça-feira</ion-checkbox>
@@ -55,7 +55,7 @@
       </ion-radio-group>
     </ion-row>
     <ion-row class="criar-horario-item">
-      <ion-button class="btn-amarelo adicionar">
+      <ion-button class="btn-amarelo adicionar" (click)="confirm()">
         Concluir
       </ion-button>
     </ion-row>

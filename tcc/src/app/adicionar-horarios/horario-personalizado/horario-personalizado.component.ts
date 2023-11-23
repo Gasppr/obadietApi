@@ -38,7 +38,7 @@ export class HorarioPersonalizadoComponent implements OnInit {
   }
 
   iniciarHorarioPersonalizado(): HorarioPersonalizado {
-    return { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
+    return { qtdRepeteCada: 1, quandoRepeteCada: 'semana', diasSemanaRepeticao: [], qndTermina: 'nunca', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
   }
 
   selecionarTermino(e: any) {
@@ -73,9 +73,9 @@ export class HorarioPersonalizadoComponent implements OnInit {
   }
 
   selecionarDataHorario(e: any) {
-    let horario = e.detail.value;
-    this.horarioPersonalizado.qndTerminaData = e.detail.value;
-    this.horarioPersonalizado.qndTerminaHorario = e.detail.value;
+    let datetime = e.detail.value;
+    this.horarioPersonalizado.qndTerminaData = datetime.split('T')[0];
+    this.horarioPersonalizado.qndTerminaHorario = datetime.split('T')[1];
     console.log(this.horarioPersonalizado.qndTerminaData);
     console.log(this.horarioPersonalizado.qndTerminaHorario);
   }
@@ -85,6 +85,6 @@ export class HorarioPersonalizadoComponent implements OnInit {
   }
 
   confirm() {
-    return this.modalCtrl.dismiss('confirm');
+    return this.modalCtrl.dismiss(this.horarioPersonalizado, 'confirm');
   }
 }
