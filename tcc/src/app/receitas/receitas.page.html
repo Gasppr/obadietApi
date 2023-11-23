@@ -20,10 +20,10 @@
       {{ receita.nome }}
     </ion-card-header>
 
-    <ion-card-content> <br>
-      <ion-img [src]="receita.imagem" alt="Imagem da Receita"></ion-img> <br>
+    <ion-card-content>
+      <ion-img [src]="receita.imagem" alt="Imagem da Receita"></ion-img>
       <p class="recipe-info">Categoria: {{ receita.categorias[0]?.nomeCategoria }}</p>
-      <p>Restrições: {{ receita.doencas[0]?.nomeDoenca }}</p>
+      <p class="recipe-info">Restrições: {{ receita.doencas[0]?.nomeDoenca }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>
