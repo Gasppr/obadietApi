@@ -1,5 +1,16 @@
 page-receitas-salvas {
 
+    .title-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 10vh;
+    }
+  
+    .title-col {
+      text-align: center;
+    }
+  
     .recipe-card {
       height: 100%;
     }
@@ -14,6 +25,12 @@ page-receitas-salvas {
   
     .delete-button {
       margin-top: 10px;
+    }
+  
+    @media (max-width: 576px) {
+      .title-row {
+        height: auto;
+      }
     }
   }
   
