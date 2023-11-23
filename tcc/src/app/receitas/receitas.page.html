@@ -22,8 +22,8 @@
 
     <ion-card-content>
       <ion-img [src]="receita.imagem" alt="Imagem da Receita"></ion-img>
-      <p class="recipe-info">Categoria: {{ receita.categorias[0]?.nomeCategoria }}</p>
-      <p class="recipe-info">Restrições: {{ receita.doencas[0]?.nomeDoenca }}</p>
+      <p class="recipe-info">Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
+      <p class="recipe-info">Restrições: {{receita.doencas[0]?.doencas?.nomeDoenca}}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>
