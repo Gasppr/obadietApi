@@ -17,5 +17,5 @@ export class ProgramacaoPage implements OnInit {
   
   ngOnInit() {
   }
-
+  dataAtual: Date = new Date();
 }
