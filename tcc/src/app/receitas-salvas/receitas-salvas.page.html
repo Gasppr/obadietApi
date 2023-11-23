@@ -1,20 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-row>
-      <ion-col size="auto">
-        <ion-button class="btn-mapa">
-          <ion-icon name="map-outline" size="large"></ion-icon>
-        </ion-button>
-      </ion-col>
-
-      <ion-col>
-        <ion-searchbar show-clear-button="focus"></ion-searchbar>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-header>
-
-
 <ion-content [fullscreen]="true">
   <ion-grid class="content">
     <ion-row>
@@ -24,14 +7,18 @@
     </ion-row>
 
     <ion-row>
-      <ion-col *ngFor="let comida of comidas" size="6">
-        <ion-card [routerLink]="['/obaDiet/receita']">
+      <ion-col size="6" *ngFor="let receita of comidas">
+        <ion-card [routerLink]="['/obaDiet/receita']" class="recipe-card">
           <ion-card-header>
-            <ion-img [src]="comida.image"></ion-img>
+            <ion-img [src]="receita.imagem"></ion-img>
           </ion-card-header>
         
-          <ion-card-content>
-            {{ comida.title }}
+          <ion-card-content class="card-content">
+            <p>{{ receita.title }}</p>
+            <p>{{ receita.nome }}</p>
+            <ion-button fill="clear" (click)="removerReceitaSalva(receita)" class="delete-button">
+              <ion-icon name="trash" color="danger"></ion-icon>
+            </ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>

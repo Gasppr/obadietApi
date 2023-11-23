@@ -40,4 +40,8 @@ export class ReceitasPage implements OnInit {
       this.filteredReceitas$ = this.receitas$;
     }
   }
+
+  salvarReceita(receita: any) {
+    this.recipesService.salvarReceita(receita);
+  }
 }

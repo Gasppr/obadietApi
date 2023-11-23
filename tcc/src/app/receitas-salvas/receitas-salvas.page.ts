@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RecipesService } from '../services/recipes.service';
 
 @Component({
   selector: 'app-receitas-salvas',
@@ -6,29 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./receitas-salvas.page.scss'],
 })
 export class ReceitasSalvasPage implements OnInit {
+  comidas: any[] = [];
 
-  constructor() { }
-
-  comidas = [
-    {
-      image: "assets/images/camaroes-deliciosos.png",
-      title: "Camarões"
-    },
-    {
-      image: "assets/images/camaroes-deliciosos.png",
-      title: "Camarões"
-    },
-    {
-      image: "assets/images/camaroes-deliciosos.png",
-      title: "Camarões"
-    },
-    {
-      image: "assets/images/camaroes-deliciosos.png",
-      title: "Camarões"
-    }
-  ]
+  constructor(private recipesService: RecipesService) {}
 
   ngOnInit() {
+    this.recipesService.receitasSalvas$.subscribe((receitasSalvas) => {
+      this.comidas = receitasSalvas;
+    });
+    
   }
-
+  removerReceitaSalva(receita: any) {
+    this.recipesService.removerReceitaSalva(receita);
+  }
 }

@@ -1,8 +1,19 @@
-ion-card{
-    margin-block: 2vh;
-    margin-inline: 1vw;
-}
+page-receitas-salvas {
 
-.content{
-    padding: 1rem;
-}
+    .recipe-card {
+      height: 100%;
+    }
+  
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+  
+    .delete-button {
+      margin-top: 10px;
+    }
+  }
+  
