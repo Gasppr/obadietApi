@@ -26,11 +26,7 @@ export class UsuarioController {
     private mailerService: MailerService
   ) { }
 
-  @Get('usuarios')
-  @IsPublic()
-  showAllUsers() {
-    return this._usuarioRepository.ProcurarTodos();
-  }
+
 
   @Post('registrar')
   @IsPublic()

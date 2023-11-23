@@ -14,6 +14,8 @@ import { ReceitasModule } from './receitas/receitas.module';
 import { CategoriaEntity } from './receitas/entities/Categoria.entity';
 import mysql2 from 'mysql2';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { RemediosHorariosEntity, usuarios_has_horarios_remedios } from './usuario/entity/horarios/RemediosHorario.entity';
+import { RefeicoesHorariosEntity, usuarios_has_horarios_refeicoes } from './usuario/entity/horarios/RefeicoesHorario.entity';
 
 @Module({
   imports: [
@@ -43,7 +45,11 @@ import { MailerModule } from '@nestjs-modules/mailer';
         Receita_has_doencas,
         Receita_has_restricoes,
         CategoriaEntity,
-        Receita_has_categoria
+        Receita_has_categoria,
+        RemediosHorariosEntity,
+        RefeicoesHorariosEntity,
+        usuarios_has_horarios_refeicoes,
+        usuarios_has_horarios_remedios
       ],
       retryAttempts: 100,
       synchronize: true,
