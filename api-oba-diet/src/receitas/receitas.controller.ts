@@ -37,8 +37,14 @@ export class ReceitasController {
 
   @IsPublic()
   @Get('receita/:id')
-  getReceita(@Param('id') id : number) {
+  getReceitaId(@Param('id') id : number) {
     return this._repository.procurarReceita(id);
+  }
+
+  @IsPublic()
+  @Get('receita/nome/:nome')
+  getReceitaNome(@Param('nome') nome : string) {
+    return this._repository.procurarReceitaPorNome(nome);
   }
 
   @IsPublic()

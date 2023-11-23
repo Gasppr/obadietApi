@@ -13,6 +13,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { DoencaDto } from '../dto/Doenca.dto';
 import { RestricaoDto } from '../dto/Restricao.dto';
 import { CategoriaEntity } from '../entities/Categoria.entity';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class ReceitasRepository {
@@ -117,9 +118,62 @@ export class ReceitasRepository {
   async procurarReceita(id: number) {
     const Receita: any = this.receitaDB.findOne({
       where: {
-        id: id,
+       id : id
       },
-      include: [{ required: false, model: DoencaEntity }, { required: false, model: RestricaoEntity  }, { required: false, model: CategoriaEntity}],
+      include: [
+        {
+         
+          model: Receita_has_restricoes,
+          required: true,
+          include: [RestricaoEntity],
+        },
+        {
+         
+          model: Receita_has_doencas,
+          required: true,
+          include: [DoencaEntity],
+        },
+        {
+          
+          required: true,
+          
+          model: Receita_has_categoria,
+         
+          include: [CategoriaEntity],
+        }
+      ],
+    });
+
+    return Receita;
+  }
+
+  async procurarReceitaPorNome(nome: string) {
+    const Receita: any = this.receitaDB.findOne({
+      where: {
+        nome: {[Op.like] : `%${nome}%`}
+      },
+      include: [
+        {
+         
+          model: Receita_has_restricoes,
+          required: true,
+          include: [RestricaoEntity],
+        },
+        {
+         
+          model: Receita_has_doencas,
+          required: true,
+          include: [DoencaEntity],
+        },
+        {
+          
+          required: true,
+          
+          model: Receita_has_categoria,
+         
+          include: [CategoriaEntity],
+        }
+      ],
     });
 
     return Receita;
