@@ -36,6 +36,8 @@
       <div class="horario">
         <h3>00:00h</h3>
 
+        <ion-button color="danger" (click)="openModalAlarme()">botão chique</ion-button>
+
         <ion-button class="btn-laranja" expand="block" (click)="setOpen(true)">Café da manhã</ion-button>
         <ion-modal [isOpen]="isModalOpen">
           <ng-template>

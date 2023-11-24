@@ -1,0 +1,19 @@
+ion-content{
+    --background: rgba(190, 207, 152, 1);
+}
+
+.stop{
+    text-align: center;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+
+.alarmImg{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+}

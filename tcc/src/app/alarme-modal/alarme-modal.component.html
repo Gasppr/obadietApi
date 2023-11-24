@@ -1,8 +1,11 @@
 <ion-content [fullscreen]="true" class="content">
   <ion-grid class="alarme">
-    <ion-row></ion-row>
     <ion-row>
-      <ion-button color="danger">parar alarme</ion-button>
+      <ion-img src="assets/images/abakate3.svg" class="alarmImg">
+      </ion-img>
+    </ion-row>
+    <ion-row>
+      <ion-button color="danger" class="stop" (click)="pararAlarme()">parar alarme</ion-button>
     </ion-row>
   </ion-grid>
 </ion-content>
