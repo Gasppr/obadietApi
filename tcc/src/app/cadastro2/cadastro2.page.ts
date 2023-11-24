@@ -29,6 +29,13 @@ export class Cadastro2Page implements OnInit {
     return { peso: 0, altura: 0, sexo: '', idade: 0 };
   }
 
+  async continuarCadastro() {
+
+    const user = this.storage.buscarCadastro("cadastro1")
+
+ 
+  } 
+
   selecionarSexo(e: any) {
     this.usuario.sexo = e.detail.value;
     console.log(this.usuario.sexo);

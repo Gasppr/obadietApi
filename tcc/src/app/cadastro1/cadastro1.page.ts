@@ -3,10 +3,14 @@ import { CadastroService } from '../services/Cadastro/cadastro.service';
 import { StorageService } from '../services/Cadastro/storage.service';
 import { Router } from '@angular/router';
 
-interface Usuario {
-  nome: string;
-  email: string;
-  senha: string;
+export class Usuario {
+  nome: string = '';
+  email: string = '';
+  senha: string = '';
+  peso?: number 
+  altura?: number 
+  sexo?: string 
+  idade?: number 
 }
 
 @Component({
@@ -29,12 +33,18 @@ export class Cadastro1Page implements OnInit {
   senha2: string = '';
 
   iniciarUsuario(): Usuario{
-    return { nome: '', email: '', senha: '' }
+    return { nome: '', email: '', senha: ''}
   }
 
-  compararSenha(){
+  async compararSenha(){
     if (this.senha1 == this.senha2){
-      this.router.navigate(['cadastro2']);
+
+      const passa =  await this.storage.guardarCadastro1("cadastro1" ,  this.usuario)
+
+      if(passa){
+        await this.router.navigate(['cadastro2']);
+      }
+      
     }
     else this.setOpen(true);
   }

@@ -3,6 +3,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
+
+ interface cadastro1{
+  nome : string,
+  email : string,
+  senha : string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,13 +23,13 @@ export class StorageService {
     await this.storage.create()
   }
 
-  async guardarToken(chave: string, valor: string) {
+  async guardarCadastro1(chave: string, valor: cadastro1) {
     await this.storage.set(chave, valor)
 
     return true;
   }
 
-  async buscarToken(chave: string) {
+  async buscarCadastro(chave: string) {
 
     const token = await this.storage.get(chave)
 
