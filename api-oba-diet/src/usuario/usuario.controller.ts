@@ -93,9 +93,9 @@ export class UsuarioController {
   }
 
 
-  @Get('refeicoes')
+  @Get('refeicoes/:id')
   @IsPublic()
-  BuscarReceitas(@Body() {id} : {id : string}) {
+  BuscarReceitas(@Param('id') id : string) {
     return this.horarios.listarReceitas(id)
   }
 
@@ -152,9 +152,9 @@ export class UsuarioController {
 
 
 
-  @Get('remedios')
+  @Get('remedios/:id')
   @IsPublic()
-  BuscarRemedios(@Body() {id} : {id : string}) {
+  BuscarRemedios(@Param('id') id : string) {
     return this.horarios.listarRemedios(id)
   }
 
