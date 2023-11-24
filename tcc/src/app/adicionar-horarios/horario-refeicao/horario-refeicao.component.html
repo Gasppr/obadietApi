@@ -29,6 +29,31 @@
       </ion-select>
     </ion-row>
     <ion-row class="criar-horario-item">
+      <ion-button id="criarModalRepeticao" fill="outline" class="btn-contorno-amarelo btn-repeticao">
+        <ion-icon slot="end" name="caret-down-outline"></ion-icon>
+        Repetir</ion-button>
+      <ion-modal id="modalRepeticao" #modal trigger="criarModalRepeticao">
+        <ng-template>
+          <div class="wrapper">
+            <ion-list lines="none">
+              <ion-item button="true" detail="false" (click)="selecionarRepeticao('Não repetir')">
+                <ion-label>Não repetir</ion-label>
+              </ion-item>
+              <ion-item button="true" detail="false" (click)="selecionarRepeticao('Todos os dias')">
+                <ion-label>Todos os dias</ion-label>
+              </ion-item>
+              <ion-item button="true" detail="false" (click)="selecionarRepeticao('Personalizado')" (click)="openModalHrPers()" value="personalizado">
+                <ion-label>Personalizado</ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+        </ng-template>
+      </ion-modal>
+      <h5 class="lbRepeticao" *ngIf="horarioRefeicao.repetir !== ''">
+        {{ horarioRefeicao.repetir }}
+      </h5>
+    </ion-row>
+    <ion-row class="criar-horario-item">
       <ion-label>
         Receitas
       </ion-label>
@@ -47,34 +72,11 @@
           </ion-item-options>
         </ion-item-sliding>
         </ion-list>
-      <ion-button fill="outline" class="btn-contorno-amarelo" (click)="openModalReceitasSalvas()">
+      <ion-button fill="outline" class="btn-contorno-amarelo addReceitas" (click)="openModalReceitasSalvas()">
         Adicionar uma receita salva
         <ion-icon name="add-outline"></ion-icon>
       </ion-button>
     </ion-row>
-    <!--<ion-row class="criar-horario-item">
-      <ion-button id="criarModalRepeticao" fill="outline" class="btn-contorno-amarelo">
-        <ion-icon slot="end" name="caret-down-outline"></ion-icon>
-        Repetir</ion-button>
-      <ion-modal id="modalRepeticao" #modal trigger="criarModalRepeticao">
-        <ng-template>
-          <div class="wrapper">
-            <h2>Repetir:</h2>
-            <ion-list lines="none">
-              <ion-item button="true" detail="false" value="nao-repetir">
-                <ion-label>Não repetir</ion-label>
-              </ion-item>
-              <ion-item button="true" detail="false" value="todo-dia">
-                <ion-label>Todos os dias</ion-label>
-              </ion-item>
-              <ion-item button="true" detail="false" (click)="openModalHrPers()" value="personalizado">
-                <ion-label>Personalizado</ion-label>
-              </ion-item>
-            </ion-list>
-          </div>
-        </ng-template>
-      </ion-modal>
-    </ion-row>-->
     <ion-row class="criar-horario-item">
       <ion-label>
         Horário
@@ -82,9 +84,15 @@
       <ion-datetime presentation="time" (ionChange)="selecionarHorario($event)"></ion-datetime>
     </ion-row>
     <ion-row class="criar-horario-item">
-      <ion-button class="btn-amarelo adicionar">
+      <ion-button class="btn-amarelo adicionar" (click)="confirm()">
         Adicionar
       </ion-button>
     </ion-row>
+    <ion-toast
+    [isOpen]="isToastOpen"
+    message="Selecione um horário válido!"
+    [duration]="5000"
+    (didDismiss)="setOpen(false)"
+  ></ion-toast>
   </ion-grid>
 </ion-content>

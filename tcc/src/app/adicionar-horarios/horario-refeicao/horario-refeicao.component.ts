@@ -9,12 +9,27 @@ interface Receita{
   img: string;
 }
 
+interface HorarioRefeicaoPersonalizado{
+  horarioRefeicao: HorarioRefeicao;
+  horarioPersonalizado: HorarioPersonalizado;
+}
+
 interface HorarioRefeicao{
   data: string;
-  refeicao: string;
+  tipo: string;
   receitas: Receita[];
-  //repetir: string;
+  repetir: string;
   horario: string;
+}
+
+interface HorarioPersonalizado {
+  qtdRepeteCada: number;
+  quandoRepeteCada: string;
+  diasSemanaRepeticao: string[];
+  qndTermina: string;
+  qndTerminaData: string;
+  qndTerminaHorario: string;
+  nmrRepeticoesTermino: number;
 }
 
 @Component({
@@ -24,15 +39,26 @@ interface HorarioRefeicao{
 })
 export class HorarioRefeicaoComponent  implements OnInit {
   horarioRefeicao: HorarioRefeicao
-  receita: Receita
+  receita: Receita;
+  horarioPersonalizado: HorarioPersonalizado;
+  horarioRefeicaoPersonalizado: HorarioRefeicaoPersonalizado;
 
   constructor(private modalCtrl: ModalController) {
     this.horarioRefeicao = this.iniciarHorarioRefeicao();
     this.receita = this.iniciarReceita();
+    this.horarioPersonalizado = this.iniciarHorarioPersonalizado();
+    this.horarioRefeicaoPersonalizado = this.iniciarHorarioRefeicaoPersonalizado();
   }
 
+  iniciarHorarioRefeicaoPersonalizado(): HorarioRefeicaoPersonalizado {
+    return { horarioRefeicao: {data: '', tipo: '', receitas: [], repetir: '', horario: ''}, horarioPersonalizado: {qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0}}
+  }
   iniciarHorarioRefeicao(): HorarioRefeicao {
-    return { data: '', refeicao: '', receitas: [], /*repetir: '',*/ horario: '' }
+    return { data: '', tipo: '', receitas: [], repetir: '', horario: '' }
+  }
+
+  iniciarHorarioPersonalizado(): HorarioPersonalizado {
+    return { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
   }
 
   iniciarReceita(): Receita {
@@ -54,8 +80,8 @@ export class HorarioRefeicaoComponent  implements OnInit {
   }
 
   selecionarRefeicao(e: any) {
-    this.horarioRefeicao.refeicao = e.detail.value;
-    console.log(this.horarioRefeicao.refeicao);
+    this.horarioRefeicao.tipo = e.detail.value;
+    console.log(this.horarioRefeicao.tipo);
   }
 
   selecionarData(e: any) {
@@ -70,26 +96,45 @@ export class HorarioRefeicaoComponent  implements OnInit {
     console.log(this.horarioRefeicao.horario);
   }
 
+  selecionarRepeticao(e: string) {
+    this.horarioRefeicao.repetir = e;
+    console.log(this.horarioRefeicao.repetir);
+    if (e !== 'Personalizado'){
+      this.modalCtrl.dismiss();
+    }
+  }
+
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
   confirm() {
-    return this.modalCtrl.dismiss('confirm');
+    if (this.horarioRefeicao.tipo !== '' && this.horarioRefeicao.horario !== ''){
+      this.horarioRefeicaoPersonalizado.horarioRefeicao = this.horarioRefeicao;
+
+      if(this.horarioRefeicao.repetir === 'Personalizado'){
+        this.horarioRefeicaoPersonalizado.horarioPersonalizado = this.horarioPersonalizado;
+        console.log(this.horarioRefeicaoPersonalizado);
+        return this.modalCtrl.dismiss('confirm');
+      }
+      else return this.modalCtrl.dismiss('confirm');
+    }
+    else return this.setOpen(true);
   }
 
-  /*async openModalHrPers() {
+  async openModalHrPers() {
     const modal = await this.modalCtrl.create({
       component: HorarioPersonalizadoComponent,
     });
     modal.present();
 
-    /*const { data, role } = await modal.onWillDismiss();
+    const { data, role } = await modal.onWillDismiss();
 
     if (role === 'confirm') {
-      this.message = `Hello, ${data}!`;
+      this.horarioPersonalizado = data;
+      console.log(this.horarioPersonalizado);
     }
-  }*/
+  }
 
 
   async openModalReceitasSalvas() {
@@ -104,5 +149,11 @@ export class HorarioRefeicaoComponent  implements OnInit {
       this.horarioRefeicao.receitas.push({idReceita: data.idRecSelec, nome: data.nomeRecSelec, img: data.imgRecSelec});
       console.log(`receita ${data.nomeRecSelec} adicionada`)
     }
+  }
+
+  isToastOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
   }
 }
