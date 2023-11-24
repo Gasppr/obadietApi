@@ -15,22 +15,22 @@
 
         <ion-row>
           <ion-input label="Nome Completo*:" labelPlacement="stacked" type="name" [clearInput]="true"
-          aria-label="Nome completo do usuário">
+          aria-label="Nome completo do usuário" [(ngModel)]="usuario.nome">
         </ion-input>
         </ion-row>
         <ion-row>
           <ion-input label="Email*:" labelPlacement="stacked" type="email" [clearInput]="true"
-            aria-label="E-mail do usuário">
+            aria-label="E-mail do usuário" [(ngModel)]="usuario.email">
           </ion-input>
         </ion-row>
         <ion-row>
           <ion-input labelPlacement="stacked" type="password" [clearInput]="true" label="Senha*:"
-            aria-label="Senha do usuário">
+            aria-label="Senha do usuário" [(ngModel)]="senha1">
           </ion-input>
         </ion-row>
         <ion-row>
           <ion-input labelPlacement="stacked" type="password" [clearInput]="true" label="Confirme sua Senha"
-            aria-label="Confirme sua Senha de usuário">
+            aria-label="Confirme sua Senha de usuário" [(ngModel)]="senha2">
           </ion-input>
         </ion-row>
 
@@ -40,9 +40,14 @@
               <ion-button [routerLink]="['/iniciov2']" aria-label="Botão voltar" class="btn-voltar">Voltar</ion-button>
             </ion-col>
             <ion-col>
-              <ion-button [routerLink]="['/cadastro2']" aria-label="botão continuar cadastro" class="btn-continuar">Continuar</ion-button>
+              <ion-button (click)="compararSenha()" aria-label="botão continuar cadastro" class="btn-continuar">Continuar</ion-button>
             </ion-col>  
           </div>
         </ion-row>
+        <ion-toast [isOpen]="isToastOpen"
+        message="Digite a mesma senha em ambos os campos de senha"
+        [duration]="5000"
+        (didDismiss)="setOpen(false)"
+        ></ion-toast>
   </ion-grid>
 </ion-content>

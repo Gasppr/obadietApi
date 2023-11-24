@@ -13,6 +13,7 @@
         type="number"
         [clearInput]="true"
         placeholder=""
+        [(ngModel)]="usuario.peso"
       >
       </ion-input>
       </ion-col>
@@ -26,6 +27,7 @@
         type="number"
         [clearInput]="true"
         placeholder=""
+        [(ngModel)]="usuario.altura"
       >
       </ion-input>
       </ion-col>
@@ -34,9 +36,9 @@
       <ion-col class="ion-align-items-center">
         <ion-select aria-label="Sexo" interface="popover" 
         aria-label="Sexo do usuário"
-        placeholder="Sexo:" class="select-sexo">
-          <ion-select-option value="f">Feminino</ion-select-option>
-          <ion-select-option value="m">Masculino</ion-select-option>
+        placeholder="Sexo:" class="select-sexo" (ionChange)="selecionarSexo($event)">
+          <ion-select-option value="FEMININO">Feminino</ion-select-option>
+          <ion-select-option value="MASCULINO">Masculino</ion-select-option>
         </ion-select>
       </ion-col>
       <ion-col class="ion-align-items-center">
@@ -47,6 +49,7 @@
         type="number"
         [clearInput]="true"
         placeholder=""
+        [(ngModel)]="usuario.idade"
       >
       </ion-input>
       </ion-col>

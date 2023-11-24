@@ -4,20 +4,20 @@
       <h1 class="title">Comorbidades e restrições</h1>
     </ion-row>
     <ion-row>
-      <ion-select aria-label="Doencas" placeholder="Doenças:" [multiple]="true">
-        <ion-select-option value="lorem ipsum">Nenhuma</ion-select-option>
-        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
-        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
+      <ion-select aria-label="Doencas" placeholder="Doenças:" [multiple]="true" (ionChange)="selecionarDoencas($event)">
+        <ion-select-option value="">Nenhuma</ion-select-option>
+        <ion-select-option value="diabetes">Diabetes</ion-select-option>
+        <ion-select-option value="colesterol">Colesterol</ion-select-option>
+        <ion-select-option value="pressão alta">Pressão alta</ion-select-option>
       </ion-select>
     </ion-row>
     <ion-row>
-      <ion-select aria-label="Restricoes" placeholder="Restrições:" [multiple]="true">
-        <ion-select-option value="lorem ipsum">Nenhuma</ion-select-option>
-        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
-        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
+      <ion-select aria-label="Restricoes" placeholder="Restrições:" [multiple]="true" (ionChange)="selecionarRestricoes($event)">
+        <ion-select-option value="">Nenhuma</ion-select-option>
+        <ion-select-option value="gluten">Glúten</ion-select-option>
+        <ion-select-option value="lactose">Lactose</ion-select-option>
       </ion-select>
 
-      
     </ion-row>
 
     <ion-row class="ion-justify-content-center">
