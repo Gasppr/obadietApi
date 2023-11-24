@@ -5,7 +5,8 @@ import { UsuarioEntity } from "../UsuarioEntity.entity"
 @Table({modelName:'horarios_refeicoes', createdAt:false, deletedAt:false})
 export class RefeicoesHorariosEntity extends Model{
 
- 
+  @ForeignKey(() => UsuarioEntity)
+  @ForeignKey(() => ReceitaEntity)
   @PrimaryKey
   @AutoIncrement
   @Column
@@ -15,11 +16,11 @@ export class RefeicoesHorariosEntity extends Model{
   horario : string
 
   @Column({type: DataType.ENUM('Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar')})
-  tipo : TIPO
+  tipo : string
 
   @IsDate
-  @Column
-  data : Date 
+  @Column({type : 'date'})
+  data : string 
 
   @Column
   qtdRepeteCada : number
@@ -48,10 +49,6 @@ export class RefeicoesHorariosEntity extends Model{
   @HasMany(() => usuarios_has_horarios_refeicoes)
   horariosRefeicoes : usuarios_has_horarios_refeicoes[]
 
- 
-
-  
-
 }
 
 
@@ -60,14 +57,17 @@ export class usuarios_has_horarios_refeicoes extends Model{
 
  
   @ForeignKey(() => UsuarioEntity)
+  @PrimaryKey
   @Column
   usuarios_id : number
 
   @ForeignKey(()=> RefeicoesHorariosEntity)
+  @PrimaryKey
   @Column
   horarios_refeicoes_idhorarios:number
 
   @ForeignKey(()=> ReceitaEntity)
+  @PrimaryKey
   @Column
   horarios_refeicoes_receita_id:number
 

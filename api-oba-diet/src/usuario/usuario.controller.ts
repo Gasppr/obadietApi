@@ -16,6 +16,8 @@ import { RemediosHorariosEntity } from './entity/horarios/RemediosHorario.entity
 import { HorariosRepository } from './repository/Horarios.repository';
 import { UUID } from 'crypto';
 import { Horarios_remediosDto } from './dto/horarios_remedios.dto';
+import { RefeicoesHorariosEntity } from './entity/horarios/RefeicoesHorario.entity';
+import { Horarios_RefeicoesDto } from './dto/horarios_refeicoes.dto ';
 
 
 
@@ -91,6 +93,65 @@ export class UsuarioController {
   }
 
 
+  @Get('refeicoes')
+  @IsPublic()
+  BuscarReceitas(@Body() {id} : {id : string}) {
+    return this.horarios.listarReceitas(id)
+  }
+
+  @Post('CriarHorarioRefeicoes/:id')
+  @IsPublic()
+  async criarHorarioRefeicoes(@Body() horarioRefeicoesDto : Horarios_RefeicoesDto, @Param('id') idUsuario : string ) {
+ 
+    const horarioRefeicao : RefeicoesHorariosEntity = new RefeicoesHorariosEntity()
+   
+    horarioRefeicao.idHorarios = horarioRefeicoesDto.idHorarios;
+    horarioRefeicao.data = horarioRefeicoesDto.data;
+    horarioRefeicao.tipo = horarioRefeicoesDto.tipo;
+    horarioRefeicao.horario = horarioRefeicoesDto.horarios;
+    horarioRefeicao.qtdRepeteCada = horarioRefeicoesDto.qtdRepeteCada;
+    horarioRefeicao.quandoRepeteCada = horarioRefeicoesDto.quandoRepeteCada;
+    horarioRefeicao.diasDaSemanaRepeticao = horarioRefeicoesDto.diasDaSemanaRepeticao;
+    horarioRefeicao.qndTermina = horarioRefeicoesDto.qndTermina;
+    horarioRefeicao.qndTerminaData = horarioRefeicoesDto.qndTerminaData;
+    horarioRefeicao.qndTerminaHorario = horarioRefeicoesDto.qndTerminaHorario;
+    horarioRefeicao.nmrRepeticoesTermino = horarioRefeicoesDto.nmrRepeticoesTermino;
+    horarioRefeicao.receita_id = horarioRefeicoesDto.receita_id;
+
+    return await this.horarios.criarHorarioPraRefeicoes(horarioRefeicao, idUsuario)
+  }
+
+  @Patch('editarHorarioRefeicao')
+  @IsPublic()
+  async editarHorariosRefeicao(@Body() horarioRefeicoesDto : Horarios_RefeicoesDto) {
+ 
+    const horarioRefeicao : RefeicoesHorariosEntity = new RefeicoesHorariosEntity()
+   
+    horarioRefeicao.idHorarios = horarioRefeicoesDto.idHorarios;
+    horarioRefeicao.data = horarioRefeicoesDto.data;
+    horarioRefeicao.tipo = horarioRefeicoesDto.tipo;
+    horarioRefeicao.horario = horarioRefeicoesDto.horarios;
+    horarioRefeicao.qtdRepeteCada = horarioRefeicoesDto.qtdRepeteCada;
+    horarioRefeicao.quandoRepeteCada = horarioRefeicoesDto.quandoRepeteCada;
+    horarioRefeicao.diasDaSemanaRepeticao = horarioRefeicoesDto.diasDaSemanaRepeticao;
+    horarioRefeicao.qndTermina = horarioRefeicoesDto.qndTermina;
+    horarioRefeicao.qndTerminaData = horarioRefeicoesDto.qndTerminaData;
+    horarioRefeicao.qndTerminaHorario = horarioRefeicoesDto.qndTerminaHorario;
+    horarioRefeicao.nmrRepeticoesTermino = horarioRefeicoesDto.nmrRepeticoesTermino;
+    horarioRefeicao.receita_id = horarioRefeicoesDto.receita_id;
+
+    return await this.horarios.editarHorariosRefeicoes(horarioRefeicao)
+  }
+
+  @Delete('deletarHorarioRefeicao')
+  @IsPublic()
+  async deletarRefeicoes(@Body() {id} : {id : number}){
+
+    return await this.horarios.deletarHorariosRefeicoes(id)
+  }
+
+
+
   @Get('remedios')
   @IsPublic()
   BuscarRemedios(@Body() {id} : {id : string}) {
@@ -98,7 +159,7 @@ export class UsuarioController {
   }
 
 
-  @Patch('editarHorarioReceita')
+  @Patch('editarHorarioRemedio')
   @IsPublic()
   async editarHorariosRemedios(@Body() horarioRemedioDto : Horarios_remediosDto) {
  

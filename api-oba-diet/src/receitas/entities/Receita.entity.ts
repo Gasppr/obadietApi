@@ -79,6 +79,8 @@ export class Receita_has_doencas extends Model {
 
 
 
+
+
 }
 
 @Table({ modelName: 'receita_has_restricoes' })
@@ -101,6 +103,8 @@ export class Receita_has_restricoes extends Model {
  
   @BelongsTo(()=> RestricaoEntity)
   restricoes : RestricaoEntity[]
+
+
 
 }
 

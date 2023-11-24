@@ -13,6 +13,8 @@ import configuration from '../config/configuration';
 import { HorariosRepository } from './repository/Horarios.repository';
 import { RemediosHorariosEntity, usuarios_has_horarios_remedios } from './entity/horarios/RemediosHorario.entity';
 import { RefeicoesHorariosEntity, usuarios_has_horarios_refeicoes } from './entity/horarios/RefeicoesHorario.entity';
+import { ReceitasRepository } from '../receitas/repository/Receitas.repository';
+import { ReceitaEntity } from '../receitas/entities/Receita.entity';
 
 @Module({
 
@@ -48,17 +50,21 @@ import { RefeicoesHorariosEntity, usuarios_has_horarios_refeicoes } from './enti
     criptografia,
     JwtModule.register({
       global: true,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '6h' },
     }),
 
     SequelizeModule.forFeature([
-      UsuarioEntity, RestricaoEntity,
-      DoencaEntity, Usuario_Has_Doencas, 
+      UsuarioEntity, 
+      RestricaoEntity,
+      DoencaEntity,
+      Usuario_Has_Doencas, 
       Usuario_Has_Restricoes, 
       RemediosHorariosEntity,
       RefeicoesHorariosEntity,
       usuarios_has_horarios_refeicoes,
-      usuarios_has_horarios_remedios]),
+      usuarios_has_horarios_remedios,
+      ReceitaEntity
+    ]),
   ],
 
   providers: [UsuarioRepository, JwtService, criptografia, HorariosRepository],
