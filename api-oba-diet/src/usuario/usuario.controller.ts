@@ -144,7 +144,7 @@ export class UsuarioController {
 
   @Delete('deletarHorarioRemedio')
   @IsPublic()
-  async deletarRemedios(@Body() id : number){
+  async deletarRemedios(@Body() {id} : {id : number}){
 
     return await this.horarios.deletarHorariosRemedios(id)
   }

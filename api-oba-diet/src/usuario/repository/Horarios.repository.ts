@@ -134,13 +134,15 @@ export class HorariosRepository {
 
 
     async deletarHorariosRemedios(id : number){
-        this.hasRemedios.destroy({
+       await this.hasRemedios.destroy({
             where: {
                 horarios_remedios_idHorario : id
             }
         })
 
-        this.remediosDB.destroy({where:{
+        await this.remediosDB.destroy(
+            {where:
+            {
             idHorario : id
         }})
 
