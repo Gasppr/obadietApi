@@ -21,13 +21,19 @@
     </ion-row>
 
     <ion-row class="ion-justify-content-center">
-      <ion-button fill="outline" class="btn-contorno-amarelo" (click)="mudarQualHorarioExibir('refeicoes')">
+      <ion-button fill="outline" class="btn-contorno-amarelo btn-tipo-horario" (click)="mudarQualHorarioExibir('refeicoes')">
         Refeição
       </ion-button>
 
       <ion-button fill="outline" class="btn-contorno-amarelo btn-tipo-horario"
         (click)="mudarQualHorarioExibir('remedios')">
         Remédio
+      </ion-button>
+    </ion-row>
+    <ion-row>
+      <ion-button fill="clear" class="btn-contorno-amarelo btn-tipo-horario btn-todos"
+        (click)="mudarQualHorarioExibir('todos')">
+        Todos os horários
       </ion-button>
     </ion-row>
 
@@ -38,9 +44,9 @@
       <h1 class="title">Sua Programação do dia <b>{{ dataAtual.getDate() }}</b></h1>
       <ion-button color="danger" (click)="openModalAlarme()">botão chique</ion-button>
 
-      <div class="horario" *ngIf="exibirQuaisHorarios == 'refeicoes'">
+      <div class="horario" *ngIf="exibirQuaisHorarios == 'refeicoes' || exibirQuaisHorarios == 'todos'">
         <div class="horario" *ngFor="let refeicao of horariosRefeicoes">
-          <h3>{{ displayHorario(refeicao.horarioRefeicao.horario) }}</h3>
+          <h3>{{ displayHorario(refeicao.horarioRefeicao.horario) }} - Refeição</h3>
 
           <ion-button class="btn-laranja" expand="block" (click)="setOpen(true)">{{ refeicao.horarioRefeicao.tipo
             }}</ion-button>
@@ -48,7 +54,7 @@
             <ng-template>
               <ion-header>
                 <ion-toolbar>
-                  <ion-title>{{ refeicao.horarioRefeicao.tipo }}</ion-title>
+                  <ion-title>Detalhes da refeição</ion-title>
                   <ion-buttons slot="end">
                     <ion-button (click)="setOpen(false)">Fechar</ion-button>
                   </ion-buttons>
@@ -77,9 +83,9 @@
         </div>
       </div>
 
-      <div class="horario-remedios" *ngIf="exibirQuaisHorarios == 'remedios'">
+      <div class="horario-remedios" *ngIf="exibirQuaisHorarios == 'remedios' || exibirQuaisHorarios == 'todos'">
         <div class="horario" *ngFor="let remedio of horariosRemedios">
-          <h3>{{ displayHorario(remedio.horarioRemedio.horario) }}</h3>
+          <h3>{{ displayHorario(remedio.horarioRemedio.horario) }} - Remédio</h3>
 
           <ion-button class="btn-laranja" expand="block" (click)="setOpen(true)">{{ remedio.horarioRemedio.nomeRemedio
             }}</ion-button>

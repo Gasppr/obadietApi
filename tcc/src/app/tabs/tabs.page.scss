@@ -11,8 +11,9 @@ ion-tabs {
 
     ion-fab {
         position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
+        right: 5%;
+        bottom: 10vh;
+        transform: translateX(70%);
     }
 
     .adicionar-horario {

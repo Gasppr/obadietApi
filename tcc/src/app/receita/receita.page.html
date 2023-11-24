@@ -14,8 +14,12 @@
 </ion-header>
 
 <ion-content>
+  <ion-button class="btn-voltar" (click)="backClicked()">
+    <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+    Voltar
+  </ion-button>
   <ion-card *ngIf="receita">
-    <ion-card-header>
+    <ion-card-header class="receitaNome">
       {{ receita.nome }}
     </ion-card-header>
 
@@ -52,7 +56,7 @@
           </ul>
         </ion-card-content>
       </ion-card>
-
+      <div class="space"></div>
       <p>Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
       <p>Restrições: {{receita.doencas[0]?.doencas?.nomeDoenca}}</p>
     </ion-card-content>

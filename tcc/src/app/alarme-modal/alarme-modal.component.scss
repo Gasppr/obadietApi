@@ -17,3 +17,10 @@ ion-content{
     transform: translate(-50%, -50%);
     width: 50vw;
 }
+
+h1 {
+    position: absolute;
+    margin-block: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+}

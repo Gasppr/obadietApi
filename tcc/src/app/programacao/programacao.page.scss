@@ -16,3 +16,11 @@
         --background: rgba(235, 229, 94, 1); 
     }
 }
+
+.btn-todos{
+    width: 75vw;
+    margin-block: 1rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RecipesService } from '../services/recipes.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-receita',
@@ -11,7 +12,7 @@ export class ReceitaPage implements OnInit {
 
   receita: any;
 
-  constructor(private route: ActivatedRoute, private recipesService: RecipesService) {
+  constructor(private route: ActivatedRoute, private recipesService: RecipesService, private _location: Location) {
     this.route.queryParams.subscribe(params => {
       const receitaId = params['id'];
 
@@ -31,5 +32,9 @@ export class ReceitaPage implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  backClicked() {
+    this._location.back();
   }
 }

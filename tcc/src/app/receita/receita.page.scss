@@ -1,3 +1,22 @@
+ion-content{
+  --color: rgba(1, 1, 1, 1);
+}
+
+.receitaNome{
+  padding-block: 3vh;
+  --color: rgba(1, 1, 1, 1);
+}
+
+.btn-voltar{
+  margin-block: 1rem;
+  
+  --background: rgba(235, 229, 94, 1);
+
+  ion-icon{
+    padding-inline-end: 1rem;
+  }
+}
+
 ion-card-header {
     margin-bottom: 3%;
     margin-left: 3%;
@@ -17,12 +36,22 @@ ion-img{
 ion-button{
     --color: rgba(1, 1, 1, 1);
 }
+
+.ingredient-card{
+  --background: rgba(217, 217, 217, 1);
+  --color: rgba(1, 1, 1, 1);
+  padding: 1rem;
+}
+
 .space {
     margin-bottom: 5%;
     margin-top: 3%;
   }
 
 .preparation-card {
+  --color: rgba(1, 1, 1, 1);
+  padding: 1rem;
+
     .preparation-list {
       list-style-type: none;
       padding: 0;
