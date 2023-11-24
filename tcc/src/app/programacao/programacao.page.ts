@@ -67,7 +67,7 @@ export class ProgramacaoPage implements OnInit {
   horarioRemedioPersonalizado: HorarioRemedioPersonalizado
 
   receitas: any = [];
-  horariosRemedios: HorarioRemedioPersonalizado[] = [{ horarioRemedio: { data: '2023-11-24', nomeRemedio: 'Ibuprofeno', horario: '05:00:00', repetir: 'Não repetir' }, horarioPersonalizado: { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 } }];
+  horariosRemedios: HorarioRemedioPersonalizado[] = [{ horarioRemedio: { data: '2023-11-24', nomeRemedio: 'Ibuprofeno', horario: '10:31:00', repetir: 'Não repetir' }, horarioPersonalizado: { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 } }];
   horariosRefeicoes: HorarioRefeicaoPersonalizado[] = [{ horarioRefeicao: { data: '2023-11-24', tipo: 'Café da tarde', receitas: [{ idReceita: 1, nome: 'Torta de maracujá sem açúcar e sem lactose', img: 'https://guiadacozinha.com.br/wp-content/uploads/2020/03/torta-maracuja-sem-acucar-sem-lactose-1.jpg' }, { idReceita: 2, nome: 'Caponata de berinjela', img: 'https://guiadacozinha.com.br/wp-content/uploads/2020/03/caponata-de-berinjela-1.jpg' }, { idReceita: 3, nome: 'Pudim diet de leite', img: 'https://guiadacozinha.com.br/wp-content/uploads/2020/03/pudim-diet-de-leite-1.jpg' }], repetir: 'Não repetir', horario: '04:16:00' }, horarioPersonalizado: { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 } }];
 
   constructor(private modalCtrl: ModalController, private horarioService: HorariosService, private receitasService: RecipesService, private router: Router, private storage: StorageHorarioService) {
@@ -78,8 +78,8 @@ export class ProgramacaoPage implements OnInit {
     this.receita = this.iniciarReceita();
     this.horarioRefeicaoPersonalizado = this.iniciarHorarioRefeicaoPersonalizado();
 
-    this.exibirHorariosRefeicoes();
-    this.exibirHorariosRemedio();
+    /*this.exibirHorariosRefeicoes();
+    this.exibirHorariosRemedio();*/
 
     setInterval(() => {
       let date = new Date();
@@ -125,7 +125,7 @@ export class ProgramacaoPage implements OnInit {
   }
 
 
-  async exibirHorariosRemedio() {
+  /*async exibirHorariosRemedio() {
     let token = await this.storage.buscarToken("token");
     await this.horarioService.buscarHorarioRemedio(token).subscribe({
       next: (data: any) => {
@@ -143,7 +143,7 @@ export class ProgramacaoPage implements OnInit {
       }
     })
     await this.storage.guardarToken("horarioToken", this.horarioRemedio);
-  }
+  }*/
 
   varReceitaBuscar: any = {}
 

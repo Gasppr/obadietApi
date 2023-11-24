@@ -42,7 +42,7 @@
 
     <div class="horarios">
       <h1 class="title">Sua Programação do dia <b>{{ dataAtual.getDate() }}</b></h1>
-      <ion-button color="danger" (click)="openModalAlarme()">botão chique</ion-button>
+      <!--<ion-button color="danger" (click)="openModalAlarme()">botão chique</ion-button>-->
 
       <div class="horario" *ngIf="exibirQuaisHorarios == 'refeicoes' || exibirQuaisHorarios == 'todos'">
         <div class="horario" *ngFor="let refeicao of horariosRefeicoes">
