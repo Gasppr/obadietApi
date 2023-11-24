@@ -5,6 +5,7 @@ import { HorariosService } from '../services/horarios.service';
 import { Router } from '@angular/router';
 import { RecipesService } from '../services/recipes.service';
 import Swiper from 'swiper';
+import { StorageHorarioService } from '../services/storage-horario.service';
 
 
 interface HorarioRemedio {
@@ -69,7 +70,7 @@ export class ProgramacaoPage implements OnInit {
   horariosRemedios: HorarioRemedioPersonalizado[] = [{ horarioRemedio: { data: '2023-11-24', nomeRemedio: 'Ibuprofeno', horario: '05:00:00', repetir: 'Não repetir' }, horarioPersonalizado: { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 } }];
   horariosRefeicoes: HorarioRefeicaoPersonalizado[] = [{ horarioRefeicao: { data: '2023-11-24', tipo: 'Café da tarde', receitas: [{ idReceita: 1, nome: 'Torta de maracujá sem açúcar e sem lactose', img: 'https://guiadacozinha.com.br/wp-content/uploads/2020/03/torta-maracuja-sem-acucar-sem-lactose-1.jpg' }, { idReceita: 2, nome: 'Caponata de berinjela', img: 'https://guiadacozinha.com.br/wp-content/uploads/2020/03/caponata-de-berinjela-1.jpg' }, { idReceita: 3, nome: 'Pudim diet de leite', img: 'https://guiadacozinha.com.br/wp-content/uploads/2020/03/pudim-diet-de-leite-1.jpg' }], repetir: 'Não repetir', horario: '04:16:00' }, horarioPersonalizado: { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 } }];
 
-  constructor(private modalCtrl: ModalController, private horarioService: HorariosService, private receitasService: RecipesService, private router: Router) {
+  constructor(private modalCtrl: ModalController, private horarioService: HorariosService, private receitasService: RecipesService, private router: Router, private storage: StorageHorarioService) {
     this.horarioRemedio = this.iniciarHorarioRemedio();
     this.horarioPersonalizado = this.iniciarHorarioPersonalizado();
     this.horarioRemedioPersonalizado = this.iniciarHorarioRemedioPersonalizado();
@@ -102,15 +103,14 @@ export class ProgramacaoPage implements OnInit {
 
       dateString = `${horas}:${minutos}:${segundos}`
 
-      this.horarioRemedio.horario = '09:45:00';
 
       for (let i = 0; i < this.horariosRemedios.length; i++) {
-        if (this.horariosRemedios[i].horarioRemedio.horario == dateString) {
+        if (this.horariosRemedios[i].horarioRemedio?.horario == dateString) {
           this.openModalAlarme();
         }
       }
       for (let i = 0; i < this.horariosRefeicoes.length; i++) {
-        if (this.horariosRefeicoes[i].horarioRefeicao.horario == dateString) {
+        if (this.horariosRefeicoes[i].horarioRefeicao?.horario == dateString) {
           this.openModalAlarme();
         }
       }
@@ -124,20 +124,25 @@ export class ProgramacaoPage implements OnInit {
     this.exibirQuaisHorarios = e;
   }
 
-  exibirHorariosRemedio() {
-    this.horarioService.buscarHorarioRemedio().subscribe({
+
+  async exibirHorariosRemedio() {
+    let token = await this.storage.buscarToken("token");
+    await this.horarioService.buscarHorarioRemedio(token).subscribe({
       next: (data: any) => {
         this.horariosRemedios.push(data);
       }
     })
+    await this.storage.guardarToken("horarioToken", this.horarioRemedio);
   }
 
-  exibirHorariosRefeicoes() {
-    this.horarioService.buscarHorarioRefeicao().subscribe({
+  async exibirHorariosRefeicoes() {
+    let token = await this.storage.buscarToken("token");
+    await this.horarioService.buscarHorarioRefeicao(token).subscribe({
       next: (data: any) => {
         this.horariosRefeicoes.push(data);
       }
     })
+    await this.storage.guardarToken("horarioToken", this.horarioRemedio);
   }
 
   varReceitaBuscar: any = {}
@@ -170,6 +175,7 @@ export class ProgramacaoPage implements OnInit {
   ngOnInit() {
   }
   dataAtual: Date = new Date();
+
 
   iniciarHorarioRemedio(): HorarioRemedio {
     return { data: '', nomeRemedio: '', repetir: '', horario: '' }

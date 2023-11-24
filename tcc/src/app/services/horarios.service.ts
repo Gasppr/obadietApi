@@ -11,8 +11,8 @@ export class HorariosService {
 
   constructor(private http: HttpClient) { }
 
-  buscarHorarioRemedio():Observable<any>{
-    return this.http.get<any>(`${this.URL}/remedios`)
+  buscarHorarioRemedio(id: string):Observable<any>{
+    return this.http.get(`${this.URL}/remedios/${id}`, )
   }
 
   cadastroHorarioRemedio(id: string, horarioRemedio: {}): Observable<any> {
@@ -29,8 +29,8 @@ export class HorariosService {
 
 
 
-  buscarHorarioRefeicao():Observable<any>{
-    return  this.http.get<any>(`${this.URL}/refeicoes`)
+  buscarHorarioRefeicao(id: string):Observable<any>{
+    return  this.http.get<any>(`${this.URL}/refeicoes/${id}`)
   }
 
   cadastroHorarioRefeicao(id: string, horarioRefeicao: {}): Observable<any> {
