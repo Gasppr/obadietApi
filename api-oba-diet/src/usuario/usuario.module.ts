@@ -10,6 +10,9 @@ import { criptografia } from './criptografia';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ConfigModule } from '@nestjs/config';
 import configuration from '../config/configuration';
+import { HorariosRepository } from './repository/Horarios.repository';
+import { RemediosHorariosEntity, usuarios_has_horarios_remedios } from './entity/horarios/RemediosHorario.entity';
+import { RefeicoesHorariosEntity, usuarios_has_horarios_refeicoes } from './entity/horarios/RefeicoesHorario.entity';
 
 @Module({
 
@@ -48,13 +51,18 @@ import configuration from '../config/configuration';
       signOptions: { expiresIn: '60s' },
     }),
 
-    SequelizeModule.forFeature([UsuarioEntity, RestricaoEntity, DoencaEntity, Usuario_Has_Doencas, Usuario_Has_Restricoes]),
-
-
+    SequelizeModule.forFeature([
+      UsuarioEntity, RestricaoEntity,
+      DoencaEntity, Usuario_Has_Doencas, 
+      Usuario_Has_Restricoes, 
+      RemediosHorariosEntity,
+      RefeicoesHorariosEntity,
+      usuarios_has_horarios_refeicoes,
+      usuarios_has_horarios_remedios]),
   ],
 
-  providers: [UsuarioRepository, JwtService, criptografia],
-  exports: [UsuarioRepository],
+  providers: [UsuarioRepository, JwtService, criptografia, HorariosRepository],
+  exports: [UsuarioRepository, HorariosRepository],
   controllers: [UsuarioController],
 })
 export class UsuarioModule { }

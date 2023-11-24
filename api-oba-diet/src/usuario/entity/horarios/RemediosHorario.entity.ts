@@ -1,15 +1,15 @@
-import {  AutoIncrement, Column, DataType, ForeignKey, IsDate, Model, PrimaryKey, Table } from "sequelize-typescript"
+import {  AutoIncrement, BelongsTo, Column, DataType, ForeignKey, HasMany, IsDate, Model, PrimaryKey, Table } from "sequelize-typescript"
 import { UsuarioEntity } from "../UsuarioEntity.entity"
 
 
 @Table({modelName:'horarios_remedios', createdAt:false, deletedAt:false})
 export class RemediosHorariosEntity extends Model{
 
-    @PrimaryKey
-    @AutoIncrement
-    @Column
-    idHorarios : number
-
+  @ForeignKey(() => UsuarioEntity)
+  @PrimaryKey
+  @Column
+  idHorario : number
+  
     @IsDate
     @Column
     data : Date 
@@ -25,34 +25,49 @@ export class RemediosHorariosEntity extends Model{
 
     @Column
     qtdRepeteCada : number
+
     @Column
     quandoRepeteCada : string 
+
     @Column
     diasDaSemanaRepeticao : string 
+
     @Column
     qndTermina : string 
+
     @Column
     qndTerminaData : string 
+
     @Column
     qndTerminaHorario : string 
+
     @Column
     nmrRepeticoesTermino : number
+
+
+    @HasMany(() => usuarios_has_horarios_remedios, 'idHorario')
+    horariosHasRemedios : usuarios_has_horarios_remedios[]
+
 }
 
 
 @Table({modelName:'usuarios_has_horarios_remedios', createdAt:false, deletedAt:false})
 export class usuarios_has_horarios_remedios extends Model{
-
+  
+  @ForeignKey(()=> RemediosHorariosEntity)
+  @PrimaryKey
+  @Column
+  horarios_remedios_idHorario : number
  
   @ForeignKey(() => UsuarioEntity)
+  @PrimaryKey
   @Column
-  usuarios_id : number
+  usuarios_id : string
 
-  @ForeignKey(()=> RemediosHorariosEntity)
-  @Column
-  horarios_remedios_idHorario:number
-
-
-
+  @BelongsTo(()=> RemediosHorariosEntity)
+  horariosRemedios : RemediosHorariosEntity[]
+ 
+  @BelongsTo(()=> UsuarioEntity)
+  usuarios : UsuarioEntity[]
 
 }

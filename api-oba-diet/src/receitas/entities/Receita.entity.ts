@@ -15,6 +15,7 @@ import { RestricaoEntity } from './Restricao.entity';
 import { UsuarioEntity } from '../../usuario/entity/UsuarioEntity.entity';
 import { Options } from '@nestjs/common';
 import { CategoriaEntity } from './Categoria.entity';
+import { usuarios_has_horarios_refeicoes } from '../../usuario/entity/horarios/RefeicoesHorario.entity';
 
 @Table({ tableName: 'receita'})
 export  class ReceitaEntity extends Model {
@@ -48,7 +49,8 @@ export  class ReceitaEntity extends Model {
   @HasMany(()=> Receita_has_categoria)
   categorias : Receita_has_categoria[]
 
- 
+  @HasMany(()=> usuarios_has_horarios_refeicoes )
+  horarisoRefeicoes : usuarios_has_horarios_refeicoes[]
 
   @BelongsTo(()=> UsuarioEntity , 'id')
   usuarios : UsuarioEntity[]

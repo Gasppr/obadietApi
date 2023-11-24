@@ -8,12 +8,13 @@ import { LoginDto } from './dto/Login.dto';
 import { IsPublic } from '../auth/guard/isPublic.decorator';
 import { v4 as uuid } from 'uuid';
 import { ApiTags } from '@nestjs/swagger'
-
-import * as bcrypt from 'bcrypt'
 import { criptografia } from './criptografia';
 import { JwtService } from '@nestjs/jwt';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Response } from 'express';
+import { RemediosHorariosEntity } from './entity/horarios/RemediosHorario.entity';
+import { HorariosRepository } from './repository/Horarios.repository';
+import { UUID } from 'crypto';
 
 
 
@@ -21,9 +22,12 @@ import { Response } from 'express';
 @ApiTags('Usuarios')
 @Controller('obadiet')
 export class UsuarioController {
-  constructor(private readonly _usuarioRepository: UsuarioRepository, private cripto: criptografia,
+  constructor(
+    private readonly _usuarioRepository: UsuarioRepository,
+    private cripto: criptografia,
     private jwt: JwtService,
-    private mailerService: MailerService
+    private mailerService: MailerService,
+    private readonly horarios : HorariosRepository,
   ) { }
 
 
@@ -85,6 +89,18 @@ export class UsuarioController {
     return this._usuarioRepository.deletarUsuario(id);
   }
 
+
+  @Get('remedios')
+  @IsPublic()
+  BuscarRemedios(@Body() {id} : {id : string}) {
+    return this.horarios.listarRemedios(id)
+  }
+
+  @Post('CriarHorarioRemedios')
+  @IsPublic()
+  criarHorarioRemedios(@Body() horarioRemedio : RemediosHorariosEntity, @Body() idUsuario : UUID ) {
+    return this.horarios.criarHorarioPraRemedios(horarioRemedio, idUsuario)
+  }
 
 
   @Get('esqueci-senha')

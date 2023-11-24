@@ -13,7 +13,7 @@ export class RestricaoEntity extends Model {
   nomeRestricao: string;
 
   @HasMany(()=> Receita_has_restricoes)
-    receitaHasCategoria : Receita_has_restricoes[]
+  receitaHasCategoria : Receita_has_restricoes[]
     
   @BelongsToMany(()=> UsuarioEntity, ()=> Usuario_Has_Restricoes)
   usuarios : UsuarioEntity[]

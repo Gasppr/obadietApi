@@ -1,4 +1,4 @@
-import { AutoIncrement, Column, DataType, ForeignKey, IsDate, Model, NotNull, PrimaryKey, Table } from "sequelize-typescript"
+import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, HasMany, IsDate, Model, NotNull, PrimaryKey, Table } from "sequelize-typescript"
 import { ReceitaEntity } from "../../../receitas/entities/Receita.entity"
 import { UsuarioEntity } from "../UsuarioEntity.entity"
 
@@ -45,7 +45,12 @@ export class RefeicoesHorariosEntity extends Model{
   @Column
   receita_id : number
 
+  @HasMany(() => usuarios_has_horarios_refeicoes)
+  horariosRefeicoes : usuarios_has_horarios_refeicoes[]
 
+ 
+
+  
 
 }
 
@@ -65,6 +70,15 @@ export class usuarios_has_horarios_refeicoes extends Model{
   @ForeignKey(()=> ReceitaEntity)
   @Column
   horarios_refeicoes_receita_id:number
+
+  @BelongsTo(()=> UsuarioEntity)
+  usuarios : UsuarioEntity[]
+ 
+  @BelongsTo(()=> RefeicoesHorariosEntity)
+  horariosRefeicao : RefeicoesHorariosEntity[]
+
+  @BelongsTo(()=> ReceitaEntity)
+  receitas : ReceitaEntity[]
 
 
 }

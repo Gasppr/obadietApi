@@ -11,7 +11,7 @@ import { CategoriaEntity } from './entities/Categoria.entity';
 
     imports: [
         ReceitasModule,
-        SequelizeModule.forFeature([ReceitaEntity, Receita_has_doencas, Receita_has_restricoes, DoencaEntity, RestricaoEntity, CategoriaEntity, Receita_has_categoria])
+        SequelizeModule.forFeature([ReceitaEntity, Receita_has_doencas, Receita_has_restricoes, DoencaEntity, RestricaoEntity, CategoriaEntity, Receita_has_categoria,])
       ],
       providers: [ReceitasRepository],
       exports: [ReceitasRepository],

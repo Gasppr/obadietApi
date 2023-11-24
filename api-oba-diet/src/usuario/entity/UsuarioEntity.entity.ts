@@ -14,6 +14,8 @@ import { DoencaEntity } from '../../receitas/entities/Doenca.entity';
 import { ReceitaEntity } from '../../receitas/entities/Receita.entity';
 import { RestricaoEntity } from '../../receitas/entities/Restricao.entity';
 import { IncludeThroughOptions } from 'sequelize';
+import { usuarios_has_horarios_refeicoes } from './horarios/RefeicoesHorario.entity';
+import { usuarios_has_horarios_remedios } from './horarios/RemediosHorario.entity';
 
 export enum sexoEnum {
   'MASCULINO' = 'Masculino',
@@ -55,8 +57,14 @@ export class UsuarioEntity extends Model {
 
   @BelongsToMany(()=> DoencaEntity , ()=> Usuario_Has_Doencas)  
   doencas : DoencaEntity[]
-  userEntity: Promise<string>;
+  
+  
 
+  @HasMany(()=> usuarios_has_horarios_refeicoes)
+  horarios_refeicoes : usuarios_has_horarios_refeicoes[]
+
+  @HasMany(()=> usuarios_has_horarios_remedios)
+  horarios_remedios : usuarios_has_horarios_remedios[]
 
   
 }

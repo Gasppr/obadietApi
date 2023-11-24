@@ -18,9 +18,7 @@ import { Op } from 'sequelize';
 @Injectable()
 export class ReceitasRepository {
   constructor(
-    private sequelize: Sequelize,
-    private configService: ConfigService,
-
+   
     @InjectModel(ReceitaEntity)
     private receitaDB: typeof ReceitaEntity,
 
