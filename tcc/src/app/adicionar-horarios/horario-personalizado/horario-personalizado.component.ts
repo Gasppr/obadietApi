@@ -43,41 +43,32 @@ export class HorarioPersonalizadoComponent implements OnInit {
 
   selecionarTermino(e: any) {
     this.horarioPersonalizado.qndTermina = e.detail.value;
-    console.log(this.horarioPersonalizado.qndTermina);
   }
 
   selecionarDiasSemana(e: any) {
     if (e.detail.checked == true) {
       if (this.horarioPersonalizado.diasSemanaRepeticao.length == 0) {
         this.horarioPersonalizado.diasSemanaRepeticao.push(e.detail.value);
-        console.log('não tem nada');
       }
       else {
         if (e.detail.value !== this.horarioPersonalizado.diasSemanaRepeticao) {
           this.horarioPersonalizado.diasSemanaRepeticao.push(e.detail.value);
-          console.log('não tem repetido');
         }
       }
     }
     else if (e.detail.checked == false) {
       this.horarioPersonalizado.diasSemanaRepeticao.splice(this.horarioPersonalizado.diasSemanaRepeticao.indexOf(e.detail.value), 1);
-      console.log('apagou');
     }
-
-    console.log(this.horarioPersonalizado.diasSemanaRepeticao);
   }
 
   selecionarQndRepeteCada(e: any) {
     this.horarioPersonalizado.quandoRepeteCada = e.detail.value;
-    console.log(this.horarioPersonalizado.quandoRepeteCada, this.horarioPersonalizado.qtdRepeteCada);
   }
 
   selecionarDataHorario(e: any) {
     let datetime = e.detail.value;
     this.horarioPersonalizado.qndTerminaData = datetime.split('T')[0];
     this.horarioPersonalizado.qndTerminaHorario = datetime.split('T')[1];
-    console.log(this.horarioPersonalizado.qndTerminaData);
-    console.log(this.horarioPersonalizado.qndTerminaHorario);
   }
 
   cancel() {

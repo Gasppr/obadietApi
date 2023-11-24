@@ -102,8 +102,6 @@ export class ProgramacaoPage implements OnInit {
 
       dateString = `${horas}:${minutos}:${segundos}`
 
-      console.log(`este é o horaraio ${dateString}`);
-
       this.horarioRemedio.horario = '09:45:00';
 
       for (let i = 0; i < this.horariosRemedios.length; i++) {
@@ -124,14 +122,12 @@ export class ProgramacaoPage implements OnInit {
 
   mudarQualHorarioExibir(e: string){
     this.exibirQuaisHorarios = e;
-    console.log(e);
   }
 
   exibirHorariosRemedio() {
     this.horarioService.buscarHorarioRemedio().subscribe({
       next: (data: any) => {
         this.horariosRemedios.push(data);
-        console.log(this.horariosRemedios)
       }
     })
   }
@@ -140,7 +136,6 @@ export class ProgramacaoPage implements OnInit {
     this.horarioService.buscarHorarioRefeicao().subscribe({
       next: (data: any) => {
         this.horariosRefeicoes.push(data);
-        console.log(this.horariosRefeicoes)
       }
     })
   }
@@ -156,7 +151,6 @@ export class ProgramacaoPage implements OnInit {
   }
 
   swiperSlideChanged(e: any){
-    console.log('changed ', e);
   }
 
   displayHorario(horarioParam: string): string {

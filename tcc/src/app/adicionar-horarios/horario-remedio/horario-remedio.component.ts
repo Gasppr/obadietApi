@@ -69,12 +69,10 @@ export class HorarioRemedioComponent  implements OnInit {
   selecionarData(e: any) {
     let datetime = e.detail.value;
     this.horarioRemedio.data = datetime.split('T')[0];
-    console.log(this.horarioRemedio.data);
   }
 
   selecionarRepeticao(e: string) {
     this.horarioRemedio.repetir = e;
-    console.log(this.horarioRemedio.repetir);
     if (e !== 'Personalizado'){
       this.modalCtrl.dismiss();
     }
@@ -83,7 +81,6 @@ export class HorarioRemedioComponent  implements OnInit {
   selecionarHorario(e: any) {
     let datetime = e.detail.value;
     this.horarioRemedio.horario = datetime.split('T')[1];
-    console.log(this.horarioRemedio.horario, this.horarioRemedio.nomeRemedio);
   }
 
   cancel() {
@@ -96,7 +93,6 @@ export class HorarioRemedioComponent  implements OnInit {
 
       if(this.horarioRemedio.repetir === 'Personalizado'){
         this.horarioRemedioPersonalizado.horarioPersonalizado = this.horarioPersonalizado;
-        console.log(this.horarioRemedioPersonalizado);
         return this.modalCtrl.dismiss('confirm');
       }
       else return this.modalCtrl.dismiss('confirm');
@@ -114,7 +110,6 @@ export class HorarioRemedioComponent  implements OnInit {
 
     if (role === 'confirm') {
       this.horarioPersonalizado = data;
-      console.log(this.horarioPersonalizado);
     }
   }
 

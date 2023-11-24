@@ -19,7 +19,6 @@ export class RecuperacaoPage {
 
     const mensagem = await this.esqueciSenha.mandarEmailDeRecuperacao(this.email).subscribe({
       next: (data: any) => {
-        console.log(data)
 
       }
     })

@@ -20,7 +20,6 @@ export class ReceitaPage implements OnInit {
         this.recipesService.buscarDetalhesReceita(receitaId).subscribe(
           (data) => {
             this.receita = data;
-            console.log(this.receita);
           },
           (error) => {
             console.error('Erro ao buscar detalhes da receita:', error);

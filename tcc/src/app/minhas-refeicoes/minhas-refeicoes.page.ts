@@ -39,6 +39,5 @@ export class MinhasRefeicoesPage {
   }
 
   swiperSlideChanged(e: any){
-    console.log('changed ', e);
   }
 }

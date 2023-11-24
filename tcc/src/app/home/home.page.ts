@@ -33,7 +33,6 @@ export class HomePage {
   }
 
   swiperSlideChanged(e: any){
-    console.log('changed ', e);
   }
   dataAtual: Date = new Date();
 }

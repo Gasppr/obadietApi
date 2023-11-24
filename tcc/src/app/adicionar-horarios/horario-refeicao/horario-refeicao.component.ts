@@ -76,29 +76,24 @@ export class HorarioRefeicaoComponent  implements OnInit {
     }
     
     this.horarioRefeicao.receitas.splice(this.index, 1);
-    console.log(`receita ${this.index} removida`);
   }
 
   selecionarRefeicao(e: any) {
     this.horarioRefeicao.tipo = e.detail.value;
-    console.log(this.horarioRefeicao.tipo);
   }
 
   selecionarData(e: any) {
     let datetime = e.detail.value;
     this.horarioRefeicao.data = datetime.split('T')[0];
-    console.log(this.horarioRefeicao.data);
   }
 
   selecionarHorario(e: any) {
     let datetime = e.detail.value;
     this.horarioRefeicao.horario = datetime.split('T')[1];
-    console.log(this.horarioRefeicao.horario);
   }
 
   selecionarRepeticao(e: string) {
     this.horarioRefeicao.repetir = e;
-    console.log(this.horarioRefeicao.repetir);
     if (e !== 'Personalizado'){
       this.modalCtrl.dismiss();
     }
@@ -114,7 +109,6 @@ export class HorarioRefeicaoComponent  implements OnInit {
 
       if(this.horarioRefeicao.repetir === 'Personalizado'){
         this.horarioRefeicaoPersonalizado.horarioPersonalizado = this.horarioPersonalizado;
-        console.log(this.horarioRefeicaoPersonalizado);
         return this.modalCtrl.dismiss('confirm');
       }
       else return this.modalCtrl.dismiss('confirm');
@@ -132,7 +126,6 @@ export class HorarioRefeicaoComponent  implements OnInit {
 
     if (role === 'confirm') {
       this.horarioPersonalizado = data;
-      console.log(this.horarioPersonalizado);
     }
   }
 
@@ -147,7 +140,6 @@ export class HorarioRefeicaoComponent  implements OnInit {
 
     if (role === 'confirm') {
       this.horarioRefeicao.receitas.push({idReceita: data.idRecSelec, nome: data.nomeRecSelec, img: data.imgRecSelec});
-      console.log(`receita ${data.nomeRecSelec} adicionada`)
     }
   }
 

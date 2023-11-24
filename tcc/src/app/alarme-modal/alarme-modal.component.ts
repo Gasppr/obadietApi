@@ -12,10 +12,8 @@ export class AlarmeModalComponent implements OnInit {
     this.tocarRingtone();
      let timeInterval: ReturnType<typeof setTimeout> = setInterval(() => {
       this.timer++;
-      console.log(`este é o timer ${this.timer}`);
       if (this.timer >= this.limiteTimer){
         clearInterval(timeInterval);
-        console.log('timer zerado');
       }
     }, 1000);
   }
@@ -40,7 +38,6 @@ export class AlarmeModalComponent implements OnInit {
     ringtoneRepeat = setInterval(() => {
       this.somAlarme.currentTime = 0;
       this.somAlarme.play();
-      console.log('tocando alarme');
       if (this.timer >= this.limiteTimer){
         this.somAlarme.pause();
         clearInterval(ringtoneRepeat);

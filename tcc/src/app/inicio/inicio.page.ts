@@ -28,6 +28,5 @@ export class InicioPage implements OnInit {
   }
 
   swiperSlideChanged(e: any){
-    console.log('changed ', e);
   }
 }
