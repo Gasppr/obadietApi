@@ -10,3 +10,9 @@
     width: 35vw;
     margin-inline: 2vw;
 }
+
+.btn-tipo-horario{
+    &:focus{
+        --background: rgba(235, 229, 94, 1); 
+    }
+}

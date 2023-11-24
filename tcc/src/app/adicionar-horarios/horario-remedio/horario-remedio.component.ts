@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HorarioPersonalizadoComponent } from '../horario-personalizado/horario-personalizado.component';
+import { HorariosService } from 'src/app/services/horarios.service';
+import { StorageService } from 'src/app/services/Login/storage.service';
 
 
 interface HorarioRemedioPersonalizado{
@@ -35,7 +37,7 @@ export class HorarioRemedioComponent  implements OnInit {
   horarioPersonalizado: HorarioPersonalizado
   horarioRemedioPersonalizado: HorarioRemedioPersonalizado
 
-  constructor(private modalCtrl: ModalController) {
+  constructor(private modalCtrl: ModalController, private horarioService: HorariosService) {
     this.horarioRemedio = this.iniciarHorarioRemedio();
     this.horarioPersonalizado = this.iniciarHorarioPersonalizado();
     this.horarioRemedioPersonalizado = this.iniciarHorarioRemedioPersonalizado();
@@ -54,6 +56,15 @@ export class HorarioRemedioComponent  implements OnInit {
   iniciarHorarioPersonalizado(): HorarioPersonalizado {
     return { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
   }
+
+  /*salvarHorarioRemedio(){
+    
+    this.horarioService.cadastroHorarioRemedio(token, this.horarioRemedioPersonalizado).subscribe({
+      next: async (data: any) => {
+        
+      }
+    })
+  }*/
 
   selecionarData(e: any) {
     let datetime = e.detail.value;
