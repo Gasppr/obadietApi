@@ -15,6 +15,7 @@ import { Response } from 'express';
 import { RemediosHorariosEntity } from './entity/horarios/RemediosHorario.entity';
 import { HorariosRepository } from './repository/Horarios.repository';
 import { UUID } from 'crypto';
+import { Horarios_remediosDto } from './dto/horarios_remedios.dto';
 
 
 
@@ -96,10 +97,56 @@ export class UsuarioController {
     return this.horarios.listarRemedios(id)
   }
 
-  @Post('CriarHorarioRemedios')
+
+  @Patch('editarHorarioReceita')
   @IsPublic()
-  criarHorarioRemedios(@Body() horarioRemedio : RemediosHorariosEntity, @Body() idUsuario : UUID ) {
-    return this.horarios.criarHorarioPraRemedios(horarioRemedio, idUsuario)
+  async editarHorariosRemedios(@Body() horarioRemedioDto : Horarios_remediosDto) {
+ 
+    const horarioRemedio : RemediosHorariosEntity = new RemediosHorariosEntity()
+   
+    horarioRemedio.idHorario = horarioRemedioDto.idHorario;
+    horarioRemedio.data = horarioRemedioDto.data;
+    horarioRemedio.nomeRemedio = horarioRemedioDto.nomeRemedio;
+    horarioRemedio.repetir = horarioRemedioDto.repetir;
+    horarioRemedio.horarios = horarioRemedioDto.horarios;
+    horarioRemedio.qtdRepeteCada = horarioRemedioDto.qtdRepeteCada;
+    horarioRemedio.quandoRepeteCada = horarioRemedioDto.quandoRepeteCada;
+    horarioRemedio.diasDaSemanaRepeticao = horarioRemedioDto.diasDaSemanaRepeticao;
+    horarioRemedio.qndTermina = horarioRemedioDto.qndTermina;
+    horarioRemedio.qndTerminaData = horarioRemedioDto.qndTerminaData;
+    horarioRemedio.qndTerminaHorario = horarioRemedioDto.qndTerminaHorario;
+    horarioRemedio.nmrRepeticoesTermino = horarioRemedioDto.nmrRepeticoesTermino;
+
+    return await this.horarios.editarHorariosRemedios(horarioRemedio)
+  }
+
+  @Post('CriarHorarioRemedios/:id')
+  @IsPublic()
+  async criarHorarioRemedios(@Body() horarioRemedioDto : Horarios_remediosDto, @Param('id') idUsuario : string ) {
+ 
+    const horarioRemedio : RemediosHorariosEntity = new RemediosHorariosEntity()
+   
+     
+    horarioRemedio.data = horarioRemedioDto.data;
+    horarioRemedio.nomeRemedio = horarioRemedioDto.nomeRemedio;
+    horarioRemedio.repetir = horarioRemedioDto.repetir;
+    horarioRemedio.horarios = horarioRemedioDto.horarios;
+    horarioRemedio.qtdRepeteCada = horarioRemedioDto.qtdRepeteCada;
+    horarioRemedio.quandoRepeteCada = horarioRemedioDto.quandoRepeteCada;
+    horarioRemedio.diasDaSemanaRepeticao = horarioRemedioDto.diasDaSemanaRepeticao;
+    horarioRemedio.qndTermina = horarioRemedioDto.qndTermina;
+    horarioRemedio.qndTerminaData = horarioRemedioDto.qndTerminaData;
+    horarioRemedio.qndTerminaHorario = horarioRemedioDto.qndTerminaHorario;
+    horarioRemedio.nmrRepeticoesTermino = horarioRemedioDto.nmrRepeticoesTermino;
+
+    return await this.horarios.criarHorarioPraRemedios(horarioRemedio, idUsuario)
+  }
+
+  @Delete('deletarHorarioRemedio')
+  @IsPublic()
+  async deletarRemedios(@Body() id : number){
+
+    return await this.horarios.deletarHorariosRemedios(id)
   }
 
 

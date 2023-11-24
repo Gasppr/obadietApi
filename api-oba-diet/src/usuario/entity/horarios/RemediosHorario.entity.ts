@@ -7,42 +7,42 @@ export class RemediosHorariosEntity extends Model{
 
   @ForeignKey(() => UsuarioEntity)
   @PrimaryKey
+  @AutoIncrement
   @Column
   idHorario : number
-  
-    @IsDate
-    @Column
-    data : Date 
 
-    @Column
-    nomeRemedio: string 
+  @Column({type : 'date'})
+  data : string
 
-    @Column
-    repetir : string 
+  @Column
+  nomeRemedio: string 
 
-    @Column({type : 'time'})
-    horarios : string
+  @Column
+  repetir : string 
 
-    @Column
-    qtdRepeteCada : number
+  @Column({type : 'time'})
+  horarios : string
 
-    @Column
-    quandoRepeteCada : string 
+  @Column
+  qtdRepeteCada : number
 
-    @Column
-    diasDaSemanaRepeticao : string 
+  @Column
+  quandoRepeteCada : string 
 
-    @Column
-    qndTermina : string 
+  @Column
+  diasDaSemanaRepeticao : string 
 
-    @Column
-    qndTerminaData : string 
+  @Column
+  qndTermina : string 
 
-    @Column
-    qndTerminaHorario : string 
+  @Column
+  qndTerminaData : string 
 
-    @Column
-    nmrRepeticoesTermino : number
+  @Column
+  qndTerminaHorario : string 
+
+  @Column
+  nmrRepeticoesTermino : number
 
 
     @HasMany(() => usuarios_has_horarios_remedios, 'idHorario')

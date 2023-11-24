@@ -18,7 +18,7 @@ import { criptografia } from '../usuario/criptografia';
     JwtModule.register({
       global: true,
       secret : jwtConstants.secret,
-      signOptions: {expiresIn: '1h'}
+      signOptions: {expiresIn: '24h'}
     }),
 
     
