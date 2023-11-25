@@ -57,7 +57,7 @@ export class UsuarioRepository {
       secret: jwtConstants.secret,
     });
 
-    return this.usuarioBD.findOne({
+    const usuarioAchado = await this.usuarioBD.findOne({
       attributes: ['id', 'nome', 'email', 'peso', 'idade', 'altura', 'sexo'],
       include: [
         {  model: Usuario_Has_Restricoes, attributes:['restricoes_idRestricao'], include: [{model: RestricaoEntity , attributes:['nomeRestricao'] }]},
@@ -68,6 +68,7 @@ export class UsuarioRepository {
       }
     },
    );
+     return usuarioAchado
   }
 
   async verificarLogin(email: String, pass: String) {
@@ -121,6 +122,11 @@ export class UsuarioRepository {
     doencas: number[],
     restricoes: number[],
   ) {
+
+    const emailExiste = await this.verificarEmail(usuario.email)
+
+    if(emailExiste){return {mensagem : "Já existe uma conta com esse email! tente com outro"}}
+    
     await this.usuarioBD.create({
       id: usuario.id,
       nome: usuario.nome,
@@ -149,7 +155,7 @@ export class UsuarioRepository {
       });
     }
 
-    return await { mensagem: `Seja bem-vindo ao ObaDiet ${usuarioNovo.nome}!` };
+    return { mensagem: `Seja bem-vindo ao ObaDiet ${usuarioNovo.nome}!` };
   }
 
   async editarUsuario(usuario: UsuarioEntity, id: string) {

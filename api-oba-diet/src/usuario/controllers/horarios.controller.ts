@@ -21,7 +21,7 @@ import { Horarios_RefeicoesDto } from '../dto/horarios_refeicoes.dto ';
 @Controller('obadiet')
 export class HorariosController {
   constructor(
-    private readonly horarios: HorariosRepository,
+    private readonly horarios: HorariosRepository
   ) {}
 
   @Get('refeicoes/:id')
@@ -45,7 +45,7 @@ export class HorariosController {
     const horarioRefeicao: RefeicoesHorariosEntity =
       new RefeicoesHorariosEntity();
 
-    horarioRefeicao.idHorarios = horarioRefeicoesDto.idHorarios;
+
     horarioRefeicao.data = horarioRefeicoesDto.data;
     horarioRefeicao.tipo = horarioRefeicoesDto.tipo;
     horarioRefeicao.horario = horarioRefeicoesDto.horarios;
@@ -145,15 +145,20 @@ export class HorariosController {
     return await this.horarios.editarHorariosRemedios(horarioRemedio);
   }
 
-  @Delete('deletarHorarioRefeicao')
+  @Delete('deletarHorarioRefeicao/:token')
   @IsPublic()
-  async deletarRefeicoes(@Body() { id }: { id: number }) {
-    return await this.horarios.deletarHorariosRefeicoes(id);
+  async deletarRefeicoes(@Param('token') token : string ,@Body() { id }: { id: number }) {
+
+    
+    return await this.horarios.deletarHorariosRefeicoes(token , id);
   }
 
-  @Delete('deletarHorarioRemedio')
+  @Delete('deletarHorarioRemedio/:token')
   @IsPublic()
-  async deletarRemedios(@Body() { id }: { id: number }) {
-    return await this.horarios.deletarHorariosRemedios(id);
+  async deletarRemedios(@Param('token') token : string , @Body() { id }: { id: number }) {
+
+    if(!token) return { mensagem : 'token inváilido'}
+
+    return await this.horarios.deletarHorariosRemedios(token , id);
   }
 }

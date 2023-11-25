@@ -1,43 +1,55 @@
-import { IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsString,  } from "class-validator";
-import { AutoIncrement } from "sequelize-typescript";
+import {
+  IsEmail,
+  IsEmpty,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 
+enum TIPO {
+  Cafe_da_manha = 'Café da manhã',
+  Lanche_da_manha = 'Lanche da manhã',
+  Almoco = 'Almoço',
+  Lanche_da_tarde = 'Lanche da tarde',
+  Jantar = 'Jantar',
+}
 
 export class Horarios_RefeicoesDto {
+  @IsEmpty()
+  idHorarios: number;
 
-    
-    @IsNumber()
-    idHorarios: number 
+  @IsString()
+  data: string;
 
-    @IsString()
-    data: string
+  @IsEnum(TIPO)
+  @IsString()
+  tipo: string;
 
-    @IsString()
-    tipo : string
+  @IsString()
+  horarios: string;
 
-    @IsString()
-    horarios: string
+  @IsNumber()
+  qtdRepeteCada: number;
 
-    @IsNumber()
-    qtdRepeteCada: number
+  @IsString()
+  quandoRepeteCada: string;
 
-    @IsString()
-    quandoRepeteCada: string
+  @IsString()
+  diasDaSemanaRepeticao: string;
 
-    @IsString()
-    diasDaSemanaRepeticao: string
+  @IsString()
+  qndTermina: string;
 
-    @IsString()
-    qndTermina: string
+  @IsString()
+  qndTerminaData: string;
 
-    @IsString()
-    qndTerminaData: string
+  @IsString()
+  qndTerminaHorario: string;
 
-    @IsString()
-    qndTerminaHorario: string
+  @IsNumber()
+  nmrRepeticoesTermino: number;
 
-    @IsNumber()
-    nmrRepeticoesTermino: number
-
-    @IsNumber()
-    receita_id : number
+  @IsNumber()
+  receita_id: number;
 }

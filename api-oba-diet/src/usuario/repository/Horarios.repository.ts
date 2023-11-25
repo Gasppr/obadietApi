@@ -12,11 +12,14 @@ import { UsuarioEntity } from '../entity/UsuarioEntity.entity';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from '../../auth/constants';
 import { ReceitaEntity } from '../../receitas/entities/Receita.entity';
+import { UsuarioRepository } from './Usuario.repository';
 
 @Injectable()
 export class HorariosRepository {
   constructor(
     private jwt: JwtService,
+
+    private usuarioRepository : UsuarioRepository,
 
     @InjectModel(RemediosHorariosEntity)
     private remediosDB: typeof RemediosHorariosEntity,
@@ -57,8 +60,7 @@ export class HorariosRepository {
     horario: RefeicoesHorariosEntity,
     idUsuario: string,
   ) {
-    await this.refeicoesDB.create({
-      idHorarios: horario.idHorarios,
+    const receitaHorario = await this.refeicoesDB.create({
       horario: horario.horario,
       tipo: horario.tipo,
       data: horario.data,
@@ -74,18 +76,7 @@ export class HorariosRepository {
 
     const horarioAchado = await this.refeicoesDB.findOne({
       where: {
-        idHorarios: horario.idHorarios,
-        horario: horario.horario,
-        tipo: horario.tipo,
-        data: horario.data,
-        qtdRepeteCada: horario.qtdRepeteCada,
-        quandoRepeteCada: horario.quandoRepeteCada,
-        diasDaSemanaRepeticao: horario.diasDaSemanaRepeticao,
-        qndTermina: horario.qndTermina,
-        qndTerminaData: horario.qndTerminaData,
-        qndTerminaHorario: horario.qndTerminaHorario,
-        nmrRepeticoesTermino: horario.nmrRepeticoesTermino,
-        receita_id: horario.receita_id,
+        idHorarios: receitaHorario.idHorarios,
       },
     });
 
@@ -101,14 +92,14 @@ export class HorariosRepository {
 
     const receita = await this.receitaDB.findOne({
       where: {
-        id: horario.receita_id,
+        id: receitaHorario.receita_id
       },
     });
 
     await this.hasRefeicoes.create({
       usuarios_id: usuario.id,
-      horarios_refeicoes_idhorarios: horario.idHorarios,
-      horarios_refeicoes_receita_id: horario.receita_id,
+      horarios_refeicoes_idhorarios: horarioAchado.idHorarios,
+      horarios_refeicoes_receita_id: receita.id,
     });
 
     return { mensagem: 'Refeição marcada com sucesso!' };
@@ -139,7 +130,10 @@ export class HorariosRepository {
     return { mensagem: 'Horario de refeição modificada com sucesso!' };
   }
 
-  async deletarHorariosRefeicoes(id: number) {
+  async deletarHorariosRefeicoes(token : string , id: number) {
+
+    const usuario = await this.usuarioRepository.ProcurarTodos(token)
+
     await this.hasRefeicoes.destroy({
       where: {
         horarios_refeicoes_idhorarios: id,
@@ -247,7 +241,14 @@ export class HorariosRepository {
     return { mensagem: 'Horario de remédio modificado com sucesso!' };
   }
 
-  async deletarHorariosRemedios(id: number) {
+  async deletarHorariosRemedios(token : string , id: number) {
+
+
+   const usuario = await this.usuarioRepository.ProcurarTodos(token)
+
+   if(!usuario) return  new Error("Token inválido");
+   
+
     await this.hasRemedios.destroy({
       where: {
         horarios_remedios_idHorario: id,
