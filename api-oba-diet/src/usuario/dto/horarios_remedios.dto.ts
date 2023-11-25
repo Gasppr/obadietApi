@@ -1,5 +1,5 @@
-import { IsEmail, IsEmpty, IsNotEmpty, IsNumber, IsString,  } from "class-validator";
-import { AutoIncrement } from "sequelize-typescript";
+import {  IsNumber, IsString,  } from "class-validator";
+
 
 
 export class Horarios_remediosDto {

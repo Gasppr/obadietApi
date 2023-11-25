@@ -52,14 +52,12 @@ export class UsuarioEntity extends Model {
   @Column
   senha: string;
 
-  @BelongsToMany(()=> RestricaoEntity, ()=> Usuario_Has_Restricoes)
-  restricoes : RestricaoEntity[]
+  @HasMany(()=> Usuario_Has_Restricoes)
+  restricoes : Usuario_Has_Restricoes[]
 
-  @BelongsToMany(()=> DoencaEntity , ()=> Usuario_Has_Doencas)  
-  doencas : DoencaEntity[]
+  @HasMany( ()=> Usuario_Has_Doencas)  
+  doencas : Usuario_Has_Doencas[]
   
-  
-
   @HasMany(()=> usuarios_has_horarios_refeicoes)
   horarios_refeicoes : usuarios_has_horarios_refeicoes[]
 
@@ -74,15 +72,20 @@ export class Usuario_Has_Restricoes extends Model{
 
  
   @ForeignKey(() => UsuarioEntity)
+  @PrimaryKey
   @Column
   usuarios_id : number
 
   @ForeignKey(()=> RestricaoEntity)
+  @PrimaryKey
   @Column
   restricoes_idRestricao:number
 
   @BelongsTo(()=> UsuarioEntity)
   usuarios: UsuarioEntity[]
+
+  @BelongsTo(()=> RestricaoEntity)
+  restricoes: RestricaoEntity[]
 
 
 }
@@ -92,15 +95,20 @@ export class Usuario_Has_Doencas extends Model{
 
  
   @ForeignKey(() => UsuarioEntity)
+  @PrimaryKey
   @Column
   usuarios_id : number
 
   @ForeignKey(()=> DoencaEntity)
+  @PrimaryKey
   @Column
   doencas_idDoenca:number
 
   @BelongsTo(()=> UsuarioEntity)
   usuarios: UsuarioEntity[]
+
+  @BelongsTo(()=> DoencaEntity)
+  doencas: DoencaEntity[]
 
 
 

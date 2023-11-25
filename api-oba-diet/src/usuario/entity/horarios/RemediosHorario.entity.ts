@@ -1,73 +1,81 @@
-import {  AutoIncrement, BelongsTo, Column, DataType, ForeignKey, HasMany, IsDate, Model, PrimaryKey, Table } from "sequelize-typescript"
-import { UsuarioEntity } from "../UsuarioEntity.entity"
+import {
+  AutoIncrement,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  IsDate,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript';
+import { UsuarioEntity } from '../UsuarioEntity.entity';
 
-
-@Table({modelName:'horarios_remedios', createdAt:false, deletedAt:false})
-export class RemediosHorariosEntity extends Model{
-
+@Table({ modelName: 'horarios_remedios', createdAt: false, deletedAt: false })
+export class RemediosHorariosEntity extends Model {
   @ForeignKey(() => UsuarioEntity)
   @PrimaryKey
   @AutoIncrement
   @Column
-  idHorario : number
+  idHorario: number;
 
-  @Column({type : 'date'})
-  data : string
-
-  @Column
-  nomeRemedio: string 
+  @Column({ type: 'date' })
+  data: string;
 
   @Column
-  repetir : string 
-
-  @Column({type : 'time'})
-  horarios : string
+  nomeRemedio: string;
 
   @Column
-  qtdRepeteCada : number
+  repetir: string;
+
+  @Column({ type: 'time' })
+  horarios: string;
 
   @Column
-  quandoRepeteCada : string 
+  qtdRepeteCada: number;
 
   @Column
-  diasDaSemanaRepeticao : string 
+  quandoRepeteCada: string;
 
   @Column
-  qndTermina : string 
+  diasDaSemanaRepeticao: string;
 
   @Column
-  qndTerminaData : string 
+  qndTermina: string;
 
   @Column
-  qndTerminaHorario : string 
+  qndTerminaData: string;
 
   @Column
-  nmrRepeticoesTermino : number
+  qndTerminaHorario: string;
 
+  @Column
+  nmrRepeticoesTermino: number;
 
-    @HasMany(() => usuarios_has_horarios_remedios, 'idHorario')
-    horariosHasRemedios : usuarios_has_horarios_remedios[]
-
+  @HasMany(() => usuarios_has_horarios_remedios)
+  horariosHasRemedios: usuarios_has_horarios_remedios[];
 }
 
-
-@Table({modelName:'usuarios_has_horarios_remedios', createdAt:false, deletedAt:false})
-export class usuarios_has_horarios_remedios extends Model{
-  
-  @ForeignKey(()=> RemediosHorariosEntity)
-  @PrimaryKey
-  @Column
-  horarios_remedios_idHorario : number
- 
+@Table({
+  modelName: 'usuarios_has_horarios_remedios',
+  createdAt: false,
+  deletedAt: false,
+})
+export class usuarios_has_horarios_remedios extends Model {
   @ForeignKey(() => UsuarioEntity)
   @PrimaryKey
   @Column
-  usuarios_id : string
+  usuarios_id: string;
 
-  @BelongsTo(()=> RemediosHorariosEntity)
-  horariosRemedios : RemediosHorariosEntity[]
- 
-  @BelongsTo(()=> UsuarioEntity)
-  usuarios : UsuarioEntity[]
+  @ForeignKey(() => RemediosHorariosEntity)
+  @PrimaryKey
+  @Column
+  horarios_remedios_idHorario: number;
 
+  @BelongsTo(() => RemediosHorariosEntity)
+  horariosRemedios: RemediosHorariosEntity[];
+
+  @BelongsTo(() => UsuarioEntity)
+  usuarios: UsuarioEntity[];
 }

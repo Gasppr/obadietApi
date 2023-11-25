@@ -4,6 +4,7 @@ import { UsuarioEntity, Usuario_Has_Doencas, Usuario_Has_Restricoes } from "../.
 
 @Table({modelName:'doencas' })
 export class DoencaEntity extends Model {
+  
   @PrimaryKey
   @Column
   idDoenca: number;
@@ -12,9 +13,10 @@ export class DoencaEntity extends Model {
   nomeDoenca: string;
 
   @HasMany(()=> Receita_has_doencas)
-    receitaHasCategoria : Receita_has_doencas[]
+  receitaHasCategoria : Receita_has_doencas[]
 
-
+    @HasMany(()=> Usuario_Has_Doencas)
+    usuario_has_doenca : Usuario_Has_Doencas[]
 
 
 }

@@ -15,8 +15,8 @@ export class RestricaoEntity extends Model {
   @HasMany(()=> Receita_has_restricoes)
   receitaHasCategoria : Receita_has_restricoes[]
     
-  @BelongsToMany(()=> UsuarioEntity, ()=> Usuario_Has_Restricoes)
-  usuarios : UsuarioEntity[]
+  @HasMany(()=> Usuario_Has_Restricoes)
+  usuario_has_restricoes : Receita_has_restricoes[]
 
 
 

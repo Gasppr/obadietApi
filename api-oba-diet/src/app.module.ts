@@ -17,6 +17,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { RemediosHorariosEntity, usuarios_has_horarios_remedios } from './usuario/entity/horarios/RemediosHorario.entity';
 import { RefeicoesHorariosEntity, usuarios_has_horarios_refeicoes } from './usuario/entity/horarios/RefeicoesHorario.entity';
 
+
+
 @Module({
   imports: [
     ConfigModule.forRoot({

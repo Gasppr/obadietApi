@@ -1,5 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsuarioEntity, Usuario_Has_Doencas, Usuario_Has_Restricoes } from '../entity/UsuarioEntity.entity';
+import {
+  UsuarioEntity,
+  Usuario_Has_Doencas,
+  Usuario_Has_Restricoes,
+} from '../entity/UsuarioEntity.entity';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Sequelize } from 'sequelize-typescript';
@@ -8,14 +12,14 @@ import { find } from 'rxjs';
 import { RestricaoEntity } from '../../receitas/entities/Restricao.entity';
 import { DoencaEntity } from '../../receitas/entities/Doenca.entity';
 import { ReceitaEntity } from '../../receitas/entities/Receita.entity';
+import { Model } from 'sequelize';
+import { jwtConstants } from '../../auth/constants';
 
 @Injectable()
 export class UsuarioRepository {
   constructor(
     private jwtService: JwtService,
-    private configService: ConfigService,
-    private sequelize: Sequelize,
-
+    
     @InjectModel(UsuarioEntity)
     private usuarioBD: typeof UsuarioEntity,
 
@@ -24,8 +28,7 @@ export class UsuarioRepository {
 
     @InjectModel(Usuario_Has_Doencas)
     private usuarioHasDoencaBD: typeof Usuario_Has_Doencas,
-
-  ) { }
+  ) {}
 
   private _usuario: UsuarioEntity[] = [];
 
@@ -48,14 +51,23 @@ export class UsuarioRepository {
     });
   }
 
-  async ProcurarTodos(): Promise<UsuarioEntity[]> {
-    return this.usuarioBD.findAll({
+  async ProcurarTodos(id : string): Promise<UsuarioEntity> {
+
+    const usuario = await this.jwtService.verifyAsync(id, {
+      secret: jwtConstants.secret,
+    });
+
+    return this.usuarioBD.findOne({
       attributes: ['id', 'nome', 'email', 'peso', 'idade', 'altura', 'sexo'],
       include: [
-        { required: false, model: RestricaoEntity },
-        { required: false, model: DoencaEntity },
-      ]
-    });
+        {  model: Usuario_Has_Restricoes, attributes:['restricoes_idRestricao'], include: [{model: RestricaoEntity , attributes:['nomeRestricao'] }]},
+        { model: Usuario_Has_Doencas,attributes:['doencas_idDoenca'], include: [{model: DoencaEntity , attributes:['nomeDoenca'] }]},
+      ],
+      where:{
+        email : usuario.email
+      }
+    },
+   );
   }
 
   async verificarLogin(email: String, pass: String) {
@@ -79,23 +91,24 @@ export class UsuarioRepository {
 
   async verificarEmail(emailUser: string) {
     const emailExists = await this.usuarioBD.findOne({
-      where:{
-        email : emailUser
-      }
+      where: {
+        email: emailUser,
+      },
     });
 
     return emailExists;
   }
 
-  async deletarUsuario(idUsuario: string){
+  async deletarUsuario(idUsuario: string) {
+    await this.usuarioHasRestricaoBD.destroy({
+      where: { usuarios_id: idUsuario },
+    });
+    await this.usuarioHasDoencaBD.destroy({
+      where: { usuarios_id: idUsuario },
+    });
 
-    await this.usuarioHasRestricaoBD.destroy({where:{usuarios_id: idUsuario}})
-    await this.usuarioHasDoencaBD.destroy({where:{usuarios_id: idUsuario}})
-
-
-    const usuario = await this.ProcurarPorID(idUsuario);  
-    const usuarioExcluido = await usuario.destroy()
-
+    const usuario = await this.ProcurarPorID(idUsuario);
+    const usuarioExcluido = await usuario.destroy();
 
     return {
       message:
@@ -103,42 +116,40 @@ export class UsuarioRepository {
     };
   }
 
-  async criarUsuario(usuario: UsuarioEntity, doencas: number[], restricoes:number[]){
-
-    await this.usuarioBD.create(
-      {
-        id: usuario.id,
-        nome: usuario.nome,
-        email: usuario.email,
-        sexo: usuario.sexo,
-        idade: usuario.idade,
-        peso: usuario.peso,
-        altura: usuario.altura,
-        senha: usuario.senha,
-      }
-    );
-
-   const usuarioNovo = await this.usuarioBD.findOne({where: {nome : usuario.nome}})
-
-   for (let i = 0; i < restricoes.length; i++) {
-    await this.usuarioHasRestricaoBD.create({
-      usuarios_id : usuarioNovo.id,
-      restricoes_idRestricao: restricoes[i],
+  async criarUsuario(
+    usuario: UsuarioEntity,
+    doencas: number[],
+    restricoes: number[],
+  ) {
+    await this.usuarioBD.create({
+      id: usuario.id,
+      nome: usuario.nome,
+      email: usuario.email,
+      sexo: usuario.sexo,
+      idade: usuario.idade,
+      peso: usuario.peso,
+      altura: usuario.altura,
+      senha: usuario.senha,
     });
-  }
-   for (let i = 0; i < doencas.length; i++) {
-    await this.usuarioHasDoencaBD.create({
-      usuarios_id : usuarioNovo.id,
-      doencas_idDoenca: doencas[i]
+
+    const usuarioNovo = await this.usuarioBD.findOne({
+      where: { nome: usuario.nome },
     });
-  }
 
+    for (let i = 0; i < restricoes.length; i++) {
+      await this.usuarioHasRestricaoBD.create({
+        usuarios_id: usuarioNovo.id,
+        restricoes_idRestricao: restricoes[i],
+      });
+    }
+    for (let i = 0; i < doencas.length; i++) {
+      await this.usuarioHasDoencaBD.create({
+        usuarios_id: usuarioNovo.id,
+        doencas_idDoenca: doencas[i],
+      });
+    }
 
-
-     return await{ mensagem: `Seja bem-vindo ao ObaDiet ${usuarioNovo.nome}!`,
-     };
-
-
+    return await { mensagem: `Seja bem-vindo ao ObaDiet ${usuarioNovo.nome}!` };
   }
 
   async editarUsuario(usuario: UsuarioEntity, id: string) {
@@ -158,11 +169,9 @@ export class UsuarioRepository {
     );
 
     if (usuarioNovo[0] == 0) {
-      return "Modificações já foram feitas"
+      return 'Modificações já foram feitas';
     }
 
-    return "Perfil modificado com sucesso"
-
-
+    return 'Perfil modificado com sucesso';
   }
 }
