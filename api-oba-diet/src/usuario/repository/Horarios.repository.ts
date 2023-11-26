@@ -123,8 +123,11 @@ export class HorariosRepository {
 
     if(!usuario) return  new Error("Token inválido"); 
 
-    await this.refeicoesDB.update(
+    await this.hasRefeicoes.destroy({where :{ usuarios_id : usuario.id}})
+
+     await this.refeicoesDB.update(
       {
+        
         horarios: horario.horario,
         tipo: horario.tipo,
         data: horario.data,
@@ -143,6 +146,13 @@ export class HorariosRepository {
         },
       },
     );
+
+
+    await this.hasRefeicoes.create({
+      horarios_refeicoes_receita_id : horario.receita_id,
+      horarios_refeicoes_idhorarios : horario.idHorarios,
+      usuarios_id : usuario.id
+  })
 
     return { mensagem: 'Horario de refeição modificada com sucesso!' };
   }

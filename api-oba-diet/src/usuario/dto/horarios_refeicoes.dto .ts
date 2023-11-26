@@ -16,7 +16,8 @@ enum TIPO {
 }
 
 export class Horarios_RefeicoesDto {
-  @IsEmpty()
+  
+  @IsNumber()
   idHorarios: number;
 
   @IsString()
