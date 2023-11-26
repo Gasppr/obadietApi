@@ -1,23 +1,9 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-row>
-      <ion-col size="auto">
-        <ion-button class="btn-mapa">
-          <ion-icon name="map-outline" size="large"></ion-icon>
-        </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-searchbar show-clear-button="focus"></ion-searchbar>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <ion-button class="btn-voltar" (click)="backClicked()">
     <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
     Voltar
   </ion-button>
+
   <ion-card *ngIf="receita">
     <ion-card-header class="receitaNome">
       {{ receita.nome }}
@@ -27,7 +13,7 @@
       <ion-img [src]="receita.imagem" alt="Imagem da Receita"></ion-img>
       <div class="space"></div>
 
-      <ion-card class="ingredient-card">
+      <ion-card *ngIf="receita.ingredientes" class="ingredient-card">
         <ion-card-header>
           Ingredientes
         </ion-card-header>
@@ -42,7 +28,7 @@
 
       <div class="space"></div>
 
-      <ion-card class="preparation-card">
+      <ion-card *ngIf="receita.modoPreparo" class="preparation-card">
         <ion-card-header>
           Modo de Preparo
         </ion-card-header>
@@ -56,6 +42,7 @@
           </ul>
         </ion-card-content>
       </ion-card>
+
       <div class="space"></div>
       <p>Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
       <p>Restrições: {{receita.doencas[0]?.doencas?.nomeDoenca}}</p>

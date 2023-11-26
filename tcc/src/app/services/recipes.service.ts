@@ -27,9 +27,15 @@ export class RecipesService {
   removerReceitaSalva(receita: any) {
     const receitasSalvas = this.receitasSalvasSubject.value;
     const index = receitasSalvas.findIndex(r => r.id === receita.id);
+    
     if (index !== -1) {
       receitasSalvas.splice(index, 1);
       this.receitasSalvasSubject.next([...receitasSalvas]);
+      receita.favorita = false;
     }
+  }
+  isReceitaSalva(receita: any): boolean {
+    const receitasSalvas = this.receitasSalvasSubject.value;
+    return receitasSalvas.some(r => r.id === receita.id);
   }
 }

@@ -25,8 +25,8 @@
 
     <ion-row>
       <ion-col size="6" *ngFor="let receita of comidas">
-        <ion-card [routerLink]="['/obaDiet/receita']" class="recipe-card">
-          <ion-card-header>
+        <ion-card>
+          <ion-card-header [routerLink]="['/obaDiet/receita']" [queryParams]="{ id: receita.id }" class="recipe-card">
             <ion-img [src]="receita.imagem"></ion-img>
           </ion-card-header>
         

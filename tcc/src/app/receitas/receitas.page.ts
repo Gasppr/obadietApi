@@ -19,7 +19,14 @@ export class ReceitasPage implements OnInit {
   ngOnInit() {
     this.receitas$ = this.recipesService.buscarReceitas();
     this.filteredReceitas$ = this.receitas$;
+  
+    this.receitas$.subscribe((receitas) => {
+      receitas.forEach((receita) => {
+        receita.favorita = this.recipesService.isReceitaSalva(receita);
+      });
+    });
   }
+
 
   verDetalhes(receitaId: number) {
     this.router.navigate(['obaDiet/receita'], { queryParams: { id: receitaId } });
@@ -43,5 +50,8 @@ export class ReceitasPage implements OnInit {
 
   salvarReceita(receita: any) {
     this.recipesService.salvarReceita(receita);
+  }
+  toggleFavorito(receita: any) {
+    receita.favorita = !receita.favorita;
   }
 }
