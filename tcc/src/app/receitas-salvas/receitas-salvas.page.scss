@@ -17,20 +17,6 @@ page-receitas-salvas {
     flex-direction: column;
   }
 
-  .card-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .recipe-card ion-img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-  }
-
   .delete-button {
     margin-top: 10px;
     align-self: flex-end;
@@ -41,4 +27,33 @@ page-receitas-salvas {
       height: auto;
     }
   }
+}
+
+.card-content {
+  flex: 1;
+  display: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 1%;
+}
+.ion-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.text-container {
+  text-align: center;
+  overflow: hidden;
+}
+
+.recipe-name {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.recipe-info {
+  margin-top: 2%;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }

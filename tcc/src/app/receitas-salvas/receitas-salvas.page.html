@@ -33,8 +33,9 @@
         
           <ion-card-content class="card-content">
             <div class="text-container">
-              <p class="recipe-title">{{ receita.title }}</p>
               <p class="recipe-name">{{ receita.nome }}</p>
+              <p class="recipe-info">Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
+              <p class="recipe-info">Restrições: {{receita.doencas[0]?.doencas?.nomeDoenca}}</p>
             </div>
             <ion-button fill="clear" (click)="removerReceitaSalva(receita)" class="delete-button">
               <ion-icon name="trash" color="danger"></ion-icon>
