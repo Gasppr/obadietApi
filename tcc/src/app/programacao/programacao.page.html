@@ -17,99 +17,120 @@
 <ion-content [fullscreen]="true" class="padding">
   <ion-grid class="content">
     <ion-row class="ion-justify-content-center">
-      <ion-datetime class="calendario" presentation="date"></ion-datetime>
+      <ion-datetime class="calendario" presentation="date" (ionChange)="selecionarData($event)"></ion-datetime>
     </ion-row>
 
     <ion-row class="ion-justify-content-center">
-      <ion-button fill="outline" class="btn-contorno-amarelo btn-tipo-horario" (click)="mudarQualHorarioExibir('refeicoes')">
+      <ion-button fill="outline" class="btn-contorno-amarelo btn-tipo-horario"
+        (click)="mudarQualHorarioExibir('Suas refeições')">
         Refeição
       </ion-button>
 
       <ion-button fill="outline" class="btn-contorno-amarelo btn-tipo-horario"
-        (click)="mudarQualHorarioExibir('remedios')">
+        (click)="mudarQualHorarioExibir('Seus remédios')">
         Remédio
       </ion-button>
     </ion-row>
     <ion-row>
       <ion-button fill="clear" class="btn-contorno-amarelo btn-tipo-horario btn-todos"
-        (click)="mudarQualHorarioExibir('todos')">
+        (click)="mudarQualHorarioExibir('Sua programação')">
         Todos os horários
       </ion-button>
     </ion-row>
 
-    <h6 *ngIf="exibirQuaisHorarios == 'refeicoes'"></h6>
-    <h6 *ngIf="exibirQuaisHorarios == 'remedios'"></h6>
+    <h6 *ngIf="exibirQuaisHorarios == 'Suas refeições'"></h6>
+    <h6 *ngIf="exibirQuaisHorarios == 'Seus remédios'"></h6>
 
     <div class="horarios">
-      <h1 class="title">Sua Programação do dia <b>{{ dataAtual.getDate() }}</b></h1>
+      <h1 class="title">{{ exibirQuaisHorarios }} do dia <b>{{ dataComparacao.split('-')[2] }}</b></h1>
       <!--<ion-button color="danger" (click)="openModalAlarme()">botão chique</ion-button>-->
 
-      <div class="horario" *ngIf="exibirQuaisHorarios == 'refeicoes' || exibirQuaisHorarios == 'todos'">
+      <div *ngIf="exibirQuaisHorarios == 'Sua programação' && horariosRefeicoes.length == 0 && horariosRemedios.length == 0 || exibirQuaisHorarios == 'Sua programação' && horariosRefeicoes.data != dataComparacao && horariosRemedios.data != dataComparacao">
+        <h6>Nada programado para hoje!</h6>
+      </div>
+
+      <div class="horario" *ngIf="exibirQuaisHorarios == 'Suas refeições' || exibirQuaisHorarios == 'Sua programação'">
+        <div *ngIf="horariosRefeicoes.length == 0 && exibirQuaisHorarios != 'Sua programação'">
+          <h6>Nenhuma refeição programada!</h6>
+        </div>
         <div class="horario" *ngFor="let refeicao of horariosRefeicoes">
-          <h3>{{ displayHorario(refeicao.horarioRefeicao.horario) }} - Refeição</h3>
+          <div *ngIf="refeicao.data != dataComparacao && exibirQuaisHorarios != 'Sua programação'">
+            <h6>Nenhuma refeição programada!</h6>
+          </div>
+          <div *ngIf="refeicao.data == dataComparacao">
+            <h3>{{ displayHorario(refeicao.horarios) }} - Refeição</h3>
 
-          <ion-button class="btn-laranja" expand="block" (click)="setOpen(true)">{{ refeicao.horarioRefeicao.tipo
-            }}</ion-button>
-          <ion-modal [isOpen]="isModalOpen">
-            <ng-template>
-              <ion-header>
-                <ion-toolbar>
-                  <ion-title>Detalhes da refeição</ion-title>
-                  <ion-buttons slot="end">
-                    <ion-button (click)="setOpen(false)">Fechar</ion-button>
-                  </ion-buttons>
-                </ion-toolbar>
-              </ion-header>
-              <ion-content class="ion-padding">
-                <swiper-container #swiper (afterinit)="swiperReady()" (slidechange)="swiperSlideChanged($event)"
-                  space-between="10" slides-per-view="2.5">
+            <ion-button class="btn-laranja" expand="block" (click)="setRefeicaoOpen(true)">{{ refeicao.tipo
+              }}</ion-button>
+            <ion-modal [isOpen]="isModalRefeicaoOpen">
+              <ng-template>
+                <ion-header>
+                  <ion-toolbar>
+                    <ion-title>Detalhes da refeição</ion-title>
+                    <ion-buttons slot="end">
+                      <ion-button (click)="setRefeicaoOpen(false)">Fechar</ion-button>
+                    </ion-buttons>
+                  </ion-toolbar>
+                </ion-header>
+                <ion-content class="ion-padding">
+                  <swiper-container #swiper (afterinit)="swiperReady()" (slidechange)="swiperSlideChanged($event)"
+                    space-between="10" slides-per-view="2.5">
 
-                  <swiper-slide *ngFor="let receita of refeicao.horarioRefeicao.receitas">
-                    <ion-img [src]="receita.img"/>
-                    <ion-label>{{ receita.nome }}</ion-label>
-                  </swiper-slide>
+                    <swiper-slide *ngFor="let receita of refeicao.receitas">
+                      <ion-img [src]="receita.img" />
+                      <ion-label>{{ receita.nome }}</ion-label>
+                    </swiper-slide>
 
-                </swiper-container>
-                <h3>{{ refeicao.horarioRefeicao.tipo }}</h3>
-                <h6>
-                  Alarme programado para {{ displayHorario(refeicao.horarioRefeicao.horario) }};
-                </h6>
-                <h6>
-                  Repetição: {{ refeicao.horarioRefeicao.repetir }}
-                </h6>
-              </ion-content>
-            </ng-template>
-          </ion-modal>
+                  </swiper-container>
+                  <h3>{{ refeicao.tipo }}</h3>
+                  <h6>
+                    Alarme programado para {{ displayHorario(refeicao.horario) }};
+                  </h6>
+                  <h6>
+                    Repetição: {{ refeicao.repetir }}
+                  </h6>
+                </ion-content>
+              </ng-template>
+            </ion-modal>
+          </div>
         </div>
       </div>
 
-      <div class="horario-remedios" *ngIf="exibirQuaisHorarios == 'remedios' || exibirQuaisHorarios == 'todos'">
+      <div class="horario-remedios"
+        *ngIf="exibirQuaisHorarios == 'Seus remédios' || exibirQuaisHorarios == 'Sua programação'">
+        <div *ngIf="horariosRemedios.length == 0 && exibirQuaisHorarios != 'Sua programação'">
+          <h6>Nenhum remédio programado!</h6>
+        </div>
         <div class="horario" *ngFor="let remedio of horariosRemedios">
-          <h3>{{ displayHorario(remedio.horarioRemedio.horario) }} - Remédio</h3>
-
-          <ion-button class="btn-laranja" expand="block" (click)="setOpen(true)">{{ remedio.horarioRemedio.nomeRemedio
-            }}</ion-button>
-          <ion-modal [isOpen]="isModalOpen">
-            <ng-template>
-              <ion-header>
-                <ion-toolbar>
-                  <ion-title>Detalhes do remédio</ion-title>
-                  <ion-buttons slot="end">
-                    <ion-button (click)="setOpen(false)">Fechar</ion-button>
-                  </ion-buttons>
-                </ion-toolbar>
-              </ion-header>
-              <ion-content class="ion-padding">
-                <h3>{{ remedio.horarioRemedio.nomeRemedio }}</h3>
-                <h6>
-                  Alarme programado para {{ displayHorario(remedio.horarioRemedio.horario) }};
-                </h6>
-                <h6>
-                  Repetição: {{ remedio.horarioRemedio.repetir }}
-                </h6>
-              </ion-content>
-            </ng-template>
-          </ion-modal>
+          <div *ngIf="horariosRemedios.length == 0 || remedio.data != dataComparacao && exibirQuaisHorarios != 'Sua programação'">
+            <h6>Nenhum remédio programado!</h6>
+          </div>
+          <div *ngIf="remedio.data == dataComparacao">
+            <h3>{{ displayHorario(remedio.horarios) }} - Remédio</h3>
+            <ion-button class="btn-laranja" expand="block" (click)="setRemedioOpen(true)">{{ remedio.nomeRemedio
+              }}</ion-button>
+            <ion-modal [isOpen]="isModalRemedioOpen">
+              <ng-template>
+                <ion-header>
+                  <ion-toolbar>
+                    <ion-title>Detalhes do remédio</ion-title>
+                    <ion-buttons slot="end">
+                      <ion-button (click)="setRemedioOpen(false)">Fechar</ion-button>
+                    </ion-buttons>
+                  </ion-toolbar>
+                </ion-header>
+                <ion-content class="ion-padding">
+                  <h3>{{ remedio.nomeRemedio }}</h3>
+                  <h6>
+                    Alarme programado para {{ displayHorario(remedio.horarios) }};
+                  </h6>
+                  <h6>
+                    Repetição: {{ remedio.repetir }}
+                  </h6>
+                </ion-content>
+              </ng-template>
+            </ion-modal>
+          </div>
         </div>
       </div>
     </div>

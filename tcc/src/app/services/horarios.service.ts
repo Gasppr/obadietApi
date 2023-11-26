@@ -11,37 +11,37 @@ export class HorariosService {
 
   constructor(private http: HttpClient) { }
 
-  buscarHorarioRemedio(id: string):Observable<any>{
-    return this.http.get(`${this.URL}/remedios/${id}`, )
+  buscarHorarioRemedio(token: string):Observable<any>{
+    return this.http.get(`${this.URL}/remedios/${token}`)
   }
 
-  cadastroHorarioRemedio(id: string, horarioRemedio: {}): Observable<any> {
-    return this.http.post<any>(`${this.URL}/CriarHorarioRemedios/${id}`, horarioRemedio);
+  cadastroHorarioRemedio(token: string, horarioRemedio: {}): Observable<any> {
+    return this.http.post<any>(`${this.URL}/CriarHorarioRemedios/${token}`, horarioRemedio);
   }
 
   atualizarHorarioRemedio(horarioRemedio: {}): Observable<any> {
     return this.http.patch<any>(`${this.URL}/editarHorarioRemedio`, horarioRemedio);
   }
 
-  excluirHorarioRemedio(id: string): Observable<any> {
-    return this.http.delete(`${this.URL}/deletarHorarioRemedio/${id}`)
+  excluirHorarioRemedio(token: string, id: {}): Observable<any> {
+    return this.http.delete(`${this.URL}/deletarHorarioRemedio/${token}`, id)
   }
 
 
 
-  buscarHorarioRefeicao(id: string):Observable<any>{
-    return  this.http.get<any>(`${this.URL}/refeicoes/${id}`)
+  buscarHorarioRefeicao(token: string):Observable<any>{
+    return  this.http.get<any>(`${this.URL}/refeicoes/${token}`)
   }
 
-  cadastroHorarioRefeicao(id: string, horarioRefeicao: {}): Observable<any> {
-    return this.http.post<any>(`${this.URL}/CriarHorarioRefeicoes/${id}`, horarioRefeicao);
+  cadastroHorarioRefeicao(token: string, horarioRefeicao: {}): Observable<any> {
+    return this.http.post<any>(`${this.URL}/CriarHorarioRefeicoes/${token}`, horarioRefeicao);
   }
 
   atualizarHorarioRefeicao(horarioRefeicao: {}): Observable<any> {
     return this.http.patch<any>(`${this.URL}/editarHorarioRefeicao`, horarioRefeicao);
   }
 
-  excluirHorarioRefeicao(id: number): Observable<any> {
-    return this.http.delete(`${this.URL}/deletarHorarioRefeicao/${id}`)
+  excluirHorarioRefeicao(token: string, id: {}): Observable<any> {
+    return this.http.delete(`${this.URL}/deletarHorarioRefeicao/${token}`, id)
   }
 }

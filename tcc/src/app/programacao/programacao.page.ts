@@ -9,13 +9,11 @@ import { StorageHorarioService } from '../services/storage-horario.service';
 
 
 interface HorarioRemedio {
+  id: number;
   data: string;
   nomeRemedio: string;
   repetir: string;
   horario: string;
-}
-
-interface HorarioPersonalizado {
   qtdRepeteCada: number;
   quandoRepeteCada: string;
   diasSemanaRepeticao: string[];
@@ -25,29 +23,28 @@ interface HorarioPersonalizado {
   nmrRepeticoesTermino: number;
 }
 
-interface HorarioRemedioPersonalizado {
-  horarioRemedio: HorarioRemedio;
-  horarioPersonalizado: HorarioPersonalizado;
-}
-
 interface Receita {
   idReceita: number;
   nome: string;
   img: string;
 }
 
-interface HorarioRefeicaoPersonalizado {
-  horarioRefeicao: HorarioRefeicao;
-  horarioPersonalizado: HorarioPersonalizado;
-}
-
 interface HorarioRefeicao {
+  id: number;
   data: string;
   tipo: string;
   receitas: Receita[];
   repetir: string;
   horario: string;
+  qtdRepeteCada: number;
+  quandoRepeteCada: string;
+  diasSemanaRepeticao: string[];
+  qndTermina: string;
+  qndTerminaData: string;
+  qndTerminaHorario: string;
+  nmrRepeticoesTermino: number;
 }
+
 
 @Component({
   selector: 'app-programacao',
@@ -59,24 +56,21 @@ export class ProgramacaoPage implements OnInit {
   swiperRef: ElementRef | undefined;
   swiper?: Swiper;
   
-  horarioRemedio: HorarioRemedio
-  horarioPersonalizado: HorarioPersonalizado
-  horarioRefeicao: HorarioRefeicao
   receita: Receita;
-  horarioRefeicaoPersonalizado: HorarioRefeicaoPersonalizado;
-  horarioRemedioPersonalizado: HorarioRemedioPersonalizado
+  horarioRefeicao: HorarioRefeicao;
+  horarioRemedio: HorarioRemedio;
 
   receitas: any = [];
-  horariosRemedios: HorarioRemedioPersonalizado[] = [{ horarioRemedio: { data: '2023-11-24', nomeRemedio: 'Ibuprofeno', horario: '10:31:00', repetir: 'Não repetir' }, horarioPersonalizado: { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 } }];
-  horariosRefeicoes: HorarioRefeicaoPersonalizado[] = [{ horarioRefeicao: { data: '2023-11-24', tipo: 'Café da tarde', receitas: [{ idReceita: 1, nome: 'Torta de maracujá sem açúcar e sem lactose', img: 'https://guiadacozinha.com.br/wp-content/uploads/2020/03/torta-maracuja-sem-acucar-sem-lactose-1.jpg' }, { idReceita: 2, nome: 'Caponata de berinjela', img: 'https://guiadacozinha.com.br/wp-content/uploads/2020/03/caponata-de-berinjela-1.jpg' }, { idReceita: 3, nome: 'Pudim diet de leite', img: 'https://guiadacozinha.com.br/wp-content/uploads/2020/03/pudim-diet-de-leite-1.jpg' }], repetir: 'Não repetir', horario: '04:16:00' }, horarioPersonalizado: { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 } }];
+  horariosRemedios: any = [];
+  horariosRefeicoes: any = [];
+
 
   constructor(private modalCtrl: ModalController, private horarioService: HorariosService, private receitasService: RecipesService, private router: Router, private storage: StorageHorarioService) {
     this.horarioRemedio = this.iniciarHorarioRemedio();
-    this.horarioPersonalizado = this.iniciarHorarioPersonalizado();
-    this.horarioRemedioPersonalizado = this.iniciarHorarioRemedioPersonalizado();
     this.horarioRefeicao = this.iniciarHorarioRefeicao();
     this.receita = this.iniciarReceita();
-    this.horarioRefeicaoPersonalizado = this.iniciarHorarioRefeicaoPersonalizado();
+    this.exibirHorariosRemedios();
+    this.exibirHorariosRefeicoes();
 
     /*this.exibirHorariosRefeicoes();
     this.exibirHorariosRemedio();*/
@@ -105,45 +99,54 @@ export class ProgramacaoPage implements OnInit {
 
 
       for (let i = 0; i < this.horariosRemedios.length; i++) {
-        if (this.horariosRemedios[i].horarioRemedio?.horario == dateString) {
+        if (this.horariosRemedios[i].horario == dateString) {
           this.openModalAlarme();
         }
       }
       for (let i = 0; i < this.horariosRefeicoes.length; i++) {
-        if (this.horariosRefeicoes[i].horarioRefeicao?.horario == dateString) {
+        if (this.horariosRefeicoes[i].horario == dateString) {
           this.openModalAlarme();
         }
       }
-
     }, 1000);
   }
 
-  exibirQuaisHorarios: string = 'todos';
+  selecionarData(e: any) {
+    let datetime = e.detail.value;
+    this.dataComparacao = datetime.split('T')[0];
+  }
+
+  dataAtual: Date = new Date();
+  dataComparacao: string = `${this.dataAtual.getFullYear()}-${this.dataAtual.getMonth()}-${this.dataAtual.getDate()}`;
+
+  exibirQuaisHorarios: string = 'Sua programação';
 
   mudarQualHorarioExibir(e: string){
     this.exibirQuaisHorarios = e;
   }
 
 
-  /*async exibirHorariosRemedio() {
+  async exibirHorariosRemedios() {
     let token = await this.storage.buscarToken("token");
     await this.horarioService.buscarHorarioRemedio(token).subscribe({
       next: (data: any) => {
-        this.horariosRemedios.push(data);
+        this.horariosRemedios = data;
+        console.log(this.horariosRemedios, token)
       }
     })
-    await this.storage.guardarToken("horarioToken", this.horarioRemedio);
+    //await this.storage.guardarToken("horarioToken", this.horarioRemedio);
   }
 
   async exibirHorariosRefeicoes() {
     let token = await this.storage.buscarToken("token");
     await this.horarioService.buscarHorarioRefeicao(token).subscribe({
       next: (data: any) => {
-        this.horariosRefeicoes.push(data);
+        this.horariosRefeicoes = data;
+        console.log(this.horariosRefeicoes)
       }
     })
     await this.storage.guardarToken("horarioToken", this.horarioRemedio);
-  }*/
+  }
 
   varReceitaBuscar: any = {}
 
@@ -166,44 +169,32 @@ export class ProgramacaoPage implements OnInit {
     return horarioFinal;
   }
 
-  isModalOpen = false;
+  isModalRefeicaoOpen = false;
+  isModalRemedioOpen = false;
 
-  setOpen(isOpen: boolean) {
-    this.isModalOpen = isOpen;
+  setRefeicaoOpen(isOpen: boolean) {
+    this.isModalRefeicaoOpen = isOpen;
+  }
+
+  setRemedioOpen(isOpen: boolean) {
+    this.isModalRemedioOpen = isOpen;
   }
 
   ngOnInit() {
   }
-  dataAtual: Date = new Date();
-
-
+  
   iniciarHorarioRemedio(): HorarioRemedio {
-    return { data: '', nomeRemedio: '', repetir: '', horario: '' }
+    return { id: 0, data: '', nomeRemedio: '', repetir: '', horario: '', qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
   }
 
-  iniciarHorarioPersonalizado(): HorarioPersonalizado {
-    return { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
-  }
-
-  iniciarHorarioRemedioPersonalizado() {
-    return { horarioRemedio: { data: '', nomeRemedio: '', repetir: '', horario: '' }, horarioPersonalizado: { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 } }
-  }
-
-  iniciarHorarioRefeicaoPersonalizado(): HorarioRefeicaoPersonalizado {
-    return { horarioRefeicao: { data: '', tipo: '', receitas: [], repetir: '', horario: '' }, horarioPersonalizado: { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 } }
-  }
   iniciarHorarioRefeicao(): HorarioRefeicao {
-    return { data: '', tipo: '', receitas: [], repetir: '', horario: '' }
+    return { id: 0, data: '', tipo: '', receitas: [], repetir: '', horario: '', qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
   }
 
   iniciarReceita(): Receita {
     return { idReceita: 0, nome: '', img: '' }
   }
 
-  /*adicionarAlarmeTeste(){
-    let date = new Date();
-    this.horarioRemedio.horario = "01:15:00";
-  }*/
 
   async openModalAlarme() {
     const modal = await this.modalCtrl.create({
