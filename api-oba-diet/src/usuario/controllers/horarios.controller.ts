@@ -24,23 +24,23 @@ export class HorariosController {
     private readonly horarios: HorariosRepository
   ) {}
 
-  @Get('refeicoes/:id')
+  @Get('refeicoes/:token')
   @IsPublic()
-  BuscarReceitas(@Param('id') id: string) {
-    return this.horarios.listarReceitas(id);
+  BuscarReceitas(@Param('token') token: string) {
+    return this.horarios.listarReceitas(token);
   }
 
-  @Get('remedios/:id')
+  @Get('remedios/:token')
   @IsPublic()
-  BuscarRemedios(@Param('id') id: string) {
-    return this.horarios.listarRemedios(id);
+  BuscarRemedios(@Param('token') token: string) {
+    return this.horarios.listarRemedios(token);
   }
 
-  @Post('CriarHorarioRefeicoes/:id')
+  @Post('CriarHorarioRefeicoes/:token')
   @IsPublic()
   async criarHorarioRefeicoes(
     @Body() horarioRefeicoesDto: Horarios_RefeicoesDto,
-    @Param('id') idUsuario: string,
+    @Param('token') idUsuario: string,
   ) {
     const horarioRefeicao: RefeicoesHorariosEntity =
       new RefeicoesHorariosEntity();
@@ -66,11 +66,11 @@ export class HorariosController {
     );
   }
 
-  @Post('CriarHorarioRemedios/:id')
+  @Post('CriarHorarioRemedios/:token')
   @IsPublic()
   async criarHorarioRemedios(
     @Body() horarioRemedioDto: Horarios_remediosDto,
-    @Param('id') idUsuario: string,
+    @Param('token') idUsuario: string,
   ) {
     const horarioRemedio: RemediosHorariosEntity = new RemediosHorariosEntity();
 
@@ -94,9 +94,10 @@ export class HorariosController {
     );
   }
 
-  @Patch('editarHorarioRefeicao')
+  @Patch('editarHorarioRefeicao/:token')
   @IsPublic()
   async editarHorariosRefeicao(
+    @Param('token') token : string,
     @Body() horarioRefeicoesDto: Horarios_RefeicoesDto,
   ) {
     const horarioRefeicao: RefeicoesHorariosEntity =
@@ -117,12 +118,13 @@ export class HorariosController {
       horarioRefeicoesDto.nmrRepeticoesTermino;
     horarioRefeicao.receita_id = horarioRefeicoesDto.receita_id;
 
-    return await this.horarios.editarHorariosRefeicoes(horarioRefeicao);
+    return await this.horarios.editarHorariosRefeicoes(token , horarioRefeicao);
   }
 
-  @Patch('editarHorarioRemedio')
+  @Patch('editarHorarioRemedio/:token')
   @IsPublic()
   async editarHorariosRemedios(
+    @Param('token') token : string,
     @Body() horarioRemedioDto: Horarios_remediosDto,
   ) {
     const horarioRemedio: RemediosHorariosEntity = new RemediosHorariosEntity();
@@ -142,7 +144,7 @@ export class HorariosController {
     horarioRemedio.nmrRepeticoesTermino =
       horarioRemedioDto.nmrRepeticoesTermino;
 
-    return await this.horarios.editarHorariosRemedios(horarioRemedio);
+    return await this.horarios.editarHorariosRemedios(token , horarioRemedio);
   }
 
   @Delete('deletarHorarioRefeicao/:token')

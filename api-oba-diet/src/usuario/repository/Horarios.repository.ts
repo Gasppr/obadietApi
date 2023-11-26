@@ -41,12 +41,24 @@ export class HorariosRepository {
   ) {}
 
   async listarReceitas(id: string) {
+
+    const usuario = await this.jwt.verifyAsync(id, {
+      secret: jwtConstants.secret,
+    });
+
+
+    const usuarioAchado = await this.usuarioBD.findOne({
+      where:{
+        email : usuario.email
+      }
+    })
+
     const horarios = await this.refeicoesDB.findAll({
       include: [
         {
           model: usuarios_has_horarios_refeicoes,
           required: true,
-          where: { usuarios_id: id },
+          where: { usuarios_id: usuarioAchado.id },
           attributes: [],
           include: [{ model: UsuarioEntity }, { model: ReceitaEntity }],
         },
@@ -105,7 +117,12 @@ export class HorariosRepository {
     return { mensagem: 'Refeição marcada com sucesso!' };
   }
 
-  async editarHorariosRefeicoes(horario: RefeicoesHorariosEntity) {
+  async editarHorariosRefeicoes(token : string , horario: RefeicoesHorariosEntity) {
+
+    const usuario = await this.usuarioRepository.ProcurarTodos(token)
+
+    if(!usuario) return  new Error("Token inválido"); 
+
     await this.refeicoesDB.update(
       {
         horarios: horario.horario,
@@ -134,6 +151,8 @@ export class HorariosRepository {
 
     const usuario = await this.usuarioRepository.ProcurarTodos(token)
 
+     if(!usuario) return  new Error("Token inválido");
+
     await this.hasRefeicoes.destroy({
       where: {
         horarios_refeicoes_idhorarios: id,
@@ -150,11 +169,25 @@ export class HorariosRepository {
   }
 
   async listarRemedios(id: string) {
+
+    const usuario = await this.jwt.verifyAsync(id, {
+      secret: jwtConstants.secret,
+    });
+
+
+    const usuarioAchado = await this.usuarioBD.findOne({
+      where:{
+        email : usuario.email
+      }
+    })
+
+
     const horarios = await this.remediosDB.findAll({
       include: [
         {
+         
           model: usuarios_has_horarios_remedios,
-          where: { usuarios_id: id },
+          where:{ usuarios_id : usuarioAchado.id},
           attributes: [],
           include: [{ model: UsuarioEntity, attributes: [] }],
         },
@@ -216,7 +249,12 @@ export class HorariosRepository {
     return { mensagem: 'Remédio marcado com sucesso!' };
   }
 
-  async editarHorariosRemedios(horario: RemediosHorariosEntity) {
+  async editarHorariosRemedios(token : string , horario: RemediosHorariosEntity) {
+
+    const usuario = await this.usuarioRepository.ProcurarTodos(token)
+
+    if(!usuario) return  new Error("Token inválido");
+
     await this.remediosDB.update(
       {
         data: horario.data,
