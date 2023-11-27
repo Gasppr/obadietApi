@@ -3,18 +3,22 @@ import { ModalController } from '@ionic/angular';
 import { HorarioPersonalizadoComponent } from '../horario-personalizado/horario-personalizado.component';
 import { HorariosService } from 'src/app/services/horarios.service';
 import { StorageService } from 'src/app/services/Login/storage.service';
+import { StorageHorarioService } from 'src/app/services/storage-horario.service';
 
-
-interface HorarioRemedioPersonalizado{
-  horarioRemedio: HorarioRemedio;
-  horarioPersonalizado: HorarioPersonalizado;
-}
 
 interface HorarioRemedio{
+  idHorario: number;
   data: string;
   nomeRemedio: string;
   repetir: string;
-  horario: string;
+  horarios: string;
+  qtdRepeteCada: number;
+  quandoRepeteCada: string;
+  diasDaSemanaRepeticao: string;
+  qndTermina: string;
+  qndTerminaData: string;
+  qndTerminaHorario: string;
+  nmrRepeticoesTermino: number;
 }
 
 interface HorarioPersonalizado {
@@ -35,36 +39,45 @@ interface HorarioPersonalizado {
 export class HorarioRemedioComponent  implements OnInit {
   horarioRemedio: HorarioRemedio
   horarioPersonalizado: HorarioPersonalizado
-  horarioRemedioPersonalizado: HorarioRemedioPersonalizado
 
-  constructor(private modalCtrl: ModalController, private horarioService: HorariosService) {
+  horariosRemedios: any = []
+
+  constructor(private modalCtrl: ModalController, private horarioService: HorariosService, private storage: StorageHorarioService) {
     this.horarioRemedio = this.iniciarHorarioRemedio();
     this.horarioPersonalizado = this.iniciarHorarioPersonalizado();
-    this.horarioRemedioPersonalizado = this.iniciarHorarioRemedioPersonalizado();
+    this.exibirHorariosRemedio();
    }
 
   ngOnInit() {}
 
-  iniciarHorarioRemedioPersonalizado(){
-    return { horarioRemedio: { data: '', nomeRemedio: '', repetir: '', horario: '' }, horarioPersonalizado: {qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0}}
-  }
 
   iniciarHorarioRemedio(): HorarioRemedio {
-    return { data: '', nomeRemedio: '', repetir: '', horario: '' }
+    return { idHorario: 0, data: '', nomeRemedio: '', repetir: '', horarios: '', qtdRepeteCada: 0, quandoRepeteCada: '', diasDaSemanaRepeticao: '', qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
   }
 
   iniciarHorarioPersonalizado(): HorarioPersonalizado {
     return { qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
   }
 
-  /*salvarHorarioRemedio(){
-    
-    this.horarioService.cadastroHorarioRemedio(token, this.horarioRemedioPersonalizado).subscribe({
+  async exibirHorariosRemedio() {
+    let token = await this.storage.buscarToken("token");
+    await this.horarioService.buscarHorarioRemedio(token).subscribe({
+      next: (data: any) => {
+        this.horariosRemedios.push(data);
+        console.log(token, this.horariosRemedios)
+      }
+    })
+    //await this.storage.guardarToken("horarioToken", this.horarioRemedio);
+  }
+
+  async criarHorarioRemedio(){
+    let token = await this.storage.buscarToken("token");
+    await this.horarioService.cadastroHorarioRemedio(token, this.horarioRemedio).subscribe({
       next: async (data: any) => {
         
       }
     })
-  }*/
+  }
 
   selecionarData(e: any) {
     let datetime = e.detail.value;
@@ -80,7 +93,7 @@ export class HorarioRemedioComponent  implements OnInit {
 
   selecionarHorario(e: any) {
     let datetime = e.detail.value;
-    this.horarioRemedio.horario = datetime.split('T')[1];
+    this.horarioRemedio.horarios = datetime.split('T')[1];
   }
 
   cancel() {
@@ -88,14 +101,22 @@ export class HorarioRemedioComponent  implements OnInit {
   }
 
   confirm() {
-    if (this.horarioRemedio.nomeRemedio !== '' && this.horarioRemedio.horario !== ''){
-      this.horarioRemedioPersonalizado.horarioRemedio = this.horarioRemedio;
-
+    if (this.horarioRemedio.nomeRemedio !== '' && this.horarioRemedio.horarios !== ''){
       if(this.horarioRemedio.repetir === 'Personalizado'){
-        this.horarioRemedioPersonalizado.horarioPersonalizado = this.horarioPersonalizado;
+        this.horarioRemedio.qtdRepeteCada = this.horarioPersonalizado.qtdRepeteCada;
+        this.horarioRemedio.quandoRepeteCada = this.horarioPersonalizado.quandoRepeteCada;
+        this.horarioRemedio.diasDaSemanaRepeticao = this.horarioPersonalizado.diasSemanaRepeticao.toString();
+        this.horarioRemedio.qndTermina = this.horarioPersonalizado.qndTermina;
+        this.horarioRemedio.qndTerminaData = this.horarioPersonalizado.qndTerminaData;
+        this.horarioRemedio.qndTerminaHorario = this.horarioPersonalizado.qndTerminaHorario;
+        this.horarioRemedio.nmrRepeticoesTermino = this.horarioPersonalizado.nmrRepeticoesTermino;
+        this.criarHorarioRemedio();
         return this.modalCtrl.dismiss('confirm');
       }
-      else return this.modalCtrl.dismiss('confirm');
+      else {
+        this.criarHorarioRemedio();
+        return this.modalCtrl.dismiss('confirm');
+      }
     }
     else return this.setOpen(true);
   }

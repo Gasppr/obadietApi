@@ -3,24 +3,56 @@
     <ion-button class="back-btn" slot="start" (click)="cancel()">
       <ion-icon name="arrow-back-outline"></ion-icon>
     </ion-button>
-    <ion-title>Adicionar receita salva</ion-title>
+    <ion-title>Adicionar receita</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="content">
   <ion-grid>
     <ion-row>
+      <ion-segment value="{{ selecionarCategoria }}" (ionChange)="mudarSelecionarCategoria($event)">
+        <ion-segment-button value="salvas">
+          <ion-label>Salvas</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="pesquisar">
+          <ion-label>Pesquisar</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-row>
+    <ion-row *ngIf="selecionarCategoria == 'salvas'">
       <ion-col *ngFor="let receitaSalva of receitasSalvas" size="6">
-        <ion-card (click)="selecionarReceita(receitaSalva.idReceita, receitaSalva.nome, receitaSalva.img)" (click)="confirm()">
+        <ion-card (click)="selecionarReceita(receitaSalva.idReceita, receitaSalva.nome, receitaSalva.img)"
+          (click)="confirm()">
           <ion-card-header>
             <ion-img [src]="receitaSalva.img"></ion-img>
           </ion-card-header>
-        
+
           <ion-card-content>
             {{ receitaSalva.nome }}
           </ion-card-content>
         </ion-card>
       </ion-col>
+    </ion-row>
+    <ion-row *ngIf="selecionarCategoria == 'pesquisar'">
+      <ion-row>
+        <ion-searchbar show-clear-button="focus" (ionChange)="onSearchChange($event)"></ion-searchbar>
+      </ion-row>
+      <ion-row>
+        <ion-col *ngFor="let receita of filteredReceitas$ | async" size="6">
+          <ion-card (click)="selecionarReceita(receita.id, receita.nome, receita.imagem)">
+            <ion-card-header>
+              {{ receita.nome }}
+            </ion-card-header>
+
+            <ion-card-content>
+              <ion-img [src]="receita.imagem" alt="Imagem da Receita"></ion-img>
+
+              <p class="recipe-info">Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
+              <p class="recipe-info">Restrições: {{receita.doencas[0]?.doencas?.nomeDoenca}}</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
     </ion-row>
   </ion-grid>
 </ion-content>
