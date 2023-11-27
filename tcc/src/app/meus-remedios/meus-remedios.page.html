@@ -35,24 +35,49 @@
     </ion-row>
 
     <div class="horarios">
-      <div class="horario">
-        <h3>00:00h</h3>
-        <ion-button class="btn-laranja" expand="block">Remédio 1</ion-button>
-      </div>
-
-      <div class="horario">
-        <h3>00:00h</h3>
-        <ion-button class="btn-laranja" expand="block">Remédio 2</ion-button>
-      </div>
-
-      <div class="horario">
-        <h3>00:00h</h3>
-        <ion-button class="btn-laranja" expand="block">Remédio 3</ion-button>
-      </div>
-
-      <div class="horario">
-        <h3>00:00h</h3>
-        <ion-button class="btn-laranja" expand="block">Remédio 4</ion-button>
+      <div class="horario" *ngFor="let remedio of horariosRemedios">
+        <div *ngIf="remedio.data == dataComparacao">
+          <h3>{{ displayHorario(remedio.horarios) }} - Remédio</h3>
+          <ion-button class="btn-laranja" expand="block" (click)="setRemedioOpen(true)">{{ remedio.nomeRemedio
+            }}</ion-button>
+          <ion-modal [isOpen]="isModalRemedioOpen">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title>Detalhes do remédio</ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="setRemedioOpen(false)">Fechar</ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content class="ion-padding">
+                <ion-row>
+                  <h3>{{ remedio.nomeRemedio }}</h3>
+                </ion-row>
+                <ion-row>
+                  <h6>
+                    Alarme programado para {{ displayHorario(remedio.horarios) }};
+                  </h6>
+                </ion-row>
+                <ion-row>
+                  <h6>
+                    Repetição: {{ remedio.repetir }}
+                  </h6>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-button color="warning">Editar horário</ion-button>
+                  </ion-col>
+                  <ion-col>
+                    <ion-button color="danger" id="present-alert" (click)="pegarIdHorarioAlert(remedio.idHorario)">Excluir horário</ion-button>
+                    <ion-alert trigger="present-alert" header="Você está prestes a excluir o horário para {{ remedio.nomeRemedio }}!" message="A exclusão de um horário é irreversível. Excluir horário?"
+                      [buttons]="alertRemedioButtons"></ion-alert>
+                  </ion-col>
+                </ion-row>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+        </div>
       </div>
     </div>
 

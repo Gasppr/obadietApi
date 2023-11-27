@@ -22,7 +22,7 @@ export class AlarmeModalComponent implements OnInit {
 
   date = new Date();
   timer: number = 0;
-  limiteTimer: number = 10;
+  limiteTimer: number = 60;
 
   somAlarme = new Audio();
   tocarRingtone() {
