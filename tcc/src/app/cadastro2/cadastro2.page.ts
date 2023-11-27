@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CadastroService } from '../services/Cadastro/cadastro.service';
 import { StorageService } from '../services/Cadastro/storage.service';
+import { Router } from '@angular/router';
 
-interface Usuario {
-  peso: number;
-  altura: number;
-  sexo: string;
-  idade: number;
+class Usuario {
+  nome: string = '';
+  email: string = '';
+  senha: string = '';
+  peso: number = 0;
+  altura: number = 0;
+  sexo: string = '';
+  idade: number = 0;
 }
 
 @Component({
@@ -15,30 +19,55 @@ interface Usuario {
   styleUrls: ['./cadastro2.page.scss'],
 })
 export class Cadastro2Page implements OnInit {
-  usuario: Usuario
+  usuario: Usuario;
 
-  constructor(private cadastroService: CadastroService,
-    private storage : StorageService) {
-      this.usuario = this.iniciarUsuario();
-     }
-
-  ngOnInit() {
+  constructor(
+    private cadastroService: CadastroService,
+    private storage: StorageService,
+    private router: Router
+  ) {
+    this.usuario = this.iniciarUsuario();
   }
 
-  iniciarUsuario(): Usuario{
-    return { peso: 0, altura: 0, sexo: '', idade: 0 };
+  ngOnInit() {}
+
+  iniciarUsuario(): Usuario {
+    return {
+      nome: '',
+      email: '',
+      senha: '',
+      peso: 0,
+      altura: 0,
+      sexo: '',
+      idade: 0,
+    };
   }
 
   async continuarCadastro() {
+    const usuarioLocalStorage = await this.storage.buscarCadastro('cadastro');
 
-    const user = this.storage.buscarCadastro("cadastro1")
+    this.usuario.nome = usuarioLocalStorage.nome;
+    this.usuario.email = usuarioLocalStorage.email;
+    this.usuario.senha = usuarioLocalStorage.senha;
 
- 
-  } 
+    if (
+      this.usuario.altura != 0 &&
+      this.usuario.peso != 0 &&
+      this.usuario.idade != 0 &&
+      this.usuario.sexo != ''
+    ) {
+      await this.storage.guardarCadastro('cadastro', this.usuario);
+      await this.router.navigate(['cadastro3']);
+    } else this.setOpen(true);
+  }
 
   selecionarSexo(e: any) {
     this.usuario.sexo = e.detail.value;
-    console.log(this.usuario.sexo);
   }
 
+  isToastOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
+  }
 }

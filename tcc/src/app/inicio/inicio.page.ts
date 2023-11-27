@@ -1,20 +1,22 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Swiper from 'swiper';
+import { StorageService } from '../services/Cadastro/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
-export class InicioPage implements OnInit {
+export class InicioPage  {
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
   swiper?: Swiper;
 
-  constructor() { }
+  constructor(private storage : StorageService, private router : Router) {
+      this.pularTelaInicial()
+   }
 
-  ngOnInit() {
-  }
 
   swiperReady() {
     this.swiper = this.swiperRef?.nativeElement.swiper;
@@ -29,5 +31,12 @@ export class InicioPage implements OnInit {
 
   swiperSlideChanged(e: any){
     console.log('changed ', e);
+  }
+
+  async pularTelaInicial(){
+    const existe = await this.storage.buscarCadastro("cadastro")
+
+    if(existe) this.router.navigate(['iniciov2'])
+
   }
 }

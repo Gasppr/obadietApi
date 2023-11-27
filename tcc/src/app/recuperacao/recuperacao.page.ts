@@ -7,26 +7,14 @@ import { EsqueciSenhaService } from '../services/esqueci-senha.service';
   styleUrls: ['./recuperacao.page.scss'],
 })
 export class RecuperacaoPage {
-
-  public email: string
+  public email: string;
   constructor(private esqueciSenha: EsqueciSenhaService) {
-    this.email = ''
+    this.email = '';
   }
-
 
   async mandarEmail() {
-    if (!this.email) return
+    if (!this.email) return;
 
-    const mensagem = await this.esqueciSenha.mandarEmailDeRecuperacao(this.email).subscribe({
-      next: (data: any) => {
-        console.log(data)
-
-      }
-    })
-
-
-
+    await this.esqueciSenha.mandarEmailDeRecuperacao(this.email);
   }
-
-
 }

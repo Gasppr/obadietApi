@@ -23,18 +23,21 @@ export class StorageService {
     await this.storage.create()
   }
 
-  async guardarCadastro1(chave: string, valor: cadastro1) {
+  async guardarCadastro(chave: string, valor: cadastro1) {
     await this.storage.set(chave, valor)
 
+ 
     return true;
   }
 
   async buscarCadastro(chave: string) {
 
-    const token = await this.storage.get(chave)
+    const cadastro = await this.storage.get(chave)
 
-    return token;
+    return cadastro;
   }
+
+
 
   async removerToken(chave: string) {
     const valor = await this.storage.remove(chave)

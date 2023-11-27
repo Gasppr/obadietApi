@@ -1,5 +1,4 @@
 export interface Cadastro{
-    id: string,
     nome: string
     email: string,
     sexo: string,
@@ -7,4 +6,6 @@ export interface Cadastro{
     peso: number,
     altura: number,
     senha: string
+    restricoes : string[],
+    doencas: string[]
 }

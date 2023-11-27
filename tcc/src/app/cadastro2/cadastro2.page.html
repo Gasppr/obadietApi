@@ -37,8 +37,8 @@
         <ion-select aria-label="Sexo" interface="popover" 
         aria-label="Sexo do usuário"
         placeholder="Sexo:" class="select-sexo" (ionChange)="selecionarSexo($event)">
-          <ion-select-option value="FEMININO">Feminino</ion-select-option>
-          <ion-select-option value="MASCULINO">Masculino</ion-select-option>
+          <ion-select-option value="Feminino">Feminino</ion-select-option>
+          <ion-select-option value="Masculino">Masculino</ion-select-option>
         </ion-select>
       </ion-col>
       <ion-col class="ion-align-items-center">
@@ -60,9 +60,14 @@
         <ion-button aria-label="Botão de voltar" [routerLink]="['/cadastro1']" class="btn-voltar">Voltar</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button aria-label="Botão de continuar"[routerLink]="['/cadastro3']" class="btn-continuar">Continuar</ion-button>
+        <ion-button aria-label="Botão de continuar" (click)="continuarCadastro() " class="btn-continuar">Continuar</ion-button>
       </ion-col>
     </div>
     </ion-row>
+    <ion-toast [isOpen]="isToastOpen"
+        message="Todos os campos devem está preenchidos"
+        [duration]="5000"
+        (didDismiss)="setOpen(false)"
+        ></ion-toast>
   </ion-grid>
 </ion-content>
