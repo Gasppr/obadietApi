@@ -2,16 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HorarioPersonalizadoComponent } from '../horario-personalizado/horario-personalizado.component';
 import { ExibirReceitasSalvasComponent } from './exibir-receitas-salvas/exibir-receitas-salvas.component';
+import { HorariosService } from 'src/app/services/horarios.service';
+import { StorageHorarioService } from 'src/app/services/storage-horario.service';
 
 interface Receita{
   idReceita: number;
   nome: string;
   img: string;
-}
-
-interface HorarioRefeicaoPersonalizado{
-  horarioRefeicao: HorarioRefeicao;
-  horarioPersonalizado: HorarioPersonalizado;
 }
 
 interface HorarioRefeicao{
@@ -20,6 +17,13 @@ interface HorarioRefeicao{
   receitas: Receita[];
   repetir: string;
   horario: string;
+  qtdRepeteCada: number;
+  quandoRepeteCada: string;
+  diasSemanaRepeticao: string[];
+  qndTermina: string;
+  qndTerminaData: string;
+  qndTerminaHorario: string;
+  nmrRepeticoesTermino: number;
 }
 
 interface HorarioPersonalizado {
@@ -41,20 +45,24 @@ export class HorarioRefeicaoComponent  implements OnInit {
   horarioRefeicao: HorarioRefeicao
   receita: Receita;
   horarioPersonalizado: HorarioPersonalizado;
-  horarioRefeicaoPersonalizado: HorarioRefeicaoPersonalizado;
 
-  constructor(private modalCtrl: ModalController) {
+  constructor(private modalCtrl: ModalController, private horarioService: HorariosService, private storage: StorageHorarioService) {
     this.horarioRefeicao = this.iniciarHorarioRefeicao();
     this.receita = this.iniciarReceita();
     this.horarioPersonalizado = this.iniciarHorarioPersonalizado();
-    this.horarioRefeicaoPersonalizado = this.iniciarHorarioRefeicaoPersonalizado();
   }
 
-  iniciarHorarioRefeicaoPersonalizado(): HorarioRefeicaoPersonalizado {
-    return { horarioRefeicao: {data: '', tipo: '', receitas: [], repetir: '', horario: ''}, horarioPersonalizado: {qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0}}
+  async criarHorarioRefeicao(){
+    let token = await this.storage.buscarToken("token");
+    await this.horarioService.cadastroHorarioRefeicao(token, this.horarioRefeicao).subscribe({
+      next: async (data: any) => {
+        
+      }
+    })
   }
+
   iniciarHorarioRefeicao(): HorarioRefeicao {
-    return { data: '', tipo: '', receitas: [], repetir: '', horario: '' }
+    return { data: '', tipo: '', receitas: [], repetir: '', horario: '', qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
   }
 
   iniciarHorarioPersonalizado(): HorarioPersonalizado {
@@ -105,10 +113,14 @@ export class HorarioRefeicaoComponent  implements OnInit {
 
   confirm() {
     if (this.horarioRefeicao.tipo !== '' && this.horarioRefeicao.horario !== ''){
-      this.horarioRefeicaoPersonalizado.horarioRefeicao = this.horarioRefeicao;
-
       if(this.horarioRefeicao.repetir === 'Personalizado'){
-        this.horarioRefeicaoPersonalizado.horarioPersonalizado = this.horarioPersonalizado;
+        this.horarioRefeicao.qtdRepeteCada = this.horarioPersonalizado.qtdRepeteCada;
+        this.horarioRefeicao.quandoRepeteCada = this.horarioPersonalizado.quandoRepeteCada;
+        this.horarioRefeicao.diasSemanaRepeticao = this.horarioPersonalizado.diasSemanaRepeticao;
+        this.horarioRefeicao.qndTermina = this.horarioPersonalizado.qndTermina;
+        this.horarioRefeicao.qndTerminaData = this.horarioPersonalizado.qndTerminaData;
+        this.horarioRefeicao.qndTerminaHorario = this.horarioPersonalizado.qndTerminaHorario;
+        this.horarioRefeicao.nmrRepeticoesTermino = this.horarioPersonalizado.nmrRepeticoesTermino;
         return this.modalCtrl.dismiss('confirm');
       }
       else return this.modalCtrl.dismiss('confirm');
