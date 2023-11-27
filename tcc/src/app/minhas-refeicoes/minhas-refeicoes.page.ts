@@ -53,7 +53,6 @@ export class MinhasRefeicoesPage {
     await this.horarioService.excluirHorarioRefeicao(token, this.id).subscribe({
       next: (data: any) => {
         this.horariosRefeicoes = data;
-        console.log(this.horariosRefeicoes)
       }
     })
   }
@@ -70,7 +69,6 @@ export class MinhasRefeicoesPage {
 
   pegarIdHorarioAlert(id: number){
     this.idHorarioAlert = id;
-    console.log(this.idHorarioAlert)
   }
 
   alertRefeicaoButtons = [{

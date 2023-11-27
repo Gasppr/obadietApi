@@ -57,8 +57,9 @@
       <ion-label>
         Receitas
       </ion-label>
-      <ion-list [inset]="true" *ngIf="horarioRefeicao.receitas.length > 0">
-        <ion-item-sliding *ngFor="let receitaSalva of horarioRefeicao.receitas">
+      <ion-list [inset]="true" *ngIf="receitas.length > 0">
+        <ion-item-sliding *ngFor="let receitaSalva of 
+        receitas">
           <ion-item [button]="true">
             <ion-avatar aria-hidden="true" slot="start">
               <img alt="" [src]=" receitaSalva.img" />

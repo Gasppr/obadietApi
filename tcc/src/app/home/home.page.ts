@@ -56,7 +56,6 @@ export class HomePage {
         }
       }
       this.remediosHome.sort((firstItem: any, secondItem: any) => firstItem.horarios - secondItem.horarios);
-      console.log(this.remediosHome)
     }
 
     if (this.horariosRefeicoes.length > 0){
@@ -66,7 +65,6 @@ export class HomePage {
         }
       }
       this.refeicoesHome.sort((firstItem: any, secondItem: any) => firstItem.horarios - secondItem.horarios);
-      console.log(this.refeicoesHome)
     }
   }
 
@@ -90,7 +88,6 @@ export class HomePage {
     await this.horarioService.buscarHorarioRemedio(token).subscribe({
       next: (data: any) => {
         this.horariosRemedios = data;
-        console.log(this.horariosRemedios, this.horariosRemedios.length, token)
       }
     })
   }
@@ -100,7 +97,6 @@ export class HomePage {
     await this.horarioService.buscarHorarioRefeicao(token).subscribe({
       next: (data: any) => {
         this.horariosRefeicoes = data;
-        console.log(this.horariosRefeicoes)
       }
     })
   }

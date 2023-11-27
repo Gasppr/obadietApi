@@ -12,9 +12,10 @@ interface Receita{
 }
 
 interface HorarioRefeicao{
+  idHorarios: number;
   data: string;
   tipo: string;
-  receitas: Receita[];
+  receitas: number;
   repetir: string;
   horario: string;
   qtdRepeteCada: number;
@@ -46,6 +47,8 @@ export class HorarioRefeicaoComponent  implements OnInit {
   receita: Receita;
   horarioPersonalizado: HorarioPersonalizado;
 
+  receitas: any = []
+
   constructor(private modalCtrl: ModalController, private horarioService: HorariosService, private storage: StorageHorarioService) {
     this.horarioRefeicao = this.iniciarHorarioRefeicao();
     this.receita = this.iniciarReceita();
@@ -62,7 +65,7 @@ export class HorarioRefeicaoComponent  implements OnInit {
   }
 
   iniciarHorarioRefeicao(): HorarioRefeicao {
-    return { data: '', tipo: '', receitas: [], repetir: '', horario: '', qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
+    return { idHorarios: 0, data: '', tipo: '', receitas: 1, repetir: '', horario: '', qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
   }
 
   iniciarHorarioPersonalizado(): HorarioPersonalizado {
@@ -77,13 +80,13 @@ export class HorarioRefeicaoComponent  implements OnInit {
 
   index: number = 0;
   removeReceita(id: number){
-    for(let i = 0; i < this.horarioRefeicao.receitas.length; i++){
-      if(this.horarioRefeicao.receitas[i].idReceita === id){
+    for(let i = 0; i < this.receitas.length; i++){
+      if(this.receitas[i].idReceita === id){
         this.index = i;
       }
     }
     
-    this.horarioRefeicao.receitas.splice(this.index, 1);
+    this.receitas.splice(this.index, 1);
   }
 
   selecionarRefeicao(e: any) {
@@ -121,9 +124,13 @@ export class HorarioRefeicaoComponent  implements OnInit {
         this.horarioRefeicao.qndTerminaData = this.horarioPersonalizado.qndTerminaData;
         this.horarioRefeicao.qndTerminaHorario = this.horarioPersonalizado.qndTerminaHorario;
         this.horarioRefeicao.nmrRepeticoesTermino = this.horarioPersonalizado.nmrRepeticoesTermino;
+        this.criarHorarioRefeicao();
         return this.modalCtrl.dismiss('confirm');
       }
-      else return this.modalCtrl.dismiss('confirm');
+      else {
+        this.criarHorarioRefeicao()
+        return this.modalCtrl.dismiss('confirm');
+      }
     }
     else return this.setOpen(true);
   }
@@ -151,7 +158,7 @@ export class HorarioRefeicaoComponent  implements OnInit {
     const { data, role } = await modal.onWillDismiss();
 
     if (role === 'confirm') {
-      this.horarioRefeicao.receitas.push({idReceita: data.idRecSelec, nome: data.nomeRecSelec, img: data.imgRecSelec});
+      this.receitas.push({idReceita: data.idRecSelec, nome: data.nomeRecSelec, img: data.imgRecSelec});
     }
   }
 

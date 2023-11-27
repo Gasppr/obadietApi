@@ -63,7 +63,6 @@ export class ExibirReceitasSalvasComponent  implements OnInit {
 
   mudarSelecionarCategoria(e: any){
     this.selecionarCategoria = e.detail.value;
-    console.log(this.selecionarCategoria)
   }
 
   onSearchChange(event: any) {

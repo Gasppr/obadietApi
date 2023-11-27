@@ -60,7 +60,6 @@ export class MeusRemediosPage implements OnInit {
     await this.horarioService.buscarHorarioRemedio(token).subscribe({
       next: (data: any) => {
         this.horariosRemedios = data;
-        console.log(this.horariosRemedios, this.horariosRemedios.length, token)
       }
     })
   }
@@ -71,7 +70,6 @@ export class MeusRemediosPage implements OnInit {
     await this.horarioService.excluirHorarioRemedio(token, this.id).subscribe({
       next: (data: any) => {
         this.horariosRemedios = data;
-        console.log(this.horariosRemedios, this.horariosRemedios.length, token)
       }
     })
   }
@@ -111,7 +109,6 @@ export class MeusRemediosPage implements OnInit {
 
   pegarIdHorarioAlert(id: number){
     this.idHorarioAlert = id;
-    console.log(this.idHorarioAlert)
   }
 
   alertRemedioButtons = [{

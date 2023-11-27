@@ -120,7 +120,6 @@ export class ProgramacaoPage implements OnInit {
   selecionarData(e: any) {
     let datetime = e.detail.value;
     this.dataComparacao = datetime.split('T')[0];
-    console.log(this.dataComparacao)
   }
 
   dataAtual: Date = new Date();
@@ -138,7 +137,6 @@ export class ProgramacaoPage implements OnInit {
     await this.horarioService.buscarHorarioRemedio(token).subscribe({
       next: (data: any) => {
         this.horariosRemedios = data;
-        console.log(this.horariosRemedios, this.horariosRemedios.length, token)
       }
     })
   }
@@ -148,7 +146,6 @@ export class ProgramacaoPage implements OnInit {
     await this.horarioService.buscarHorarioRefeicao(token).subscribe({
       next: (data: any) => {
         this.horariosRefeicoes = data;
-        console.log(this.horariosRefeicoes)
       }
     })
   }
@@ -159,7 +156,6 @@ export class ProgramacaoPage implements OnInit {
     await this.horarioService.excluirHorarioRemedio(token, this.id).subscribe({
       next: (data: any) => {
         this.horariosRemedios = data;
-        console.log(this.horariosRemedios, this.horariosRemedios.length, token)
       }
     })
   }
@@ -170,7 +166,6 @@ export class ProgramacaoPage implements OnInit {
     await this.horarioService.excluirHorarioRefeicao(token, this.id).subscribe({
       next: (data: any) => {
         this.horariosRefeicoes = data;
-        console.log(this.horariosRefeicoes)
       }
     })
   }
@@ -179,7 +174,6 @@ export class ProgramacaoPage implements OnInit {
 
   pegarIdHorarioAlert(id: number){
     this.idHorarioAlert = id;
-    console.log(this.idHorarioAlert)
   }
 
   alertRemedioButtons = [{

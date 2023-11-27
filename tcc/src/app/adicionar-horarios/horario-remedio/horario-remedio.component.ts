@@ -64,7 +64,6 @@ export class HorarioRemedioComponent  implements OnInit {
     await this.horarioService.buscarHorarioRemedio(token).subscribe({
       next: (data: any) => {
         this.horariosRemedios.push(data);
-        console.log(token, this.horariosRemedios)
       }
     })
     //await this.storage.guardarToken("horarioToken", this.horarioRemedio);
