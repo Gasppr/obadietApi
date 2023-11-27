@@ -27,6 +27,11 @@ export class LoginService {
 
   }
 
+
+  async credenciaisUsuario(token : string ){
+   return this.http.get(`${this.url_api}usuario/${token}`)
+  }
+
   async autenticacaoUsuario() {
     const token = await this.storageService.buscarToken("token")
 

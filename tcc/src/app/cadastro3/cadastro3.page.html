@@ -3,21 +3,17 @@
     <ion-row>
       <h1 class="title">Comorbidades e restrições</h1>
     </ion-row>
-    <ion-row>
-      <ion-select aria-label="Doencas" placeholder="Doenças:" [multiple]="true">
-        <ion-select-option value="lorem ipsum">Nenhuma</ion-select-option>
-        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
-        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
+    <ion-row *ngIf="doencas">
+      <ion-select aria-label="Doencas" placeholder="Doenças:" [multiple]="true" (ionChange)="selecionarDoencas($event)">
+        <ion-select-option>Nenhuma</ion-select-option>
+        <ion-select-option *ngFor="let doenca of doencas" value={{+doenca.idDoenca}}>{{doenca.nomeDoenca}}</ion-select-option>
       </ion-select>
     </ion-row>
-    <ion-row>
-      <ion-select aria-label="Restricoes" placeholder="Restrições:" [multiple]="true">
-        <ion-select-option value="lorem ipsum">Nenhuma</ion-select-option>
-        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
-        <ion-select-option value="lorem ipsum">Lorem ipsum</ion-select-option>
+    <ion-row *ngIf="restricao">
+      <ion-select aria-label="Restricoes" placeholder="Restrições:" [multiple]="true" (ionChange)="selecionarRestricoes($event)" >
+        <ion-select-option *ngFor="let restricao of restricao" value={{restricao.idRestricao}}>{{restricao.nomeRestricao}}</ion-select-option>
       </ion-select>
 
-      
     </ion-row>
 
     <ion-row class="ion-justify-content-center">
@@ -32,7 +28,7 @@
         <ion-button aria-label="Botão voltar"[routerLink]="['/cadastro2']" class="btn-voltar">Voltar</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button aria-label="Botão Cadastrar" [routerLink]="['/obaDiet']" class="btn-continuar">Cadastrar</ion-button>
+        <ion-button aria-label="Botão Cadastrar" (click)="continuarCadastro()"class="btn-continuar" >Cadastrar</ion-button>
       </ion-col>
     </div>
     </ion-row>

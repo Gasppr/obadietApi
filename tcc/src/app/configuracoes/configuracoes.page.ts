@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../services/Login/login.service';
 
 @Component({
   selector: 'app-configuracoes',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfiguracoesPage implements OnInit {
 
-  constructor() { }
+  constructor(private login : LoginService) { }
 
   isModalOpen = false;
 
@@ -17,5 +18,12 @@ export class ConfiguracoesPage implements OnInit {
 
   ngOnInit() {
   }
+
+
+  async logout(){
+    this.login.sairDaConta()
+    
+  } 
+  
 
 }

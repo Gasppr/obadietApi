@@ -24,13 +24,13 @@
       </ion-avatar>
     </ion-row>
 
-    <div class="informacoes">
-      <h3 class="title">Claudyane</h3>
-      <label>Idade: 30</label>
+    <div class="informacoes" *ngIf="usuario">
+      <h3 class="title">{{usuario.nome}}</h3>
+      <label>Idade: {{usuario.idade}}</label>
       <br>
-      <label>Peso: 60kg</label>
+      <label>Peso: {{usuario.peso}}</label>
       <br>
-      <label>Altura: 1,65m</label>
+      <label>Altura: {{usuario.altura}}cm</label>
       <br>
 
       <div class="informacao">
@@ -38,21 +38,19 @@
           <h3 class="title">Restrições</h3>
         </ion-row>
         
-        <ion-row class="ion-justify-content-center">
-          <ion-button class="btn-laranja" expand="block">Gluten</ion-button>
+        <ion-row class="ion-justify-content-center" *ngFor="let restricao of usuario.restricoes" >
+          <ion-button class="btn-laranja" expand="block">{{restricao.restricoes.nomeRestricao}}</ion-button>
         </ion-row>
-        <ion-row class="ion-justify-content-center">
-          <ion-button class="btn-laranja" expand="block">Lactose</ion-button>
-        </ion-row>
+       
       </div>
 
 
-      <div class="informacao">
+      <div class="informacao" >
         <ion-row>
           <h3 class="title">Comorbidades</h3>
         </ion-row>
-        <ion-row class="ion-justify-content-center">
-          <ion-button class="btn-laranja" expand="block">Diabetes</ion-button>
+        <ion-row class="ion-justify-content-center" *ngFor="let doenca of usuario.doencas">
+          <ion-button class="btn-laranja" expand="block">{{doenca.doencas.nomeDoenca}}</ion-button>
         </ion-row>
       </div>
 
