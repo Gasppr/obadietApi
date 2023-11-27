@@ -45,6 +45,10 @@ interface HorarioRefeicao {
   nmrRepeticoesTermino: number;
 }
 
+interface Id {
+  id: number
+}
+
 
 @Component({
   selector: 'app-programacao',
@@ -59,6 +63,7 @@ export class ProgramacaoPage implements OnInit {
   receita: Receita;
   horarioRefeicao: HorarioRefeicao;
   horarioRemedio: HorarioRemedio;
+  id: Id;
 
   receitas: any = [];
   horariosRemedios: any = [];
@@ -69,6 +74,7 @@ export class ProgramacaoPage implements OnInit {
     this.horarioRemedio = this.iniciarHorarioRemedio();
     this.horarioRefeicao = this.iniciarHorarioRefeicao();
     this.receita = this.iniciarReceita();
+    this.id = this.iniciarId();
     this.exibirHorariosRemedios();
     this.exibirHorariosRefeicoes();
 
@@ -114,10 +120,11 @@ export class ProgramacaoPage implements OnInit {
   selecionarData(e: any) {
     let datetime = e.detail.value;
     this.dataComparacao = datetime.split('T')[0];
+    console.log(this.dataComparacao)
   }
 
   dataAtual: Date = new Date();
-  dataComparacao: string = `${this.dataAtual.getFullYear()}-${this.dataAtual.getMonth()}-${this.dataAtual.getDate()}`;
+  dataComparacao: string = `${this.dataAtual.getFullYear()}-${this.dataAtual.getMonth()+1}-${this.dataAtual.getDate()}`;
 
   exibirQuaisHorarios: string = 'Sua programação';
 
@@ -131,10 +138,9 @@ export class ProgramacaoPage implements OnInit {
     await this.horarioService.buscarHorarioRemedio(token).subscribe({
       next: (data: any) => {
         this.horariosRemedios = data;
-        console.log(this.horariosRemedios, token)
+        console.log(this.horariosRemedios, this.horariosRemedios.length, token)
       }
     })
-    //await this.storage.guardarToken("horarioToken", this.horarioRemedio);
   }
 
   async exibirHorariosRefeicoes() {
@@ -145,8 +151,60 @@ export class ProgramacaoPage implements OnInit {
         console.log(this.horariosRefeicoes)
       }
     })
-    await this.storage.guardarToken("horarioToken", this.horarioRemedio);
   }
+
+  async excluirHorariosRemedios(id: number) {
+    this.id = {id: id}
+    let token = await this.storage.buscarToken("token");
+    await this.horarioService.excluirHorarioRemedio(token, this.id).subscribe({
+      next: (data: any) => {
+        this.horariosRemedios = data;
+        console.log(this.horariosRemedios, this.horariosRemedios.length, token)
+      }
+    })
+  }
+
+  async excluirHorariosRefeicoes(id: number) {
+    this.id = {id: id}
+    let token = await this.storage.buscarToken("token");
+    await this.horarioService.excluirHorarioRefeicao(token, this.id).subscribe({
+      next: (data: any) => {
+        this.horariosRefeicoes = data;
+        console.log(this.horariosRefeicoes)
+      }
+    })
+  }
+
+  idHorarioAlert: number = 0;
+
+  pegarIdHorarioAlert(id: number){
+    this.idHorarioAlert = id;
+    console.log(this.idHorarioAlert)
+  }
+
+  alertRemedioButtons = [{
+    text: 'Cancelar',
+    role: 'cancel'
+  },
+  {
+    text: 'Excluir',
+    role: 'confirm',
+    handler: () => {
+      this.excluirHorariosRemedios(this.idHorarioAlert);
+    }
+  }];
+
+  alertRefeicaoButtons = [{
+    text: 'Cancelar',
+    role: 'cancel'
+  },
+  {
+    text: 'Excluir',
+    role: 'confirm',
+    handler: () => {
+      this.excluirHorariosRefeicoes(this.idHorarioAlert);
+    }
+  }];
 
   varReceitaBuscar: any = {}
 
@@ -193,6 +251,10 @@ export class ProgramacaoPage implements OnInit {
 
   iniciarReceita(): Receita {
     return { idReceita: 0, nome: '', img: '' }
+  }
+
+  iniciarId(): Id {
+    return { id: 0 };
   }
 
 
