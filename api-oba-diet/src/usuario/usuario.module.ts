@@ -16,6 +16,7 @@ import { RefeicoesHorariosEntity, usuarios_has_horarios_refeicoes } from './enti
 import { ReceitasRepository } from '../receitas/repository/Receitas.repository';
 import { ReceitaEntity } from '../receitas/entities/Receita.entity';
 import { HorariosController } from './controllers/horarios.controller';
+import { AuthService } from 'src/auth/service/auth.service';
 
 @Module({
 
@@ -68,7 +69,7 @@ import { HorariosController } from './controllers/horarios.controller';
     ]),
   ],
 
-  providers: [UsuarioRepository, JwtService, criptografia, HorariosRepository],
+  providers: [UsuarioRepository, JwtService, criptografia, HorariosRepository, AuthService],
   exports: [UsuarioRepository, HorariosRepository],
   controllers: [UsuarioController, HorariosController],
 })
