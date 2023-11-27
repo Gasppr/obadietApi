@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Swiper from 'swiper';
 import { HorariosService } from '../services/horarios.service';
 import { StorageHorarioService } from '../services/storage-horario.service';
+import { HorarioRefeicaoComponent } from '../adicionar-horarios/horario-refeicao/horario-refeicao.component';
+import { ModalController } from '@ionic/angular';
 
 interface Id {
   id: number
@@ -20,7 +22,7 @@ export class MinhasRefeicoesPage {
   id: Id;
   horariosRefeicoes: any = [];
 
-  constructor(private horarioService: HorariosService, private storage: StorageHorarioService) {
+  constructor(private horarioService: HorariosService, private storage: StorageHorarioService, private modalCtrl: ModalController) {
     this.id = this.iniciarId();
   }
 
@@ -95,6 +97,19 @@ export class MinhasRefeicoesPage {
 
   dataAtual: Date = new Date();
   dataComparacao: string = `${this.dataAtual.getFullYear()}-${this.dataAtual.getMonth()+1}-${this.dataAtual.getDate()}`;
+
+  async openModalRefeicao() {
+    const modal = await this.modalCtrl.create({
+      component: HorarioRefeicaoComponent,
+    });
+    modal.present();
+
+    /*const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.message = `Hello, ${data}!`;
+    }*/
+  }
 
   swiperReady() {
     this.swiper = this.swiperRef?.nativeElement.swiper;

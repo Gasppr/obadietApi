@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HorariosService } from '../services/horarios.service';
 import { StorageHorarioService } from '../services/storage-horario.service';
 import { RecipesService } from '../services/recipes.service';
+import { HorarioRemedioComponent } from '../adicionar-horarios/horario-remedio/horario-remedio.component';
+import { ModalController } from '@ionic/angular';
 
 interface Id {
   id: number
@@ -17,7 +19,7 @@ export class MeusRemediosPage implements OnInit {
   id: Id;
   horariosRemedios: any = []
 
-  constructor(private horarioService: HorariosService, private recipesService: RecipesService, private storage: StorageHorarioService) {
+  constructor(private horarioService: HorariosService, private recipesService: RecipesService, private storage: StorageHorarioService, private modalCtrl: ModalController) {
     this.id = this.iniciarId();
     this.exibirHorariosRemedios();
 
@@ -72,6 +74,20 @@ export class MeusRemediosPage implements OnInit {
         console.log(this.horariosRemedios, this.horariosRemedios.length, token)
       }
     })
+  }
+
+
+  async openModalRemedio() {
+    const modal = await this.modalCtrl.create({
+      component: HorarioRemedioComponent,
+    });
+    modal.present();
+
+    /*const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.message = `Hello, ${data}!`;
+    }*/
   }
 
   displayHorario(horarioParam: string): string {
