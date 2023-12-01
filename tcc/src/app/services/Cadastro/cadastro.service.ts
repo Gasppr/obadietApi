@@ -13,7 +13,7 @@ export class CadastroService {
 
   }
 
-  private url = 'https://3000-paulor-obadiet-l2351zyi3qy.ws-us106.gitpod.io/obadiet/'
+  private url = 'https://obadietapi.vercel.app/obadiet/'
 
 
   buscarDoencas(){
