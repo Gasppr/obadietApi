@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/Login/login.service';
 import { Router } from '@angular/router';
 import { StorageService } from '../services/Login/storage.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 interface usuarioLogin {
   email : string,
@@ -15,7 +16,13 @@ interface usuarioLogin {
 })
 export class LoginPage {
 
+  login = new FormGroup({
+    email : new FormControl('' , [Validators.required , Validators.email]),
+    senha : new FormControl('', [Validators.required, Validators.minLength(8)])
+  })
+
   usuario : usuarioLogin 
+  resposta : any 
  
   constructor(
     private loginService: LoginService,
@@ -32,8 +39,19 @@ export class LoginPage {
     
     if(!this.usuario) return
 
-    this.loginService.login(this.usuario);
+    this.resposta = await this.loginService.login(this.usuario);
 
+    if(this.resposta != true ){
+      this.setOpen(true)
+    }
+
+
+  }
+
+  isToastOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
   }
   
 

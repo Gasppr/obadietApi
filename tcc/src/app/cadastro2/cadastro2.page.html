@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true" class="tela-start">
-  <ion-grid class="formulario">
+  <ion-grid class="formulario" [formGroup]="cadastro2">
     <ion-row>
       <h1 class="title">Informações Fisicas</h1>
     </ion-row>
@@ -14,10 +14,12 @@
         [clearInput]="true"
         placeholder=""
         [(ngModel)]="usuario.peso"
+        formControlName="peso"
       >
       </ion-input>
       </ion-col>
     </ion-row>
+      <span *ngIf="cadastro2.get('peso')?.invalid">O peso deve ser preenchida</span>
     <ion-row>
       <ion-col>
         <ion-input
@@ -28,15 +30,17 @@
         [clearInput]="true"
         placeholder=""
         [(ngModel)]="usuario.altura"
+        formControlName="altura"
       >
       </ion-input>
       </ion-col>
     </ion-row>
+    <span *ngIf="cadastro2.get('altura')?.invalid">A Altura deve ser preenchida</span>
     <ion-row>
       <ion-col class="ion-align-items-center">
         <ion-select aria-label="Sexo" interface="popover" 
         aria-label="Sexo do usuário"
-        placeholder="Sexo:" class="select-sexo" (ionChange)="selecionarSexo($event)">
+        placeholder="Sexo:" class="select-sexo" (ionChange)="selecionarSexo($event)" formControlName="sexo">
           <ion-select-option value="Feminino">Feminino</ion-select-option>
           <ion-select-option value="Masculino">Masculino</ion-select-option>
         </ion-select>
@@ -50,17 +54,19 @@
         [clearInput]="true"
         placeholder=""
         [(ngModel)]="usuario.idade"
+        formControlName="idade"
       >
       </ion-input>
       </ion-col>
     </ion-row>
+    <span *ngIf="cadastro2.get('idade')?.invalid">A idade deve ser preenchida</span>
     <ion-row>
       <div class="buttons">
       <ion-col>
         <ion-button aria-label="Botão de voltar" [routerLink]="['/cadastro1']" class="btn-voltar">Voltar</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button aria-label="Botão de continuar" (click)="continuarCadastro() " class="btn-continuar">Continuar</ion-button>
+        <ion-button aria-label="Botão de continuar" (click)="continuarCadastro() " class="btn-continuar" [disabled]="cadastro2.invalid">Continuar</ion-button>
       </ion-col>
     </div>
     </ion-row>

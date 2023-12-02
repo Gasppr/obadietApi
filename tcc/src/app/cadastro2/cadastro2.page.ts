@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CadastroService } from '../services/Cadastro/cadastro.service';
 import { StorageService } from '../services/Cadastro/storage.service';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 class Usuario {
   nome: string = '';
@@ -18,8 +19,16 @@ class Usuario {
   templateUrl: './cadastro2.page.html',
   styleUrls: ['./cadastro2.page.scss'],
 })
+
 export class Cadastro2Page implements OnInit {
   usuario: Usuario;
+
+  cadastro2 = new FormGroup({
+    peso : new FormControl('' , Validators.required, ),
+    altura: new FormControl('', Validators.required),
+    sexo: new FormControl('', Validators.required),
+    idade: new FormControl('', Validators.required)
+  })
 
   constructor(
     private cadastroService: CadastroService,

@@ -12,40 +12,53 @@
       <ion-row>
         <h1 class="title">Informações pessoais</h1>
       </ion-row>
-
+      <form action="" [formGroup]="cadastro">
+     
         <ion-row>
           <ion-input label="Nome Completo*:" labelPlacement="stacked" type="name" [clearInput]="true"
-          aria-label="Nome completo do usuário" [(ngModel)]="usuario.nome">
+          aria-label="Nome completo do usuário" [(ngModel)]="usuario.nome"
+          formControlName="name">
+          <div>
+            <ng-container *ngIf="cadastro.get('name')?.hasError('required') && cadastro.get('name')?.touched || cadastro.get('name')?.dirty">
+           
+            </ng-container>
+          </div>
         </ion-input>
         </ion-row>
+        <span *ngIf="cadastro?.errors?.['nomeError'] ">O Nome deve ter no minimo 3 letras </span>
+        
         <ion-row>
           <ion-input label="Email*:" labelPlacement="stacked" type="email" [clearInput]="true"
-            aria-label="E-mail do usuário"  [(ngModel)]="usuario.email">
+            aria-label="E-mail do usuário"  [(ngModel)]="usuario.email" formControlName="email">
+
+         
           </ion-input>
+          <span *ngIf="cadastro?.get('email')?.invalid">O Email deve ser válido</span>
         </ion-row>
         <ion-row>
           <ion-input labelPlacement="stacked" type="password" [clearInput]="true" label="Senha*:"
-            aria-label="Senha do usuário" [(ngModel)]="senha1">
+            aria-label="Senha do usuário" [(ngModel)]="senha1" formControlName="senha">
           </ion-input>
         </ion-row>
         <ion-row>
           <ion-input labelPlacement="stacked" type="password" [clearInput]="true" label="Confirme sua Senha"
-            aria-label="Confirme sua Senha de usuário" [(ngModel)]="senha2">
+            aria-label="Confirme sua Senha de usuário" [(ngModel)]="senha2" formControlName="confirmaSenha">
           </ion-input>
         </ion-row>
-
+        <span *ngIf="cadastro.errors?.['confirmaSenhaError']">Senha incorreta , as senhas precisam ser iguais </span>
+      </form>
         <ion-row class="ion-justify-content-center">
           <div class="buttons">
             <ion-col>
               <ion-button [routerLink]="['/iniciov2']" aria-label="Botão voltar" class="btn-voltar">Voltar</ion-button>
             </ion-col>
             <ion-col>
-              <ion-button (click)="compararSenha()" aria-label="botão continuar cadastro" class="btn-continuar">Continuar</ion-button>
+              <ion-button (click)="compararSenha()" aria-label="botão continuar cadastro" class="btn-continuar" [disabled]="cadastro.invalid">Continuar</ion-button>
             </ion-col>  
           </div>
         </ion-row>
         <ion-toast [isOpen]="isToastOpen"
-        message="Digite a mesma senha em ambos os campos de senha"
+        message="A senha não pode ser menor que 8 digitos"
         [duration]="5000"
         (didDismiss)="setOpen(false)"
         ></ion-toast>

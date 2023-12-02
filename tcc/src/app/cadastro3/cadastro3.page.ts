@@ -3,6 +3,7 @@ import { CadastroService } from '../services/Cadastro/cadastro.service';
 import { StorageService } from '../services/Cadastro/storage.service';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/Login/login.service';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 class Usuario {
   nome: string = '';
@@ -22,6 +23,12 @@ class Usuario {
   styleUrls: ['./cadastro3.page.scss'],
 })
 export class Cadastro3Page implements OnInit {
+
+  cadastro3 = new FormGroup({
+    comorbidades : new FormControl('', Validators.required),
+    doencas: new FormControl('', Validators.required)
+  })
+
   usuario: Usuario;
   doencas?: any[];
   restricao?: any[];

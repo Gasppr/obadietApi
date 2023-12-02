@@ -96,7 +96,7 @@ export class LoginService {
       await this.sessao.next(true)
       await this.router.navigateByUrl('/obaDiet/home', { replaceUrl: true })
 
-      return;
+      return true;
     }
     else {
       return "Credenciais inválidas"

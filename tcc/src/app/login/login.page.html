@@ -1,18 +1,19 @@
 <ion-content [fullscreen]="true" class="tela-start">
-  <form>
+  <form [formGroup]="login">
     <ion-grid class="formulario">
       <ion-row class="ion-justify-content-center">
         <ion-img alt="abacates" src="assets/images/abakate3.svg" />
       </ion-row>
 
       <ion-row>
-        <ion-input labelPlacement="stacked" label="Email:" type="email" id="email" [(ngModel)]="usuario.email" name="email"></ion-input>
+        <ion-input labelPlacement="stacked" label="Email:" type="email" id="email" [(ngModel)]="usuario.email" name="email" formControlName="email"></ion-input > 
       </ion-row>
+      <span *ngIf="login.get('email')?.invalid">O email está num formato inválido </span>
 
       <ion-row>
-        <ion-input labelPlacement="stacked" label="Senha:" type="password" id="senha" [(ngModel)]="usuario.senha" name="senha"></ion-input>
+        <ion-input labelPlacement="stacked" label="Senha:" type="password" id="senha" [(ngModel)]="usuario.senha" name="senha" formControlName="senha"></ion-input>
       </ion-row>
-
+      <span *ngIf="login.get('senha')?.invalid">O tamanho da senha está incorreta </span>
       <ion-row>
         <ion-label class="text esqueci" [routerLink]="['/recuperacao']">
           Esqueceu a senha?
@@ -26,7 +27,7 @@
         </ion-col>
         <ion-col>
           <ion-button class="btn-continuar" 
-          (click)="logar()">FAZER LOGIN</ion-button>
+          (click)="logar()" [disabled]="login.invalid">FAZER LOGIN</ion-button>
         </ion-col>
       </ion-row>
 
@@ -47,6 +48,11 @@
           </ion-button>
         </ion-row>
       </div>
+      <ion-toast [isOpen]="isToastOpen"
+      message="Credenciais Inválidas"
+      [duration]="5000"
+      (didDismiss)="setOpen(false)"
+      ></ion-toast>
     </ion-grid>
   </form>
 </ion-content>
