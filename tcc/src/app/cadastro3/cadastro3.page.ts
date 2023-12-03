@@ -92,6 +92,8 @@ export class Cadastro3Page implements OnInit {
 
   }
 
+  mensagem : any
+
   async continuarCadastro() {
     const usuarioLocalStorage = await this.storage.buscarCadastro('cadastro');
 
@@ -107,12 +109,18 @@ export class Cadastro3Page implements OnInit {
 
     const usuario = await this.storage.buscarCadastro('cadastro');
 
-    await this.cadastroService.fazerCadastro(usuario);
+    this.mensagem =  await this.cadastroService.fazerCadastro(usuario);
 
-    const login = { email: this.usuario.email, senha: `${this.usuario.senha}` };
-
-    await this.loginService.login(login);
+    
   }
+
+
+  isToastOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
+  }
+  
 
   async cadastroIncompleto() {
     const user = await this.storage.buscarCadastro('cadastro');

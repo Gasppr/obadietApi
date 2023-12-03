@@ -19,7 +19,7 @@ export class LoginService {
   private readonly url_api = 'https://obadietapi.vercel.app/obadiet/'
 
   private sessao = new BehaviorSubject<Boolean | null>(null);
- 
+
 
   constructor(private http: HttpClient, private router: Router, private storageService: StorageService) {
 
@@ -28,8 +28,11 @@ export class LoginService {
   }
 
 
-  async credenciaisUsuario(token : string ){
-   return this.http.get(`${this.url_api}usuario/${token}`)
+  async credenciaisUsuario(token: string) {
+    const user = await this.http.get(`${this.url_api}usuario/${token}`)
+
+    return user
+
   }
 
   async autenticacaoUsuario() {
@@ -38,9 +41,9 @@ export class LoginService {
     if (!token) return false
 
 
-    let estadoExpirado = this.tokenExpirado(token)
+    const estadoExpirado = this.tokenExpirado(token)
 
-    if (estadoExpirado) {
+    if (estadoExpirado == false) {
       return false
     } else {
       return true
@@ -55,6 +58,7 @@ export class LoginService {
 
     if (expirado) {
       const estadoExpirado = (Math.floor((new Date).getTime() / 1000)) >= expirado;
+
       return estadoExpirado;
     }
 
@@ -78,29 +82,31 @@ export class LoginService {
 
     if (!usuario.email && !usuario.senha) return;
 
-
+    let erro : any
 
     await this.fazerLogin(usuario).subscribe({
-      next: (data: any) => {
+      next: async (data: any) => {
 
         this.token = data.acess_token
+
+        if (this.token) {
+
+          await this.storageService.guardarToken("token", this.token);
+          await this.sessao.next(true)
+          await this.router.navigateByUrl('obaDiet/home', { replaceUrl: true })
+
+          return true;
+        }
+        else {
+          return "Credenciais inválidas"
+        }
       },
       error: (err) => {
-        console.log(err)
+        erro = err
       }
     })
 
-    if (this.token) {
-      
-      await this.storageService.guardarToken("token", this.token);
-      await this.sessao.next(true)
-      await this.router.navigateByUrl('/obaDiet/home', { replaceUrl: true })
 
-      return true;
-    }
-    else {
-      return "Credenciais inválidas"
-    }
 
   }
 
@@ -113,35 +119,36 @@ export class LoginService {
   async sairDaConta() {
     this.sessao.next(false);
     await this.storageService.removerToken("token")
-    await this.router.navigateByUrl('/iniciov2', { replaceUrl: true })
-
+    localStorage.clear()
+    localStorage.clear()
+    location.reload()
   }
 
-  async checarValidacao(){
+  async checarValidacao() {
     const token = await this.storageService.buscarToken("token")
-    if(!token) return false
+    if (!token) return false
 
     let estadoExpirado = this.tokenExpirado(token)
 
-    if(estadoExpirado) return false
+    if (estadoExpirado) return false
 
     let estadoValido = await this.validarToken(token)
 
-    if(!estadoValido)return false
+    if (!estadoValido) return false
     else return true
   }
 
 
-  async validarToken(token : any){
+  async validarToken(token: any) {
 
     return this.http.get(`${this.url_api}auth/perfil`, {
-      headers:{
+      headers: {
         'Content-Type': 'application/json',
-        'Authorization': token
-    }
+        'Authorization': `Bearer ${token}`
+      }
 
-  })
-    
+    })
+
   }
 
 }

@@ -6,6 +6,6 @@ export interface Cadastro{
     peso: number,
     altura: number,
     senha: string
-    restricoes : string[],
-    doencas: string[]
+    restricoes : number[],
+    doencas: number[]
 }

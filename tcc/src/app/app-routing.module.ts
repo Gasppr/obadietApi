@@ -25,7 +25,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
-    canActivate:[LoginGuard]
+   
 
   },
   {
@@ -42,7 +42,8 @@ const routes: Routes = [
   },
   {
     path: 'cadastro3',
-    loadChildren: () => import('./cadastro3/cadastro3.module').then( m => m.Cadastro3PageModule)
+    loadChildren: () => import('./cadastro3/cadastro3.module').then( m => m.Cadastro3PageModule),
+    canActivate:[LoginGuard]
   },
   {
     path: 'obaDiet/receita',
@@ -81,7 +82,8 @@ const routes: Routes = [
   },
   {
     path: 'obaDiet/receitas',
-    loadChildren: () => import('./receitas/receitas.module').then( m => m.ReceitasPageModule)
+    loadChildren: () => import('./receitas/receitas.module').then( m => m.ReceitasPageModule),
+    canActivate:[AuthGuard]
   }
 ];
 

@@ -5,7 +5,6 @@
     </ion-row>
     <ion-row *ngIf="doencas">
       <ion-select aria-label="Doencas" placeholder="Doenças:" [multiple]="true" (ionChange)="selecionarDoencas($event)">
-        <ion-select-option>Nenhuma</ion-select-option>
         <ion-select-option *ngFor="let doenca of doencas" value={{doenca.idDoenca}}>{{doenca.nomeDoenca}}</ion-select-option>
       </ion-select>
     </ion-row>
@@ -32,5 +31,10 @@
       </ion-col>
     </div>
     </ion-row>
+    <ion-toast [isOpen]="isToastOpen"
+    message="{{mensagem}}"
+    [duration]="4000"
+    (didDismiss)="setOpen(false)"
+    ></ion-toast>
   </ion-grid>
 </ion-content>

@@ -39,14 +39,24 @@ export class LoginPage {
     
     if(!this.usuario) return
 
-    this.resposta = await this.loginService.login(this.usuario);
+    await localStorage.clear()
+    await localStorage.clear()
+    
+  
 
-    if(this.resposta != true ){
-      this.setOpen(true)
-    }
-
-
+    this.resposta = this.loginService.login(this.usuario);
+      setTimeout(() =>{
+        this.entrar(this.resposta)
+          
+      }, 4000 )
   }
+
+    entrar(resposta : any ){
+      if(resposta != true ){
+        this.setOpen(true)
+       
+     }
+    }
 
   isToastOpen = false;
 
