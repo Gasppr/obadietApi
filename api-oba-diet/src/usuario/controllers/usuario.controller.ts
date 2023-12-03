@@ -31,6 +31,7 @@ import { Horarios_remediosDto } from '../dto/horarios_remedios.dto';
 import { RefeicoesHorariosEntity } from '../entity/horarios/RefeicoesHorario.entity';
 import { Horarios_RefeicoesDto } from '../dto/horarios_refeicoes.dto ';
 
+
 // import { RolesGuard } from './guards/usuario.guard';
 @ApiTags('Usuarios')
 @Controller('obadiet')
@@ -95,11 +96,12 @@ export class UsuarioController {
   @Post('entrar')
   @IsPublic()
   @UseGuards(UsuarioGuard)
-  loginUs(@Body() loginDto: LoginDto) {
+  loginUsuario(@Body() loginDto: LoginDto) {
     return this._usuarioRepository.verificarLogin(
       loginDto.email,
       loginDto.senha,
     );
+
   }
 
   @Post('esqueci-senha')

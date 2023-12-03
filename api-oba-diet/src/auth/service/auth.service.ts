@@ -31,12 +31,13 @@ export class AuthService {
       if (!senhaVerificada) {
 
          throw new UnauthorizedException("Email/senha incorretos")
+         
       }
 
       const payload = { email: user.email, senha: user.senha }
 
       return {
-         acess_token: await this.jwtService.signAsync(payload)
+         acess_token:  this.jwtService.sign(payload)
       }
    }
 

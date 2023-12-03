@@ -167,6 +167,9 @@ export class UsuarioRepository {
     });
 
 
+  
+
+
     return {
       mensagem: `Seja bem-vindo ao ObaDiet ${usuarioNovo.nome}!`,
     };
