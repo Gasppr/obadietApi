@@ -20,8 +20,8 @@
           formControlName="name">
           <div>
             <ng-container *ngIf="cadastro.get('name')?.hasError('required') && cadastro.get('name')?.touched || cadastro.get('name')?.dirty">
-           
             </ng-container>
+
           </div>
         </ion-input>
         </ion-row>
@@ -29,12 +29,11 @@
         
         <ion-row>
           <ion-input label="Email*:" labelPlacement="stacked" type="email" [clearInput]="true"
-            aria-label="E-mail do usuário"  [(ngModel)]="usuario.email" formControlName="email">
-
-         
+            aria-label="E-mail do usuário"  [(ngModel)]="usuario.email" formControlName="email"  >
           </ion-input>
-          <span *ngIf="cadastro?.get('email')?.invalid">O Email deve ser válido</span>
         </ion-row>
+         <span *ngIf="cadastro?.errors?.['emailError']"> Este email já existe</span>
+         
         <ion-row>
           <ion-input labelPlacement="stacked" type="password" [clearInput]="true" label="Senha*:"
             aria-label="Senha do usuário" [(ngModel)]="senha1" formControlName="senha">

@@ -6,6 +6,7 @@ import { Cadastro } from './cadastro.model';
 import { LoginService } from '../Login/login.service';
 import { Storage } from '@ionic/storage';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,23 +34,25 @@ export class CadastroService {
      {
        next: (data: any) => {
          this.mensagem = data.mensgem;
+
+
+         localStorage.clear()
+          this.storageService.removerToken('token')
+      
+         const user = {email : usuario.email ,senha :  usuario.senha}
+
+         this.mensagem = this.loginService.login(user);
+
+         return this.mensagem
        }
      }
    )
+  }
 
-   localStorage.clear()
-   await this.storageService.removerToken('token')
+    verificaEmail()  {
 
-   const user = {email : usuario.email ,senha :  usuario.senha}
-
-     setTimeout(()=>{
-       this.mensagem = this.loginService.login(user);
-
-       return this.mensagem
-     }, 1000)
-     
-
-    
+      return this.http.get(`${this.url}verificarEmail`)
+  
   }
 
 

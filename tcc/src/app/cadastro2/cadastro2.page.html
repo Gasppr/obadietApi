@@ -13,6 +13,8 @@
         type="number"
         [clearInput]="true"
         placeholder=""
+        [max]="200"
+        [min]="20"
         [(ngModel)]="usuario.peso"
         formControlName="peso"
       >
@@ -29,13 +31,15 @@
         type="number"
         [clearInput]="true"
         placeholder=""
+        [max]="230"
+        [min]="50"
         [(ngModel)]="usuario.altura"
         formControlName="altura"
       >
       </ion-input>
       </ion-col>
     </ion-row>
-    <span *ngIf="cadastro2.get('altura')?.invalid">A Altura deve ser preenchida</span>
+    <span *ngIf="cadastro2.get('altura')?.invalid">A Altura deve ser preenchida, digite em centimetros sua altura</span>
     <ion-row>
       <ion-col class="ion-align-items-center">
         <ion-select aria-label="Sexo" interface="popover" 
@@ -53,6 +57,8 @@
         type="number"
         [clearInput]="true"
         placeholder=""
+        [max]="100"
+        [min]="6"
         [(ngModel)]="usuario.idade"
         formControlName="idade"
       >

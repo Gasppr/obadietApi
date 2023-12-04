@@ -2,9 +2,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CadastroService } from '../services/Cadastro/cadastro.service';
 import { StorageService } from '../services/Cadastro/storage.service';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidator, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { nomeValido } from '../validators/nomeValido.validator';
 import { senhaIgual } from '../validators/senhaIgual.validator';
+import { Observable } from 'rxjs';
+
 
 
 export class Usuario {
@@ -22,23 +24,31 @@ export class Usuario {
 export class Cadastro1Page implements OnInit {
   usuario: Usuario
 
+
+  ngOnInit() {
+  }
+
   cadastro = new FormGroup({
     name : new FormControl(null),
-    email: new FormControl('', [Validators.email, Validators.required]),
+    email: new FormControl('', [Validators.email, Validators.required,  ]),
     senha : new FormControl(null),
     confirmaSenha : new FormControl(null)
   },
   {
-      validators: [senhaIgual, nomeValido]
-  })
+      validators: [senhaIgual, nomeValido, ],
+
+  },
+
+  
+  
+  )
 
   constructor(private cadastroService: CadastroService,
     private storage : StorageService, private router: Router) {
     this.usuario = this.iniciarUsuario();
   }
 
-  ngOnInit() {
-  }
+  
 
   senha1: string = '';
   senha2: string = '';
@@ -72,6 +82,9 @@ export class Cadastro1Page implements OnInit {
 
 
 
+ 
 }
+
+
 
 
