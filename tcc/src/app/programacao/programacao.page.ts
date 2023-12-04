@@ -77,6 +77,7 @@ export class ProgramacaoPage implements OnInit {
     this.id = this.iniciarId();
     this.exibirHorariosRemedios();
     this.exibirHorariosRefeicoes();
+    this.dataComparacao = this.iniciarDataComparacao();
 
     /*this.exibirHorariosRefeicoes();
     this.exibirHorariosRemedio();*/
@@ -123,7 +124,25 @@ export class ProgramacaoPage implements OnInit {
   }
 
   dataAtual: Date = new Date();
-  dataComparacao: string = `${this.dataAtual.getFullYear()}-${this.dataAtual.getMonth()+1}-${this.dataAtual.getDate()}`;
+  dataComparacao: string;
+
+  iniciarDataComparacao(): string {
+    let dia, mes, ano;
+
+    ano = this.dataAtual.getFullYear();
+    
+    if ((this.dataAtual.getMonth() + 1) <= 9 && (this.dataAtual.getMonth() + 1) >= 1 ){
+      mes = `0${this.dataAtual.getMonth()+1}`
+    }
+    else mes = `${this.dataAtual.getMonth()+1}`
+
+    if (this.dataAtual.getDate() >= 1 && this.dataAtual.getDate() <= 9 ){
+      dia = `0${this.dataAtual.getDate()}`;
+    }
+    else dia = `${this.dataAtual.getDate()}`;
+
+    return `${ano}-${mes}-${dia}`
+  }
 
   exibirQuaisHorarios: string = 'Sua programação';
 
