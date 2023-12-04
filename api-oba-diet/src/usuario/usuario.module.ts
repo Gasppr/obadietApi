@@ -3,7 +3,7 @@ import { UsuarioRepository } from './repository/Usuario.repository';
 import { UsuarioController } from './controllers/usuario.controller';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UsuarioEntity, Usuario_Has_Doencas, Usuario_Has_Restricoes } from './entity/UsuarioEntity.entity';
+import { UsuarioEntity, Usuario_Has_Doencas, Usuario_Has_Receitas, Usuario_Has_Restricoes } from './entity/UsuarioEntity.entity';
 import { RestricaoEntity } from '../receitas/entities/Restricao.entity';
 import { DoencaEntity } from '../receitas/entities/Doenca.entity';
 import { criptografia } from './criptografia';
@@ -65,7 +65,8 @@ import { AuthService } from 'src/auth/service/auth.service';
       RefeicoesHorariosEntity,
       usuarios_has_horarios_refeicoes,
       usuarios_has_horarios_remedios,
-      ReceitaEntity
+      ReceitaEntity,
+      Usuario_Has_Receitas
     ]),
   ],
 

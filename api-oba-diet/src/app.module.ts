@@ -5,7 +5,7 @@ import configuration from './config/configuration';
 import { AuthModule } from './auth/auth.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UsuarioEntity, Usuario_Has_Doencas, Usuario_Has_Restricoes } from './usuario/entity/UsuarioEntity.entity';
+import { UsuarioEntity, Usuario_Has_Doencas, Usuario_Has_Receitas, Usuario_Has_Restricoes } from './usuario/entity/UsuarioEntity.entity';
 import { ReceitaEntity, Receita_has_categoria, Receita_has_doencas, Receita_has_restricoes } from './receitas/entities/Receita.entity';
 import { RestricaoEntity } from './receitas/entities/Restricao.entity';
 import { DoencaEntity } from './receitas/entities/Doenca.entity';
@@ -51,7 +51,8 @@ import { RefeicoesHorariosEntity, usuarios_has_horarios_refeicoes } from './usua
         RemediosHorariosEntity,
         RefeicoesHorariosEntity,
         usuarios_has_horarios_refeicoes,
-        usuarios_has_horarios_remedios
+        usuarios_has_horarios_remedios,
+        Usuario_Has_Receitas
       ],
       retryAttempts: 100,
       synchronize: true,

@@ -157,10 +157,10 @@ export class HorariosController {
 
   @Delete('deletarHorarioRemedio/:token')
   @IsPublic()
-  async deletarRemedios(@Param('token') token : string , @Body() { id }: { id: number }) {
+  async deletarRemedios(@Param('token') token : string , @Body()  id : { id: number }) {
 
     if(!token) return { mensagem : 'token inváilido'}
 
-    return await this.horarios.deletarHorariosRemedios(token , id);
+    return await this.horarios.deletarHorariosRemedios(token , id.id);
   }
 }

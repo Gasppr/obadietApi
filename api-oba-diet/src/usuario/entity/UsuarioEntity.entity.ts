@@ -57,6 +57,9 @@ export class UsuarioEntity extends Model {
 
   @HasMany( ()=> Usuario_Has_Doencas)  
   doencas : Usuario_Has_Doencas[]
+
+  @HasMany(()=> Usuario_Has_Receitas)
+  receitasSalvas : Usuario_Has_Receitas[]
   
   @HasMany(()=> usuarios_has_horarios_refeicoes)
   horarios_refeicoes : usuarios_has_horarios_refeicoes[]
@@ -65,6 +68,27 @@ export class UsuarioEntity extends Model {
   horarios_remedios : usuarios_has_horarios_remedios[]
 
   
+}
+
+@Table({modelName : 'usuarios_has_receita' , createdAt:false, deletedAt: false})
+export class Usuario_Has_Receitas extends Model{
+
+  @ForeignKey(() => UsuarioEntity)
+  @PrimaryKey
+  @Column
+  usuarios_id : number
+
+  @ForeignKey(() => ReceitaEntity)
+  @PrimaryKey
+  @Column
+  receita_id : number
+
+
+  @BelongsTo(()=> UsuarioEntity)
+  usuarios: UsuarioEntity[]
+
+  @BelongsTo(()=> ReceitaEntity)
+  restricoes: ReceitaEntity[]
 }
 
 @Table({modelName:'usuarios_has_restricoes', createdAt:false, deletedAt:false})

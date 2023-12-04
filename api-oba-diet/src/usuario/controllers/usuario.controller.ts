@@ -179,4 +179,29 @@ export class UsuarioController {
   apagarUsuario(@Body() { id }: { id: string }) {
     return this._usuarioRepository.deletarUsuario(id);
   }
+
+
+
+  @Get('receitasSalvas/:token ')
+  @IsPublic()
+  buscarReceitasSalvas(@Param('token') token : string){
+
+    return this._usuarioRepository.ProcurarTodos(token)
+  } 
+
+  @Post('salvarReceita')
+  @IsPublic()
+  salvarReceita(@Body() salvo : {usuarios_id: string, receita_id: number}){
+
+    return this._usuarioRepository.salvarReceita( salvo.usuarios_id ,  salvo.receita_id)
+  }
+
+
+  @Delete('deletaSalvo')
+  @IsPublic()
+  async deletarReceitaSalva(@Body() receita : {usuarios_id : string , receita_id : number}){
+
+    return await this._usuarioRepository.deletarReceitaSalva(receita.usuarios_id, receita.receita_id)
+  }
+
 }

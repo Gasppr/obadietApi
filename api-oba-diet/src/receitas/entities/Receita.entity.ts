@@ -12,7 +12,7 @@ import {
 } from 'sequelize-typescript';
 import { DoencaEntity } from './Doenca.entity';
 import { RestricaoEntity } from './Restricao.entity';
-import { UsuarioEntity } from '../../usuario/entity/UsuarioEntity.entity';
+import { UsuarioEntity, Usuario_Has_Receitas } from '../../usuario/entity/UsuarioEntity.entity';
 import { Options } from '@nestjs/common';
 import { CategoriaEntity } from './Categoria.entity';
 import { usuarios_has_horarios_refeicoes } from '../../usuario/entity/horarios/RefeicoesHorario.entity';
@@ -39,6 +39,9 @@ export  class ReceitaEntity extends Model {
 
   @Column
   imagem : string
+
+  @HasMany(()=> Usuario_Has_Receitas)
+  usuario : Usuario_Has_Receitas[]
 
   @HasMany(()=> Receita_has_doencas)
   doencas : Receita_has_doencas[]

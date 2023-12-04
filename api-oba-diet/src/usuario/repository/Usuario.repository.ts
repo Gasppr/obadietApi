@@ -2,22 +2,31 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import {
   UsuarioEntity,
   Usuario_Has_Doencas,
+  Usuario_Has_Receitas,
   Usuario_Has_Restricoes,
 } from '../entity/UsuarioEntity.entity';
 import { JwtService } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-import { Sequelize } from 'sequelize-typescript';
 import { InjectModel } from '@nestjs/sequelize';
-import { find } from 'rxjs';
 import { RestricaoEntity } from '../../receitas/entities/Restricao.entity';
 import { DoencaEntity } from '../../receitas/entities/Doenca.entity';
 import { ReceitaEntity } from '../../receitas/entities/Receita.entity';
-import { Model } from 'sequelize';
 import { jwtConstants } from '../../auth/constants';
 import { AuthService } from 'src/auth/service/auth.service';
 
 @Injectable()
 export class UsuarioRepository {
+  async deletarReceitaSalva(usuarios_id: string, receita_id: number) {
+    const  receita = await this.usuarioHasReceitaBD.destroy({
+      where :{
+        usuarios_id : usuarios_id,  
+        receita_id : receita_id
+      }
+    })
+
+    return {mensagem : `Receita ${receita_id} excluída dos favoritos com sucesso!`}
+  }
+
+
   constructor(
     private jwtService: JwtService,
 
@@ -31,7 +40,10 @@ export class UsuarioRepository {
 
     @InjectModel(Usuario_Has_Doencas)
     private usuarioHasDoencaBD: typeof Usuario_Has_Doencas,
-  ) {}
+
+    @InjectModel(Usuario_Has_Receitas)
+    private usuarioHasReceitaBD : typeof Usuario_Has_Receitas
+  ) { }
 
   private _usuario: UsuarioEntity[] = [];
 
@@ -71,6 +83,12 @@ export class UsuarioRepository {
           model: Usuario_Has_Doencas,
           attributes: ['doencas_idDoenca'],
           include: [{ model: DoencaEntity, attributes: ['nomeDoenca'] }],
+        },
+        {
+          required: false,
+          model: Usuario_Has_Receitas,
+          attributes: ['receita_id'],
+          include: [{ model: ReceitaEntity }],
         },
       ],
       where: {
@@ -197,4 +215,20 @@ export class UsuarioRepository {
 
     return 'Perfil modificado com sucesso';
   }
+
+
+  async salvarReceita(usuario : string , receita : number) {
+
+    const salvo = await this.usuarioHasReceitaBD.create({
+      usuarios_id : usuario,
+      receita_id : receita
+    })
+
+    return { mensagem: "Receita cadastrada com sucesso",
+            receita : salvo?.receita_id}
+
+
+  }
+
+
 }
