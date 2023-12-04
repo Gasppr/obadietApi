@@ -57,11 +57,12 @@ export class HorarioRefeicaoComponent  implements OnInit {
 
   async criarHorarioRefeicao(){
     let token = await this.storage.buscarToken("token");
-    await this.horarioService.cadastroHorarioRefeicao(token, this.horarioRefeicao).subscribe({
-      next: async (data: any) => {
-        
-      }
-    })
+    await this.horarioService.cadastroHorarioRefeicao(token, this.horarioRefeicao);
+  }
+
+  async editarHorariosRefeicoes() {
+    let token = await this.storage.buscarToken("token");
+    await this.horarioService.editarHorarioRefeicao(token, this.horarioRefeicao);
   }
 
   iniciarHorarioRefeicao(): HorarioRefeicao {

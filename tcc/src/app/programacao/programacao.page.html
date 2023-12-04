@@ -44,9 +44,9 @@
           dataComparacao.split('-')[1] }}</b></h1>
       <!--<ion-button color="danger" (click)="openModalAlarme()">botão chique</ion-button>-->
 
-      <div class="horario" *ngIf="exibirQuaisHorarios == 'Suas refeições' || exibirQuaisHorarios == 'Sua programação'">
-        <div class="horario" *ngFor="let refeicao of horariosRefeicoes">
-          <div *ngIf="refeicao.data == dataComparacao">
+      <div class="horario-refeicoes" *ngIf="exibirQuaisHorarios == 'Suas refeições' || exibirQuaisHorarios == 'Sua programação'">
+        <div *ngFor="let refeicao of horariosRefeicoes">
+          <div class="horario" *ngIf="refeicao.data == dataComparacao">
             <h3>{{ displayHorario(refeicao.horarios) }} - Refeição</h3>
 
             <ion-button class="btn-laranja" expand="block" (click)="setRefeicaoOpen(true)">{{ refeicao.tipo
@@ -88,7 +88,7 @@
                   </ion-row>
                   <ion-row>
                     <ion-col>
-                      <ion-button color="warning">Editar horário</ion-button>
+                      <ion-button color="warning" (click)="openModalRefeicao()">Editar horário</ion-button>
                     </ion-col>
                     <ion-col>
                       <ion-button color="danger" id="present-alert" (click)="pegarIdHorarioAlert(refeicao.idhorarios)">Excluir horário</ion-button>
@@ -105,8 +105,8 @@
 
       <div class="horario-remedios"
         *ngIf="exibirQuaisHorarios == 'Seus remédios' || exibirQuaisHorarios == 'Sua programação'">
-        <div class="horario" *ngFor="let remedio of horariosRemedios">
-          <div *ngIf="remedio.data == dataComparacao">
+        <div *ngFor="let remedio of horariosRemedios">
+          <div class="horario" *ngIf="remedio.data == dataComparacao">
             <h3>{{ displayHorario(remedio.horarios) }} - Remédio</h3>
             <ion-button class="btn-laranja" expand="block" (click)="setRemedioOpen(true)">{{ remedio.nomeRemedio
               }}</ion-button>
@@ -136,7 +136,7 @@
                   </ion-row>
                   <ion-row>
                     <ion-col>
-                      <ion-button color="warning">Editar horário</ion-button>
+                      <ion-button color="warning" (click)="openModalRemedio()">Editar horário</ion-button>
                     </ion-col>
                     <ion-col>
                       <ion-button color="danger" id="present-alert" (click)="pegarIdHorarioAlert(remedio.idHorario)">Excluir horário</ion-button>

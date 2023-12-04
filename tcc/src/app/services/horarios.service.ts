@@ -19,8 +19,8 @@ export class HorariosService {
     return this.http.post<any>(`${this.URL}/CriarHorarioRemedios/${token}`, horarioRemedio);
   }
 
-  atualizarHorarioRemedio(horarioRemedio: {}): Observable<any> {
-    return this.http.patch<any>(`${this.URL}/editarHorarioRemedio`, horarioRemedio);
+  editarHorarioRemedio(token: string, horarioRemedio: {}): Observable<any> {
+    return this.http.patch<any>(`${this.URL}/editarHorarioRemedio/${token}`, horarioRemedio);
   }
 
   excluirHorarioRemedio(token: string, id: {}): Observable<any> {
@@ -37,8 +37,8 @@ export class HorariosService {
     return this.http.post<any>(`${this.URL}/CriarHorarioRefeicoes/${token}`, horarioRefeicao);
   }
 
-  atualizarHorarioRefeicao(horarioRefeicao: {}): Observable<any> {
-    return this.http.patch<any>(`${this.URL}/editarHorarioRefeicao`, horarioRefeicao);
+  editarHorarioRefeicao(token: string, horarioRefeicao: {}): Observable<any> {
+    return this.http.patch<any>(`${this.URL}/editarHorarioRefeicao/${token}`, horarioRefeicao);
   }
 
   excluirHorarioRefeicao(token: string, id: {}): Observable<any> {

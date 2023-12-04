@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { RecipesService } from '../services/recipes.service';
 import Swiper from 'swiper';
 import { StorageHorarioService } from '../services/storage-horario.service';
+import { HorarioRefeicaoComponent } from '../adicionar-horarios/horario-refeicao/horario-refeicao.component';
+import { HorarioRemedioComponent } from '../adicionar-horarios/horario-remedio/horario-remedio.component';
 
 
 interface HorarioRemedio {
@@ -282,6 +284,32 @@ export class ProgramacaoPage implements OnInit {
     if (role === 'confirm') {
       this.horarioPersonalizado = data;
       console.log(this.horarioPersonalizado);
+    }*/
+  }
+
+  async openModalRefeicao() {
+    const modal = await this.modalCtrl.create({
+      component: HorarioRefeicaoComponent,
+    });
+    modal.present();
+
+    /*const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.message = `Hello, ${data}!`;
+    }*/
+  }
+
+  async openModalRemedio() {
+    const modal = await this.modalCtrl.create({
+      component: HorarioRemedioComponent,
+    });
+    modal.present();
+
+    /*const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.message = `Hello, ${data}!`;
     }*/
   }
 }

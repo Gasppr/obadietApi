@@ -78,6 +78,11 @@ export class HorarioRemedioComponent  implements OnInit {
     })
   }
 
+  async editarHorarioRemedio() {
+    let token = await this.storage.buscarToken("token");
+    await this.horarioService.editarHorarioRemedio(token, this.horarioRemedio);
+  }
+
   selecionarData(e: any) {
     let datetime = e.detail.value;
     this.horarioRemedio.data = datetime.split('T')[0];
