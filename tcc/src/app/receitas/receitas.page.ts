@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { RecipesService } from '../services/recipes.service';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { StorageService } from '../services/Login/storage.service';
+import { LoginService } from '../services/Login/login.service';
 
 @Component({
   selector: 'app-receitas',
@@ -10,16 +12,19 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./receitas.page.scss'],
 })
 export class ReceitasPage implements OnInit {
+  usuario?: any;
   receitas$!: Observable<any[]>;
   filteredReceitas$!: Observable<any[]>;
   searchTerm: string = '';
 
-  constructor(private recipesService: RecipesService, private router: Router) {}
+  constructor(private recipesService: RecipesService, private router: Router, private storage: StorageService, private loginService: LoginService) {
+    this.carregarDados();
+  }
 
   ngOnInit() {
     this.receitas$ = this.recipesService.buscarReceitas();
     this.filteredReceitas$ = this.receitas$;
-  
+
     this.receitas$.subscribe((receitas) => {
       receitas.forEach((receita) => {
         receita.favorita = this.recipesService.isReceitaSalva(receita);
@@ -48,10 +53,34 @@ export class ReceitasPage implements OnInit {
     }
   }
 
-  salvarReceita(receita: any) {
-    this.recipesService.salvarReceita(receita);
+  async favoritarReceita(receita: any) {
+    this.recipesService.salvarReceita(/*{ usuarios_id: this.usuario.id, receita_id: idReceita}*/receita);
+    console.log('Receita favoritada!');
   }
+
+  async desfavoritarReceita(receita: any){
+    this.recipesService.removerReceitaSalva(/*{usuarios_id : this.usuario.id , receita_id : idReceita}*/receita);
+    console.log('Receita desfavoritada!');
+  }
+
   toggleFavorito(receita: any) {
     receita.favorita = !receita.favorita;
+
+    if (receita.favorita == true){
+      this.favoritarReceita(receita);
+    }
+    else this.desfavoritarReceita(receita);
+  }
+
+  async carregarDados() {
+    let token = await this.storage.buscarToken('token');
+
+    await (
+      await this.loginService.credenciaisUsuario(token)
+    ).subscribe({
+      next: (data: any) => {
+        this.usuario = data;
+      },
+    });
   }
 }
