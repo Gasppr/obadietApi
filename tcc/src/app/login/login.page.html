@@ -6,7 +6,7 @@
       </ion-row>
 
       <ion-row>
-        <ion-input labelPlacement="stacked" label="Email:" type="email" id="email" [(ngModel)]="usuario.email" name="email" formControlName="email"></ion-input > 
+        <ion-input labelPlacement="stacked" label="Email:" type="email" id="email" [(ngModel)]="usuario.email" name="email" formControlName="email"></ion-input >
       </ion-row>
       <span *ngIf="login.get('email')?.invalid">O email está num formato inválido </span>
 
@@ -26,7 +26,7 @@
           <ion-button class="btn-voltar" [routerLink]="['/iniciov2']">voltar</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button class="btn-continuar" 
+          <ion-button class="btn-continuar"
           (click)="logar()" [disabled]="login.invalid">FAZER LOGIN</ion-button>
         </ion-col>
       </ion-row>
@@ -38,7 +38,7 @@
       </ion-row>
 
 
-      <div class="redes-sociais">
+      <!--<div class="redes-sociais">
         <ion-row class="ion-justify-content-center">
           <ion-button class="facebook">
             <ion-icon name="logo-facebook"></ion-icon>
@@ -47,7 +47,8 @@
             <ion-icon name="logo-google"></ion-icon>
           </ion-button>
         </ion-row>
-      </div>
+      </div>-->
+
       <ion-toast [isOpen]="isToastOpen"
       message="Credenciais Inválidas"
       [duration]="5000"
