@@ -1,11 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-row>
-      <ion-col size="auto">
+      <!--<ion-col size="auto">
         <ion-button class="btn-mapa">
           <ion-icon name="map-outline" size="large"></ion-icon>
         </ion-button>
-      </ion-col>
+      </ion-col>-->
 
       <ion-col>
         <ion-searchbar show-clear-button="focus"></ion-searchbar>
@@ -44,9 +44,9 @@
           dataComparacao.split('-')[1] }}</b></h1>
       <!--<ion-button color="danger" (click)="openModalAlarme()">botão chique</ion-button>-->
 
-      <div class="horario-refeicoes" *ngIf="exibirQuaisHorarios == 'Suas refeições' || exibirQuaisHorarios == 'Sua programação'">
+      <div class="horario-refeicoes" *ngIf="exibirQuaisHorarios === 'Suas refeições' || exibirQuaisHorarios === 'Sua programação'">
         <div *ngFor="let refeicao of horariosRefeicoes">
-          <div class="horario" *ngIf="refeicao.data == dataComparacao">
+          <div class="horario" *ngIf="refeicao.data === dataComparacao">
             <h3>{{ displayHorario(refeicao.horarios) }} - Refeição</h3>
 
             <ion-button class="btn-laranja" expand="block" (click)="setRefeicaoOpen(true)">{{ refeicao.tipo
@@ -104,9 +104,9 @@
       </div>
 
       <div class="horario-remedios"
-        *ngIf="exibirQuaisHorarios == 'Seus remédios' || exibirQuaisHorarios == 'Sua programação'">
+        *ngIf="exibirQuaisHorarios === 'Seus remédios' || exibirQuaisHorarios === 'Sua programação'">
         <div *ngFor="let remedio of horariosRemedios">
-          <div class="horario" *ngIf="remedio.data == dataComparacao">
+          <div class="horario" *ngIf="remedio.data === dataComparacao">
             <h3>{{ displayHorario(remedio.horarios) }} - Remédio</h3>
             <ion-button class="btn-laranja" expand="block" (click)="setRemedioOpen(true)">{{ remedio.nomeRemedio
               }}</ion-button>

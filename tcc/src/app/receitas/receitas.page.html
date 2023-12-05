@@ -1,11 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-row>
-      <ion-col size="auto">
+      <!--<ion-col size="auto">
         <ion-button class="btn-mapa">
           <ion-icon name="map-outline" size="large"></ion-icon>
         </ion-button>
-      </ion-col>
+      </ion-col>-->
 
       <ion-col>
         <ion-searchbar show-clear-button="focus" (ionChange)="onSearchChange($event)"></ion-searchbar>
@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="filteredReceitas$!=null" class="ion-padding">
+<ion-content *ngIf="filteredReceitas$!==null" class="ion-padding">
   <ion-card *ngFor="let receita of filteredReceitas$ | async">
     <ion-card-header>
       {{ receita.nome }}
@@ -22,13 +22,13 @@
 
     <ion-card-content>
       <ion-img [src]="receita.imagem" alt="Imagem da Receita" (click)="verDetalhes(receita.id)"></ion-img>
-      
+
       <p class="recipe-info">Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
       <p class="recipe-info">Restrições: {{receita.doencas[0]?.doencas?.nomeDoenca}}</p>
 
       <ion-row class="ion-justify-content-end">
         <ion-col size="auto">
-          <ion-button fill="clear" (click)="salvarReceita(receita)" (click)="toggleFavorito(receita)">
+          <ion-button fill="clear" (click)="toggleFavorito(receita)" (click)="favoritarReceita(receita)">
             <ion-icon name="heart" [color]="receita.favorita ? 'danger' : 'dark'"></ion-icon>
           </ion-button>
         </ion-col>

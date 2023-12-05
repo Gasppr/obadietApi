@@ -1,11 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-row>
-      <ion-col size="auto">
+      <!--<ion-col size="auto">
         <ion-button class="btn-mapa">
           <ion-icon name="map-outline" size="large"></ion-icon>
         </ion-button>
-      </ion-col>
+      </ion-col>-->
 
       <ion-col>
         <ion-searchbar show-clear-button="focus"></ion-searchbar>
@@ -25,19 +25,19 @@
     </ion-row>
 
     <ion-row>
-      <ion-col size="6" *ngFor="let receita of comidas">
+      <ion-col size="6" *ngFor="let receita of receita">
         <ion-card class="recipe-card">
           <ion-card-header [routerLink]="['/obaDiet/receita']" [queryParams]="{ id: receita.id }">
             <ion-img [src]="receita.imagem" class="ion-img"></ion-img>
           </ion-card-header>
-        
+
           <ion-card-content class="card-content">
             <div class="text-container">
               <p class="recipe-name">{{ receita.nome }}</p>
               <p class="recipe-info">Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
               <p class="recipe-info">Restrições: {{receita.doencas[0]?.doencas?.nomeDoenca}}</p>
             </div>
-            <ion-button fill="clear" (click)="removerReceitaSalva(receita)" class="delete-button">
+            <ion-button fill="clear" (click)="desfavoritarReceita(receita)" class="delete-button">
               <ion-icon name="trash" color="danger"></ion-icon>
             </ion-button>
           </ion-card-content>
