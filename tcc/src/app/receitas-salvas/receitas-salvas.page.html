@@ -25,7 +25,7 @@
     </ion-row>
 
     <ion-row>
-      <ion-col size="6" *ngFor="let receita of comidas">
+      <ion-col size="6" *ngFor="let receita of receitasSalvas">
         <ion-card class="recipe-card">
           <ion-card-header [routerLink]="['/obaDiet/receita']" [queryParams]="{ id: receita.id }">
             <ion-img [src]="receita.imagem" class="ion-img"></ion-img>
@@ -37,7 +37,7 @@
               <p class="recipe-info">Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
               <p class="recipe-info">Restrições: {{receita.doencas[0]?.doencas?.nomeDoenca}}</p>
             </div>
-            <ion-button fill="clear" (click)="removerReceitaSalva(receita)" class="delete-button">
+            <ion-button fill="clear" (click)="desfavoritarReceita(receita.id)" class="delete-button">
               <ion-icon name="trash" color="danger"></ion-icon>
             </ion-button>
           </ion-card-content>

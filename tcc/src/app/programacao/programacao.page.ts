@@ -10,43 +10,6 @@ import { HorarioRefeicaoComponent } from '../adicionar-horarios/horario-refeicao
 import { HorarioRemedioComponent } from '../adicionar-horarios/horario-remedio/horario-remedio.component';
 
 
-interface HorarioRemedio {
-  id: number;
-  data: string;
-  nomeRemedio: string;
-  repetir: string;
-  horario: string;
-  qtdRepeteCada: number;
-  quandoRepeteCada: string;
-  diasSemanaRepeticao: string[];
-  qndTermina: string;
-  qndTerminaData: string;
-  qndTerminaHorario: string;
-  nmrRepeticoesTermino: number;
-}
-
-interface Receita {
-  idReceita: number;
-  nome: string;
-  img: string;
-}
-
-interface HorarioRefeicao {
-  id: number;
-  data: string;
-  tipo: string;
-  receitas: Receita[];
-  repetir: string;
-  horario: string;
-  qtdRepeteCada: number;
-  quandoRepeteCada: string;
-  diasSemanaRepeticao: string[];
-  qndTermina: string;
-  qndTerminaData: string;
-  qndTerminaHorario: string;
-  nmrRepeticoesTermino: number;
-}
-
 interface Id {
   id: number
 }
@@ -61,10 +24,7 @@ export class ProgramacaoPage implements OnInit {
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
   swiper?: Swiper;
-  
-  receita: Receita;
-  horarioRefeicao: HorarioRefeicao;
-  horarioRemedio: HorarioRemedio;
+
   id: Id;
 
   receitas: any = [];
@@ -73,9 +33,6 @@ export class ProgramacaoPage implements OnInit {
 
 
   constructor(private modalCtrl: ModalController, private horarioService: HorariosService, private receitasService: RecipesService, private router: Router, private storage: StorageHorarioService) {
-    this.horarioRemedio = this.iniciarHorarioRemedio();
-    this.horarioRefeicao = this.iniciarHorarioRefeicao();
-    this.receita = this.iniciarReceita();
     this.id = this.iniciarId();
     this.exibirHorariosRemedios();
     this.exibirHorariosRefeicoes();
@@ -172,9 +129,8 @@ export class ProgramacaoPage implements OnInit {
   }
 
   async excluirHorariosRemedios(id: number) {
-    this.id = {id: id}
     let token = await this.storage.buscarToken("token");
-    await this.horarioService.excluirHorarioRemedio(token, this.id).subscribe({
+    await this.horarioService.excluirHorarioRemedio(token, {id: id}).subscribe({
       next: (data: any) => {
         this.horariosRemedios = data;
       }
@@ -182,14 +138,17 @@ export class ProgramacaoPage implements OnInit {
   }
 
   async excluirHorariosRefeicoes(id: number) {
-    this.id = {id: id}
     let token = await this.storage.buscarToken("token");
-    await this.horarioService.excluirHorarioRefeicao(token, this.id).subscribe({
+    await this.horarioService.excluirHorarioRefeicao(token, {id: id}).subscribe({
       next: (data: any) => {
         this.horariosRefeicoes = data;
       }
     })
   }
+
+
+  
+
 
   idHorarioAlert: number = 0;
 
@@ -256,17 +215,6 @@ export class ProgramacaoPage implements OnInit {
   ngOnInit() {
   }
   
-  iniciarHorarioRemedio(): HorarioRemedio {
-    return { id: 0, data: '', nomeRemedio: '', repetir: '', horario: '', qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
-  }
-
-  iniciarHorarioRefeicao(): HorarioRefeicao {
-    return { id: 0, data: '', tipo: '', receitas: [], repetir: '', horario: '', qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
-  }
-
-  iniciarReceita(): Receita {
-    return { idReceita: 0, nome: '', img: '' }
-  }
 
   iniciarId(): Id {
     return { id: 0 };
@@ -278,13 +226,6 @@ export class ProgramacaoPage implements OnInit {
       component: AlarmeModalComponent,
     });
     modal.present();
-
-    /*const { data, role } = await modal.onWillDismiss();
-
-    if (role === 'confirm') {
-      this.horarioPersonalizado = data;
-      console.log(this.horarioPersonalizado);
-    }*/
   }
 
   async openModalRefeicao() {

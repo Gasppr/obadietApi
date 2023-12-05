@@ -15,7 +15,7 @@ interface HorarioRefeicao{
   idHorarios: number;
   data: string;
   tipo: string;
-  receitas: number;
+  receitas: number[];
   repetir: string;
   horario: string;
   qtdRepeteCada: number;
@@ -66,7 +66,7 @@ export class HorarioRefeicaoComponent  implements OnInit {
   }
 
   iniciarHorarioRefeicao(): HorarioRefeicao {
-    return { idHorarios: 0, data: '', tipo: '', receitas: 1, repetir: '', horario: '', qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
+    return { idHorarios: 0, data: '', tipo: '', receitas: [], repetir: '', horario: '', qtdRepeteCada: 0, quandoRepeteCada: '', diasSemanaRepeticao: [], qndTermina: '', qndTerminaData: '', qndTerminaHorario: '', nmrRepeticoesTermino: 0 }
   }
 
   iniciarHorarioPersonalizado(): HorarioPersonalizado {

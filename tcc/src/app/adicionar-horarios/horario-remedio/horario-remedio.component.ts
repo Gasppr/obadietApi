@@ -71,11 +71,7 @@ export class HorarioRemedioComponent  implements OnInit {
 
   async criarHorarioRemedio(){
     let token = await this.storage.buscarToken("token");
-    await this.horarioService.cadastroHorarioRemedio(token, this.horarioRemedio).subscribe({
-      next: async (data: any) => {
-        
-      }
-    })
+    await this.horarioService.cadastroHorarioRemedio(token, this.horarioRemedio);
   }
 
   async editarHorarioRemedio() {
