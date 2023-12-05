@@ -1,10 +1,12 @@
 import {
+  IsArray,
   IsEmail,
   IsEmpty,
   IsEnum,
   IsNotEmpty,
   IsNumber,
   IsString,
+  
 } from 'class-validator';
 
 enum TIPO {
@@ -26,6 +28,9 @@ export class Horarios_RefeicoesDto {
   @IsEnum(TIPO)
   @IsString()
   tipo: string;
+
+  @IsString()
+  repetir : string
 
   @IsString()
   horarios: string;
@@ -53,4 +58,8 @@ export class Horarios_RefeicoesDto {
 
   @IsNumber()
   receita_id: number;
+
+  @IsArray()
+  receitas: number[]
+  
 }

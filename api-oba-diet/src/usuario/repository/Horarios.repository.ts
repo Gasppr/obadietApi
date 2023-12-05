@@ -11,7 +11,7 @@ import {
 import { UsuarioEntity } from '../entity/UsuarioEntity.entity';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from '../../auth/constants';
-import { ReceitaEntity } from '../../receitas/entities/Receita.entity';
+import { ReceitaEntity, horarios_refeicoes } from '../../receitas/entities/Receita.entity';
 import { UsuarioRepository } from './Usuario.repository';
 
 @Injectable()
@@ -30,17 +30,21 @@ export class HorariosRepository {
     @InjectModel(usuarios_has_horarios_refeicoes)
     private hasRefeicoes: typeof usuarios_has_horarios_refeicoes,
 
+    @InjectModel(horarios_refeicoes)
+    private hasHorariosRefeicoesBD: typeof horarios_refeicoes,
+
     @InjectModel(RefeicoesHorariosEntity)
     private refeicoesDB: typeof RefeicoesHorariosEntity,
 
     @InjectModel(UsuarioEntity)
     private usuarioBD: typeof UsuarioEntity,
 
+
     @InjectModel(ReceitaEntity)
     private receitaDB: typeof ReceitaEntity,
   ) {}
 
-  async listarReceitas(id: string) {
+  async listarReceitas(id: string) {  
 
     const usuario = await this.jwt.verifyAsync(id, {
       secret: jwtConstants.secret,
@@ -53,17 +57,20 @@ export class HorariosRepository {
       }
     })
 
-    const horarios = await this.refeicoesDB.findAll({
+    const horarios = await this.usuarioBD.findAll({
       include: [
-        {
-          model: usuarios_has_horarios_refeicoes,
-          required: true,
-          where: { usuarios_id: usuarioAchado.id },
-          attributes: [],
-          include: [{ model: UsuarioEntity }, { model: ReceitaEntity }],
-        },
-      ],
-    });
+       {
+         required : true,
+         model: usuarios_has_horarios_refeicoes,
+         where: {usuarios_id : usuarioAchado.id},
+         include: [{model: RefeicoesHorariosEntity , include:[{
+              model: horarios_refeicoes , include: [{model: ReceitaEntity}]
+         }]}]
+        }
+      ]
+    })
+
+   
 
     return horarios;
   }
@@ -71,11 +78,15 @@ export class HorariosRepository {
   async criarHorarioPraRefeicoes(
     horario: RefeicoesHorariosEntity,
     idUsuario: string,
+    idReceita: number,
+    receitas : number[]
   ) {
+  
     const receitaHorario = await this.refeicoesDB.create({
       horario: horario.horario,
       tipo: horario.tipo,
       data: horario.data,
+      repetir : horario.repetir,
       qtdRepeteCada: horario.qtdRepeteCada,
       quandoRepeteCada: horario.quandoRepeteCada,
       diasDaSemanaRepeticao: horario.diasDaSemanaRepeticao,
@@ -83,7 +94,6 @@ export class HorariosRepository {
       qndTerminaData: horario.qndTerminaData,
       qndTerminaHorario: horario.qndTerminaHorario,
       nmrRepeticoesTermino: horario.nmrRepeticoesTermino,
-      receita_id: horario.receita_id,
     });
 
     const horarioAchado = await this.refeicoesDB.findOne({
@@ -102,30 +112,50 @@ export class HorariosRepository {
       },
     });
 
-    const receita = await this.receitaDB.findOne({
-      where: {
-        id: receitaHorario.receita_id
-      },
-    });
 
     await this.hasRefeicoes.create({
       usuarios_id: usuario.id,
       horarios_refeicoes_idhorarios: horarioAchado.idHorarios,
-      horarios_refeicoes_receita_id: receita.id,
     });
 
-    return { mensagem: 'Refeição marcada com sucesso!' };
+    if(receitas.length > 1 ){
+   
+      receitas.forEach( async receita => {
+         
+        await this.hasHorariosRefeicoesBD.create({
+          horarios_refeicoes_idhorarios: horarioAchado.idHorarios,
+          receita_id : receita
+        })
+
+        
+
+      })
+
+      return { mensagem: 'Refeições marcadas com sucesso!' };
+    }else{
+
+      await this.hasHorariosRefeicoesBD.create({
+        horarios_refeicoes_idhorarios: horarioAchado.idHorarios,
+        receita_id : idReceita
+      })
+
+      return { mensagem: 'Refeições marcadas com sucesso!' };
+
+    }
+
+    return {mensagem : 'Não existe refeições para cadastrar horario :('}
+
+  
   }
 
-  async editarHorariosRefeicoes(token : string , horario: RefeicoesHorariosEntity) {
+  async editarHorariosRefeicoes(token : string , horario: RefeicoesHorariosEntity, receitaId : number) {
 
     const usuario = await this.usuarioRepository.ProcurarTodos(token)
 
     if(!usuario) return  new Error("Token inválido"); 
 
-    await this.hasRefeicoes.destroy({where :{ usuarios_id : usuario.id}})
 
-     await this.refeicoesDB.update(
+     const horarioNovo = await this.refeicoesDB.create(
       {
         
         horarios: horario.horario,
@@ -138,19 +168,26 @@ export class HorariosRepository {
         qndTerminaData: horario.qndTerminaData,
         qndTerminaHorario: horario.qndTerminaHorario,
         nmrRepeticoesTermino: horario.nmrRepeticoesTermino,
-        receita_id: horario.receita_id,
+
+      });
+
+      await this.hasHorariosRefeicoesBD.update({
+        horarios_refeicoes_idhorarios : horarioNovo.idHorarios,
+        receita_id :receitaId
+
       },
-      {
-        where: {
-          idHorarios: horario.idHorarios,
+      {where:
+        {
+          receita_id : receitaId       
         },
-      },
-    );
+      }
+      )
+      
 
 
     await this.hasRefeicoes.create({
-      horarios_refeicoes_receita_id : horario.receita_id,
-      horarios_refeicoes_idhorarios : horario.idHorarios,
+
+      horarios_refeicoes_idhorarios : horarioNovo.idHorarios,
       usuarios_id : usuario.id
   })
 
@@ -163,15 +200,10 @@ export class HorariosRepository {
 
      if(!usuario) return  new Error("Token inválido");
 
-    await this.hasRefeicoes.destroy({
-      where: {
-        horarios_refeicoes_idhorarios: id,
-      },
-    });
 
-    await this.refeicoesDB.destroy({
+    await this.hasHorariosRefeicoesBD.destroy({
       where: {
-        idHorarios: id,
+        receita_id : id,
       },
     });
 
@@ -311,4 +343,7 @@ export class HorariosRepository {
 
     return { mensagem: 'Horario de remédio excluído com sucesso!' };
   }
+
+
+  
 }

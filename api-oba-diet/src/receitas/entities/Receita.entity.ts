@@ -15,7 +15,8 @@ import { RestricaoEntity } from './Restricao.entity';
 import { UsuarioEntity, Usuario_Has_Receitas } from '../../usuario/entity/UsuarioEntity.entity';
 import { Options } from '@nestjs/common';
 import { CategoriaEntity } from './Categoria.entity';
-import { usuarios_has_horarios_refeicoes } from '../../usuario/entity/horarios/RefeicoesHorario.entity';
+import { RefeicoesHorariosEntity, usuarios_has_horarios_refeicoes } from '../../usuario/entity/horarios/RefeicoesHorario.entity';
+import { Horarios_RefeicoesDto } from 'src/usuario/dto/horarios_refeicoes.dto ';
 
 @Table({ tableName: 'receita'})
 export  class ReceitaEntity extends Model {
@@ -52,13 +53,38 @@ export  class ReceitaEntity extends Model {
   @HasMany(()=> Receita_has_categoria)
   categorias : Receita_has_categoria[]
 
-  @HasMany(()=> usuarios_has_horarios_refeicoes )
-  horarisoRefeicoes : usuarios_has_horarios_refeicoes[]
 
   @BelongsTo(()=> UsuarioEntity , 'id')
   usuarios : UsuarioEntity[]
 
+  @HasMany(()=> horarios_refeicoes)
+  horariosRefeicoes : horarios_refeicoes[]
 
+
+
+}
+
+@Table({modelName : 'horarios_refeicoes_has_receita', deletedAt : false ,createdAt:false})
+export class horarios_refeicoes extends Model {
+  @ForeignKey(()=> ReceitaEntity)
+  @PrimaryKey
+  @Column
+  receita_id : number
+  
+  @ForeignKey(()=> RefeicoesHorariosEntity)
+  @PrimaryKey
+  @Column
+  horarios_refeicoes_idhorarios:number
+
+
+  @BelongsTo(()=> ReceitaEntity)
+  receitas : ReceitaEntity[]
+
+  @BelongsTo(()=> RefeicoesHorariosEntity)
+  horarios : RefeicoesHorariosEntity[]
+
+  
+  
 }
 
 @Table({ modelName: 'receita_has_doencas', deletedAt: 'cascade', createdAt: false })

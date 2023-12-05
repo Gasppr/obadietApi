@@ -1,5 +1,5 @@
 import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, HasMany, IsDate, Model, NotNull, PrimaryKey, Table } from "sequelize-typescript"
-import { ReceitaEntity } from "../../../receitas/entities/Receita.entity"
+import { ReceitaEntity, horarios_refeicoes } from "../../../receitas/entities/Receita.entity"
 import { UsuarioEntity } from "../UsuarioEntity.entity"
 
 @Table({modelName:'horarios_refeicoes', createdAt:false, deletedAt:false})
@@ -23,6 +23,10 @@ export class RefeicoesHorariosEntity extends Model{
   data : string 
 
   @Column
+  repetir: string
+  
+
+  @Column
   qtdRepeteCada : number
 
   @Column
@@ -41,13 +45,12 @@ export class RefeicoesHorariosEntity extends Model{
   @Column
   nmrRepeticoesTermino : number
 
-  @PrimaryKey
-  @ForeignKey(()=> ReceitaEntity)
-  @Column
-  receita_id : number
-
   @HasMany(() => usuarios_has_horarios_refeicoes)
   horariosRefeicoes : usuarios_has_horarios_refeicoes[]
+
+  @HasMany(()=> horarios_refeicoes )
+  horariosReceitas : horarios_refeicoes[]
+
 
 }
 
@@ -66,10 +69,6 @@ export class usuarios_has_horarios_refeicoes extends Model{
   @Column
   horarios_refeicoes_idhorarios:number
 
-  @ForeignKey(()=> ReceitaEntity)
-  @PrimaryKey
-  @Column
-  horarios_refeicoes_receita_id:number
 
   @BelongsTo(()=> UsuarioEntity)
   usuarios : UsuarioEntity[]
@@ -77,8 +76,6 @@ export class usuarios_has_horarios_refeicoes extends Model{
   @BelongsTo(()=> RefeicoesHorariosEntity)
   horariosRefeicao : RefeicoesHorariosEntity[]
 
-  @BelongsTo(()=> ReceitaEntity)
-  receitas : ReceitaEntity[]
 
 
 }

@@ -47,6 +47,7 @@ export class HorariosController {
 
 
     horarioRefeicao.data = horarioRefeicoesDto.data;
+    horarioRefeicao.repetir = horarioRefeicoesDto.repetir
     horarioRefeicao.tipo = horarioRefeicoesDto.tipo;
     horarioRefeicao.horario = horarioRefeicoesDto.horarios;
     horarioRefeicao.qtdRepeteCada = horarioRefeicoesDto.qtdRepeteCada;
@@ -58,11 +59,13 @@ export class HorariosController {
     horarioRefeicao.qndTerminaHorario = horarioRefeicoesDto.qndTerminaHorario;
     horarioRefeicao.nmrRepeticoesTermino =
       horarioRefeicoesDto.nmrRepeticoesTermino;
-    horarioRefeicao.receita_id = horarioRefeicoesDto.receita_id;
+   
 
     return await this.horarios.criarHorarioPraRefeicoes(
       horarioRefeicao,
       idUsuario,
+      horarioRefeicoesDto.receita_id,
+      horarioRefeicoesDto.receitas
     );
   }
 
@@ -106,19 +109,20 @@ export class HorariosController {
     horarioRefeicao.idHorarios = horarioRefeicoesDto.idHorarios;
     horarioRefeicao.data = horarioRefeicoesDto.data;
     horarioRefeicao.tipo = horarioRefeicoesDto.tipo;
+    horarioRefeicao.repetir = horarioRefeicoesDto.repetir
     horarioRefeicao.horario = horarioRefeicoesDto.horarios;
     horarioRefeicao.qtdRepeteCada = horarioRefeicoesDto.qtdRepeteCada;
     horarioRefeicao.quandoRepeteCada = horarioRefeicoesDto.quandoRepeteCada;
     horarioRefeicao.diasDaSemanaRepeticao =
-      horarioRefeicoesDto.diasDaSemanaRepeticao;
+    horarioRefeicoesDto.diasDaSemanaRepeticao;
     horarioRefeicao.qndTermina = horarioRefeicoesDto.qndTermina;
     horarioRefeicao.qndTerminaData = horarioRefeicoesDto.qndTerminaData;
     horarioRefeicao.qndTerminaHorario = horarioRefeicoesDto.qndTerminaHorario;
     horarioRefeicao.nmrRepeticoesTermino =
-      horarioRefeicoesDto.nmrRepeticoesTermino;
-    horarioRefeicao.receita_id = horarioRefeicoesDto.receita_id;
+    horarioRefeicoesDto.nmrRepeticoesTermino;
 
-    return await this.horarios.editarHorariosRefeicoes(token , horarioRefeicao);
+
+    return await this.horarios.editarHorariosRefeicoes(token , horarioRefeicao, horarioRefeicoesDto.receita_id);
   }
 
   @Patch('editarHorarioRemedio/:token')

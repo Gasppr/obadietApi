@@ -13,8 +13,7 @@ import configuration from '../config/configuration';
 import { HorariosRepository } from './repository/Horarios.repository';
 import { RemediosHorariosEntity, usuarios_has_horarios_remedios } from './entity/horarios/RemediosHorario.entity';
 import { RefeicoesHorariosEntity, usuarios_has_horarios_refeicoes } from './entity/horarios/RefeicoesHorario.entity';
-import { ReceitasRepository } from '../receitas/repository/Receitas.repository';
-import { ReceitaEntity } from '../receitas/entities/Receita.entity';
+import { ReceitaEntity, horarios_refeicoes } from '../receitas/entities/Receita.entity';
 import { HorariosController } from './controllers/horarios.controller';
 import { AuthService } from 'src/auth/service/auth.service';
 
@@ -66,7 +65,8 @@ import { AuthService } from 'src/auth/service/auth.service';
       usuarios_has_horarios_refeicoes,
       usuarios_has_horarios_remedios,
       ReceitaEntity,
-      Usuario_Has_Receitas
+      Usuario_Has_Receitas,
+      horarios_refeicoes
     ]),
   ],
 
