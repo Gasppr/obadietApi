@@ -35,7 +35,7 @@ import { Horarios_RefeicoesDto } from '../dto/horarios_refeicoes.dto ';
 // import { RolesGuard } from './guards/usuario.guard';
 @ApiTags('Usuarios')
 @Controller('obadiet')
-export class UsuarioController {
+export class UsuarioController {""
   constructor(
     private readonly _usuarioRepository: UsuarioRepository,
     private cripto: criptografia,
@@ -182,7 +182,7 @@ export class UsuarioController {
 
 
 
-  @Get('receitasSalvas/:token ')
+  @Get('receitasSalvas/:token')
   @IsPublic()
   buscarReceitasSalvas(@Param('token') token : string){
 
