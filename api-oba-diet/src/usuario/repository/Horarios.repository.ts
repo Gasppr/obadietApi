@@ -19,7 +19,7 @@ export class HorariosRepository {
   constructor(
     private jwt: JwtService,
 
-    private usuarioRepository : UsuarioRepository,
+    private usuarioRepository: UsuarioRepository,
 
     @InjectModel(RemediosHorariosEntity)
     private remediosDB: typeof RemediosHorariosEntity,
@@ -42,9 +42,9 @@ export class HorariosRepository {
 
     @InjectModel(ReceitaEntity)
     private receitaDB: typeof ReceitaEntity,
-  ) {}
+  ) { }
 
-  async listarReceitas(id: string) {  
+  async listarReceitas(id: string) {
 
     const usuario = await this.jwt.verifyAsync(id, {
       secret: jwtConstants.secret,
@@ -52,25 +52,27 @@ export class HorariosRepository {
 
 
     const usuarioAchado = await this.usuarioBD.findOne({
-      where:{
-        email : usuario.email
+      where: {
+        email: usuario.email
       }
     })
 
     const horarios = await this.usuarioBD.findAll({
       include: [
-       {
-         required : true,
-         model: usuarios_has_horarios_refeicoes,
-         where: {usuarios_id : usuarioAchado.id},
-         include: [{model: RefeicoesHorariosEntity , include:[{
-              model: horarios_refeicoes , include: [{model: ReceitaEntity}]
-         }]}]
+        {
+          required: true,
+          model: usuarios_has_horarios_refeicoes,
+          where: { usuarios_id: usuarioAchado.id },
+          include: [{
+            model: RefeicoesHorariosEntity, include: [{
+              model: horarios_refeicoes, include: [{ model: ReceitaEntity }]
+            }]
+          }]
         }
       ]
     })
 
-   
+
 
     return horarios;
   }
@@ -79,14 +81,14 @@ export class HorariosRepository {
     horario: RefeicoesHorariosEntity,
     idUsuario: string,
     idReceita: number,
-    receitas : number[]
+    receitas: number[]
   ) {
-  
+
     const receitaHorario = await this.refeicoesDB.create({
       horario: horario.horario,
       tipo: horario.tipo,
       data: horario.data,
-      repetir : horario.repetir,
+      repetir: horario.repetir,
       qtdRepeteCada: horario.qtdRepeteCada,
       quandoRepeteCada: horario.quandoRepeteCada,
       diasDaSemanaRepeticao: horario.diasDaSemanaRepeticao,
@@ -118,46 +120,46 @@ export class HorariosRepository {
       horarios_refeicoes_idhorarios: horarioAchado.idHorarios,
     });
 
-    if(receitas.length > 1 ){
-   
-      receitas.forEach( async receita => {
-         
+    if (receitas.length > 1) {
+
+      receitas.forEach(async receita => {
+
         await this.hasHorariosRefeicoesBD.create({
           horarios_refeicoes_idhorarios: horarioAchado.idHorarios,
-          receita_id : receita
+          receita_id: receita
         })
 
-        
+
 
       })
 
       return { mensagem: 'Refeições marcadas com sucesso!' };
-    }else{
+    } else {
 
       await this.hasHorariosRefeicoesBD.create({
         horarios_refeicoes_idhorarios: horarioAchado.idHorarios,
-        receita_id : idReceita
+        receita_id: idReceita
       })
 
       return { mensagem: 'Refeições marcadas com sucesso!' };
 
     }
 
-    return {mensagem : 'Não existe refeições para cadastrar horario :('}
+    return { mensagem: 'Não existe refeições para cadastrar horario :(' }
 
-  
+
   }
 
-  async editarHorariosRefeicoes(token : string , horario: RefeicoesHorariosEntity, receitaId : number) {
+  async editarHorariosRefeicoes(token: string, horario: RefeicoesHorariosEntity, receitaId: number) {
 
     const usuario = await this.usuarioRepository.ProcurarTodos(token)
 
-    if(!usuario) return  new Error("Token inválido"); 
+    if (!usuario) return new Error("Token inválido");
 
 
-     const horarioNovo = await this.refeicoesDB.create(
+    const horarioNovo = await this.refeicoesDB.create(
       {
-        
+
         horarios: horario.horario,
         tipo: horario.tipo,
         data: horario.data,
@@ -171,39 +173,40 @@ export class HorariosRepository {
 
       });
 
-      await this.hasHorariosRefeicoesBD.update({
-        horarios_refeicoes_idhorarios : horarioNovo.idHorarios,
-        receita_id :receitaId
+    await this.hasHorariosRefeicoesBD.update({
+      horarios_refeicoes_idhorarios: horarioNovo.idHorarios,
+      receita_id: receitaId
 
-      },
-      {where:
+    },
+      {
+        where:
         {
-          receita_id : receitaId       
+          receita_id: receitaId
         },
       }
-      )
-      
+    )
+
 
 
     await this.hasRefeicoes.create({
 
-      horarios_refeicoes_idhorarios : horarioNovo.idHorarios,
-      usuarios_id : usuario.id
-  })
+      horarios_refeicoes_idhorarios: horarioNovo.idHorarios,
+      usuarios_id: usuario.id
+    })
 
     return { mensagem: 'Horario de refeição modificada com sucesso!' };
   }
 
-  async deletarHorariosRefeicoes(token : string , id: number) {
+  async deletarHorariosRefeicoes(token: string, id: number) {
 
     const usuario = await this.usuarioRepository.ProcurarTodos(token)
 
-     if(!usuario) return  new Error("Token inválido");
+    if (!usuario) return new Error("Token inválido");
 
 
     await this.hasHorariosRefeicoesBD.destroy({
       where: {
-        receita_id : id,
+        receita_id: id,
       },
     });
 
@@ -218,8 +221,8 @@ export class HorariosRepository {
 
 
     const usuarioAchado = await this.usuarioBD.findOne({
-      where:{
-        email : usuario.email
+      where: {
+        email: usuario.email
       }
     })
 
@@ -227,9 +230,9 @@ export class HorariosRepository {
     const horarios = await this.remediosDB.findAll({
       include: [
         {
-         
+
           model: usuarios_has_horarios_remedios,
-          where:{ usuarios_id : usuarioAchado.id},
+          where: { usuarios_id: usuarioAchado.id },
           attributes: [],
           include: [{ model: UsuarioEntity, attributes: [] }],
         },
@@ -291,11 +294,11 @@ export class HorariosRepository {
     return { mensagem: 'Remédio marcado com sucesso!' };
   }
 
-  async editarHorariosRemedios(token : string , horario: RemediosHorariosEntity) {
+  async editarHorariosRemedios(token: string, horario: RemediosHorariosEntity) {
 
     const usuario = await this.usuarioRepository.ProcurarTodos(token)
 
-    if(!usuario) return  new Error("Token inválido");
+    if (!usuario) return new Error("Token inválido");
 
     await this.remediosDB.update(
       {
@@ -321,13 +324,13 @@ export class HorariosRepository {
     return { mensagem: 'Horario de remédio modificado com sucesso!' };
   }
 
-  async deletarHorariosRemedios(token : string , id: number) {
+  async deletarHorariosRemedios(token: string, id: number) {
 
 
-   const usuario = await this.usuarioRepository.ProcurarTodos(token)
+    const usuario = await this.usuarioRepository.ProcurarTodos(token)
 
-   if(!usuario) return  new Error("Token inválido");
-   
+    if (!usuario) return new Error("Token inválido");
+
 
     await this.hasRemedios.destroy({
       where: {
@@ -345,5 +348,5 @@ export class HorariosRepository {
   }
 
 
-  
+
 }
