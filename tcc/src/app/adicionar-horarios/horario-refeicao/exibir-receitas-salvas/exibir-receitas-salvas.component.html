@@ -39,7 +39,7 @@
       </ion-row>
       <ion-row>
         <ion-col *ngFor="let receita of filteredReceitas$ | async" size="6">
-          <ion-card (click)="selecionarReceita(receita.id, receita.nome, receita.imagem)">
+          <ion-card (click)="selecionarReceita(receita.id, receita.nome, receita.imagem)" (click)="confirm()">
             <ion-card-header>
               {{ receita.nome }}
             </ion-card-header>
