@@ -54,12 +54,12 @@ export class ReceitasPage implements OnInit {
   }
 
   async favoritarReceita(receita: any) {
-    this.recipesService.salvarReceita(/*{ usuarios_id: this.usuario.id, receita_id: idReceita}*/receita);
+    this.recipesService.salvarReceita({ usuarios_id: this.usuario.id, receita_id: receita.id}/*receita*/);
     console.log('Receita favoritada!');
   }
 
   async desfavoritarReceita(receita: any){
-    this.recipesService.removerReceitaSalva(/*{usuarios_id : this.usuario.id , receita_id : idReceita}*/receita);
+    this.recipesService.removerReceitaSalva({usuarios_id : this.usuario.id , receita_id : receita.id}/*receita*/);
     console.log('Receita desfavoritada!');
   }
 

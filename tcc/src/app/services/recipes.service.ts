@@ -26,15 +26,15 @@ export class RecipesService {
     return this.http.get<any>(`${this.URL}receitasSalvas/${token}`);
   }
 
-  /*salvarReceita(salvo : {usuarios_id: string, receita_id: number}): Observable<any>{
+  salvarReceita(salvo : {usuarios_id: string, receita_id: number}): Observable<any>{
     return this.http.post<any>(`${this.URL}salvarReceita/`, salvo);
   }
 
   removerReceitaSalva(receita : {}): Observable<any> {
     return this.http.delete<any>(`${this.URL}deletaSalvo/`, receita);
-  }*/
+  }
 
-  salvarReceita(receita: any) {
+  /*salvarReceita(receita: any) {
     const receitasSalvas = this.receitasSalvasSubject.value;
     this.receitasSalvasSubject.next([...receitasSalvas, receita]);
   }
@@ -47,7 +47,7 @@ export class RecipesService {
       this.receitasSalvasSubject.next([...receitasSalvas]);
       receita.favorita = false;
     }
-  }
+  }*/
 
   isReceitaSalva(receita: any): boolean {
     const receitasSalvas = this.receitasSalvasSubject.value;

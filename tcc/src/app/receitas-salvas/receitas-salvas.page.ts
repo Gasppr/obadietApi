@@ -12,45 +12,45 @@ import { LoginService } from '../services/Login/login.service';
 export class ReceitasSalvasPage implements OnInit {
   receitasSalvas: any = [];
   usuario?: any;
-  receita: any = [];
+  receitas: any = [];
 
   constructor(private recipesService: RecipesService, private storage: StorageService, private loginService: LoginService) {
-    //this.carregarDados();
-    //this.buscarReceitasSalvas();
+    this.carregarDados();
+    this.buscarReceitasSalvas();
     this.recipesService.receitasSalvas$.subscribe((receitasSalvas) => {
-      this.receita = receitasSalvas;
-      console.log(this.receita);
+      this.receitas = receitasSalvas;
+      console.log(this.receitas);
     });
 
   }
 
   ngOnInit() { }
 
-  async buscarDetalhesReceitasSalvas(id: string){
+  /*async buscarDetalhesReceitasSalvas(id: string){
     await this.recipesService.buscarDetalhesReceita(id).subscribe({
       next: (data: any) => {
         this.receitasSalvas.push(data);
         console.log(this.receitasSalvas);
       }
     })
-  }
+  }*/
 
   async buscarReceitasSalvas() {
     let token = await this.storage.buscarToken('token');
     await this.recipesService.buscarReceitasSalvas(token).subscribe({
       next: (data: any) => {
-        this.receita = data.receitasSalvas;
-        console.log(this.receita);
-        for (let i = 0; i < this.receita.length; i++){
-          this.buscarDetalhesReceitasSalvas(this.receita[i].restricoes.receita_id)
-        }
+        this.receitas = data.receitasSalvas;
+        console.log(this.receitas);
+        /*for (let i = 0; i < this.receitas.length; i++){
+          this.buscarDetalhesReceitasSalvas(this.receitas[i].restricoes.receita_id)
+        }*/
       }
     });
   }
 
 
   async desfavoritarReceita(receita: any) {
-    this.recipesService.removerReceitaSalva(/*{ usuarios_id: this.usuario.id, receita_id: idReceita }*/receita);
+    this.recipesService.removerReceitaSalva({ usuarios_id: this.usuario.id, receita_id: receita.id }/*receita*/);
     console.log('Receita desfavoritada!');
   }
 
