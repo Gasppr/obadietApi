@@ -8,9 +8,18 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class RecipeDialogComponent {
 
+  add? :  boolean
+  update? : boolean
+  delete? : boolean
+
   constructor(public dialogRef: MatDialogRef<RecipeDialogComponent>) {}
+
+
+  
   onAdd(): void {
-    this.dialogRef.close();
+
+    this.add = true
+    //this.dialogRef.close();
   }
   onUpdate(): void {
 

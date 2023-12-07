@@ -1,6 +1,7 @@
 <h2 mat-dialog-title>Opções de alteração das receitas<h2>
 <mat-dialog-content>
   <p>Escolha qual alteração você deseja fazer</p>
+
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onAdd()">Adicionar</button>
@@ -8,3 +9,55 @@
   <button mat-button (click)="onDelete()">Deletar</button>
   <button mat-button (click)="onClose()">Fechar</button>
 </mat-dialog-actions>
+
+<mat-dialog-content>
+
+
+  <div *ngIf="add" class="host">
+    <span>Adicione a Receita </span>
+
+<mat-form-field >
+  <mat-label>Nome</mat-label>
+  <input matInput>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Ingredientes</mat-label>
+  <textarea matInput></textarea>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Modo Preparo</mat-label>
+  <textarea matInput></textarea>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Imagem</mat-label>
+  <textarea matInput></textarea>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Doenças</mat-label>
+  <mat-select>
+    <mat-option value="one">First option</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Restrição</mat-label>
+  <mat-select>
+    <mat-option value="one">First option</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Categorias</mat-label>
+  <mat-select>
+    <mat-option value="one">First option</mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+
+  </div>
+</mat-dialog-content>
