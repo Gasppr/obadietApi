@@ -3,6 +3,7 @@ import { RecipesService } from '../../recipes.service';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { RecipeDialogComponent } from '../../recipe-dialog/recipe-dialog.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,10 @@ import { RecipeDialogComponent } from '../../recipe-dialog/recipe-dialog.compone
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+
+
+
+
 
   receitas$!: Observable<any[]>;
   receitas: any[] = []
@@ -37,6 +42,9 @@ export class HomeComponent {
     this.receitas$.subscribe(data => {
     this.receitas = data;
     });
+   
+    this.carregarDoencasEREstricoes()
+    
   }
 
   openRecipeDialog(): void {
@@ -49,5 +57,23 @@ export class HomeComponent {
 
       }
     });
+  }
+
+  doencas : any[] = []
+  restricoes  : any[] = []
+
+  async carregarDoencasEREstricoes(){
+     this.recipesService.carregarDoencas().subscribe({
+      next:(data : any) => {
+        this.doencas = data
+        console.log(this.doencas)
+      }
+     })
+     this.recipesService.carregarRestricoes().subscribe({
+      next:(data : any) =>{
+        this.restricoes = data
+        console.log(this.restricoes)
+      }
+     })
   }
 }

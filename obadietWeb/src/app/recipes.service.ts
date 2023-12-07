@@ -18,6 +18,14 @@ export class RecipesService {
     return this.http.post(`${this.URL}novaReceita` , receita)
   }
 
+  carregarDoencas(): Observable<any>{
+    return this.http.get(`${this.URL}doencas`)
+  }
+
+  carregarRestricoes() : Observable<any>{
+    return this.http.get(`${this.URL}restricoes`)
+  }
+
   editarReceita(){
     
   }

@@ -10,54 +10,60 @@
   <button mat-button (click)="onClose()">Fechar</button>
 </mat-dialog-actions>
 
-<mat-dialog-content>
 
+<mat-dialog-content >
 
-  <div *ngIf="add" class="host">
+<div *ngIf="add" class="host">
     <span>Adicione a Receita </span>
 
-<mat-form-field >
-  <mat-label>Nome</mat-label>
-  <input matInput>
-</mat-form-field>
+    <mat-form-field >
+      <mat-label>Nome</mat-label>
+      <input matInput [(ngModel)]="receita.nome" >
+    </mat-form-field>
 
-<mat-form-field>
-  <mat-label>Ingredientes</mat-label>
-  <textarea matInput></textarea>
-</mat-form-field>
+    <mat-form-field>
+      <mat-label>Ingredientes</mat-label>
+      <textarea matInput [(ngModel)]="receita.Ingredientes"></textarea>
+    </mat-form-field>
 
-<mat-form-field>
-  <mat-label>Modo Preparo</mat-label>
-  <textarea matInput></textarea>
-</mat-form-field>
+    <mat-form-field>
+      <mat-label>Modo Preparo</mat-label>
+      <textarea matInput [(ngModel)]="receita.modoPreparo"></textarea>
+    </mat-form-field>
 
-<mat-form-field>
-  <mat-label>Imagem</mat-label>
-  <textarea matInput></textarea>
-</mat-form-field>
+    <mat-form-field>
+      <mat-label>Imagem</mat-label>
+      <textarea matInput [(ngModel)]="receita.imagem"></textarea>
+    </mat-form-field>
 
-<mat-form-field>
-  <mat-label>Doenças</mat-label>
-  <mat-select>
-    <mat-option value="one">First option</mat-option>
-  </mat-select>
-</mat-form-field>
+    <mat-form-field>
+      <mat-label>Doenças</mat-label>
+      <mat-select>
+        <mat-option value="doenca?.nomeDoenca" *ngFor="let doenca of doencas" >{{doenca?.nomeDoenca}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-<mat-form-field>
-  <mat-label>Restrição</mat-label>
-  <mat-select>
-    <mat-option value="one">First option</mat-option>
-  </mat-select>
-</mat-form-field>
+    <mat-form-field>
+      <mat-label>Restrição</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let restricao of restricoes" value="restricao.nomeRestricao" >{{restricao?.nomeRestricao}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-<mat-form-field>
-  <mat-label>Categorias</mat-label>
-  <mat-select>
-    <mat-option value="one">First option</mat-option>
-  </mat-select>
-</mat-form-field>
+    <mat-form-field >
+      <mat-label>Categoria</mat-label>
+      <textarea matInput [(ngModel)]="receita.categoria" ></textarea>
+    </mat-form-field>
 
+    <mat-form-field>
+      <button mat-raised-button color="primary">Criar Receita</button>
+      <button mat-raised-button color="warn">Cancelar</button>
+    </mat-form-field>
 
-
+    
   </div>
+ 
+
+
+
 </mat-dialog-content>

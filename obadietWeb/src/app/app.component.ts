@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ReceitasService } from './services/receitas.service';
 import { ReceitaModel } from './services/receita.model';
+import { RecipeDialogComponent } from './recipe-dialog/recipe-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-root',
@@ -10,15 +13,23 @@ import { ReceitaModel } from './services/receita.model';
 export class AppComponent {
   title = 'obadietWeb';
 
+  constructor(private dialog: MatDialog){}
+
   receita?: ReceitaModel
 
+  openRecipeDialog(): void {
+    const dialogRef = this.dialog.open(RecipeDialogComponent);
 
-  constructor(private receitasService: ReceitasService,) {
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('Funcionou!', result);
 
+      if (result) {
+
+      }
+    });
   }
 
-  criarReceitas(receita: ReceitaModel) {
-    return this.receitasService.criarReceita(receita)
-  }
+ 
+  
 
 }
