@@ -1,0 +1,9 @@
+<button mat-raised-button (click)="openRecipeDialog()">Open Recipe Dialog</button>
+<div *ngFor="let receita of receitas">
+    <div class="recipe-card">
+      <h3>{{ receita.nome }}</h3>
+      <img [src]="receita.imagem" alt="Imagem da Receita">
+      <p class="recipe-info">Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
+      <p class="recipe-info">Restrições: {{ receita.doencas[0]?.doencas?.nomeDoenca }}</p>
+    </div>
+</div>
