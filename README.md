@@ -1,92 +1,132 @@
-# TCC
+# OBA - ObaDiet 
 
 
+### _Aplicativo criado para auxiliar na criação de rotinas de alimentação orientado a usuários com enfermidades crônicas, desenvolvido em Ionic Framework._
 
-## Getting started
+### Tecnologias 
+- Front-end
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+[![Link do Ionic Framework](https://img.shields.io/badge/Ionic-%233880FF.svg?style=for-the-badge&logo=Ionic&logoColor=white)](https://ionicframework.com/)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- Back-end
 
-## Add your files
+[![Link do Nestjs](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)](https://nestjs.com/)
+[![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)](https://sequelize.org)
+[![Link do Nestjs](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)]((https://swagger.io/))
+[![Maria DB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)](https://mariadb.org/)
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+- Design 
 
+[![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/)
+
+- Biblioteca 
+
+[![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/)
+
+- Plataformas de Hosting
+
+[![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+
+- Ambiente de desenvolvimento 
+
+[![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://code.visualstudio.com/)
+
+- Plataformas e controle de versionamento
+
+[![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
+[![GitLab](https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white)](https://gitlab.com/)
+[	![Gitpod](https://img.shields.io/badge/gitpod-f06611.svg?style=for-the-badge&logo=gitpod&logoColor=white)](https://gitpod.io/)
+
+## Como começar
+
+
+### Configurações: 
+
+- Ao ter o projeto em seu ambiente, o usuário deve iniciar executando o comando de download da Node_modules no terminal onde se localiza a pasta do projeto. Para o uso das variadas dependências que o projeto usa para sua execução.
+
+O comando para instalar a Node_modules e dependências principais:
+
+```sh
+npm run all 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/PauloR_/tcc.git
-git branch -M main
-git push -uf origin main
+<img src="tcc/src/assets/images/readme_Imagens/npmRunAll.png">
+
+
+#### Após Instalar a pasta Node_modules 
+
+O próximo passo é entrar na pasta do projeto principal "_tcc_"
+
+```sh
+ cd tcc 
 ```
+<img src="tcc/src/assets/images/readme_Imagens/cdTCC.png">
 
-## Integrate with your tools
+O usuário agora pode executar o projeto mobile pelo navegador, usando os comandos:
 
-- [ ] [Set up project integrations](https://gitlab.com/PauloR_/tcc/-/settings/integrations)
+```sh
+ ionic serve
+```
+<img src="tcc/src/assets/images/readme_Imagens/IonicServe.png">
 
-## Collaborate with your team
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
 
-## Test and Deploy
 
-Use the built-in continuous integration in GitLab.
+# API
+## Opcional: 
+### _Se o usuário não quiser usar o banco de dados e API que está sendo consumida(obadiet.vercel.app) pelo app. Existe a possibilidade de usar outro banco de dados com a mesma estrutura_
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+ - O aplicativo consome uma API onde usa  suas rotas para extrair os dados buscado pelo banco de dados.
 
-***
+- Por isso aconselhamos que tenha experiência para fazer essa troca e sincronização de estrutura igual já usada.
 
-# Editing this README
+### Credenciais do Banco de dados
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+- O funcionamento do app em maior parte precisa de um banco de dados para o seu uso, assim, o usuário precisa preencher as informações do seu banco de dados no arquivo "_.env_" encontrado na pasta "_api-oba-diet_ ".
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+<img src="tcc/src/assets/images/readme_Imagens/Imagem_.env.png">
 
-## Name
-Choose a self-explaining name for your project.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### sendo os dados: 
+ - Nome do host do banco de dados
+ - Senha do banco dados
+ - Nome do banco de dados
+ - Porta do banco de dados
+ - Url do banco de dados
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+ ## Executando a API...
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+- Os comandos para executar a API é simples
+  - 1º Entre na pasta da API :
+  ```sh
+   cd api-oba-diet
+  ```
+  <img src="tcc/src/assets/images/readme_Imagens/cdAPI.png">
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+    - 2º Baixe as dependências da API:
+  ```sh
+    npm i 
+  ```
+   <img src="tcc/src/assets/images/readme_Imagens/npmI.png">
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+  - 3º Execute a API:
+  ```sh
+    npm run start:dev
+  ```
+   <img src="tcc/src/assets/images/readme_Imagens/executandoAPI.png">
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+- ### _OBS: Retire todos os links da API encontrados na pasta do projeto _tcc_ para o uso da sua API_
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+  - Na pasta "_tcc_", na subpasta "_services_"  
+<img src="tcc/src/assets/images/readme_Imagens/services.png">
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+  - Retire os links da variável URL e coloque a sua
+<img src="tcc/src/assets/images/readme_Imagens/linkDasServices.png"> 
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
 
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+# Criadores do projeto:
+   - ## Paulo Roberto(@PauloRoberto_Gaspp/@gaspop25 - Gitlab)
+   - ## Mariana Ayumi (@marianakonno - Gitlab)
+   - ## Rinaldo(@RinaldoSantos - Gitlab)
+   - ## Luis Felippe(@Lima_Felippe - Gitlab)

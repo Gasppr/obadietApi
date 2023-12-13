@@ -6,14 +6,7 @@
   "scripts": {
     "ionici": "npm i -g @ionic/cli",
     "nesti": " npm i -g @nestjs/cli",
-    "gitconfig-paulo": "git config --local user.name \"Paulo Roberto Antunes De Carvalho\" && git config --local user.email \"paulornatunes57@gmail.com\"",
-    "all-paulo": "npm run gitconfig-paulo && npm run ionici && npm run nesti",
-    "gitconfig-mariana": "git config --local user.name \"Mariana Ayumi Konno\" && git config --local user.email \"marianakonno@gmail.com\"",
-    "all-mariana": "npm run gitconfig-mariana && npm run ionici",
-    "gitconfig-luis": "git config --local user.name \"Luis Felippe Lima Moraes\" && git config --local user.email \"luisfelippelimalima@gmail.com\"",
-    "all-luis": "npm run gitconfig-luis && npm run ionici",
-    "gitconfig-rinaldo": "git config --local user.name \"Rinaldo Aparecido Santos Junior\" && git config --local user.email \"srinaldo369@gmail.com\"",
-    "all-rinaldo": "npm run gitconfig-rinaldo && npm run ionici"
+    "all" : "npm run ionici && npm run nesti && npm i "
   },
   "keywords": [],
   "author": "",
