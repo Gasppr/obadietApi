@@ -22,7 +22,7 @@ export class ExibirReceitasSalvasComponent  implements OnInit {
   receitas$!: Observable<any[]>;
   filteredReceitas$!: Observable<any[]>;
   searchTerm: string = '';
-  
+
   selecionarCategoria: string = 'salvas'
 
   iniciarReceitaSelecionada(): ReceitaSelecionada {
@@ -32,23 +32,8 @@ export class ExibirReceitasSalvasComponent  implements OnInit {
   receitasSalvas = [
     {
       idReceita: 1,
-      nome: 'camarao',
-      img: 'https://kipeixe.com.br/media/catalog/product/cache/1/thumbnail/600x/17f82f742ffe127f42dca9de82fb58b1/i/m/imagem_1_15_5.jpg'
-    },
-    {
-      idReceita: 2,
-      nome: 'camarao abacaxi',
-      img: 'https://d3ugyf2ht6aenh.cloudfront.net/stores/001/194/977/products/abacaxi-perola11-d39b14434678c43cc815897563419666-640-0.jpg'
-    },
-    {
-      idReceita: 3,
-      nome: 'camarao batata',
-      img: 'https://scfoods.fbitsstatic.net/img/p/batata-lavada-500g-70629/257131.jpg?w=800&h=800&v=no-change&qs=ignore'
-    },
-    {
-      idReceita: 4,
-      nome: 'camarao cerveja',
-      img: 'https://i.ytimg.com/vi/NEENrXgoqcM/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AHmA4AC6AKKAgwIABABGHIgRygqMA8=&rs=AOn4CLAGybaQlMl_7KEACtSNLaPFFRSe9A'
+      nome: 'Creme de ervilha com tubérculos',
+      img: 'https://www.sumerbol.com.br/uploads/images/2017/10/creme-de-ervilha-1509128052.jpg'
     }
   ]
 

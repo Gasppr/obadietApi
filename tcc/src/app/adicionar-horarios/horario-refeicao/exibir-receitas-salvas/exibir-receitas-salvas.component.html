@@ -28,7 +28,11 @@
           </ion-card-header>
 
           <ion-card-content>
-            {{ receitaSalva.nome }}
+            <div class="receita-text">
+              <div class="title">
+                {{ receitaSalva.nome }}
+              </div>
+            </div>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -39,16 +43,21 @@
       </ion-row>
       <ion-row>
         <ion-col *ngFor="let receita of filteredReceitas$ | async" size="6">
-          <ion-card (click)="selecionarReceita(receita.id, receita.nome, receita.imagem)">
+          <ion-card (click)="selecionarReceita(receita.id, receita.nome, receita.imagem)" (click)="confirm()">
             <ion-card-header>
-              {{ receita.nome }}
+              <ion-img [src]="receita.imagem" alt="Imagem da Receita"></ion-img>
             </ion-card-header>
 
             <ion-card-content>
-              <ion-img [src]="receita.imagem" alt="Imagem da Receita"></ion-img>
-
-              <p class="recipe-info">Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
-              <p class="recipe-info">Restrições: {{receita.doencas[0]?.doencas?.nomeDoenca}}</p>
+              <div class="receita-text">
+                <div class="title">
+                  {{ receita.nome }}
+                </div>
+                <div class="recipe-info">
+                  <!--<p class="recipe-info">Restrições: {{receita.doencas[0]?.doencas?.nomeDoenca}}</p>-->
+                  <p class="recipe-info">Categoria: {{ receita.categorias[0]?.categorias?.nomeCategoria }}</p>
+                </div>
+              </div>
             </ion-card-content>
           </ion-card>
         </ion-col>
