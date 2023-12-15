@@ -3,6 +3,7 @@ import { DoencaEntity } from '../entities/Doenca.entity';
 import { RestricaoEntity } from '../entities/Restricao.entity';
 import {
   ReceitaEntity,
+  Receita_has_categoria,
   Receita_has_doencas,
   Receita_has_restricoes,
 } from '../entities/Receita.entity';
@@ -12,15 +13,20 @@ import { InjectModel } from '@nestjs/sequelize';
 import { DoencaDto } from '../dto/Doenca.dto';
 import { RestricaoDto } from '../dto/Restricao.dto';
 import { CategoriaEntity } from '../entities/Categoria.entity';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class ReceitasRepository {
   constructor(
-    private sequelize: Sequelize,
-    private configService: ConfigService,
-
+   
     @InjectModel(ReceitaEntity)
     private receitaDB: typeof ReceitaEntity,
+
+    @InjectModel(RestricaoEntity)
+    private restricaoDB: typeof RestricaoEntity,
+
+    @InjectModel(DoencaEntity)
+    private doencaDB: typeof DoencaEntity,
 
     @InjectModel(Receita_has_doencas)
     private constraintDoencas: typeof Receita_has_doencas,
@@ -28,34 +34,41 @@ export class ReceitasRepository {
     @InjectModel(Receita_has_restricoes)
     private constraintRestricoes: typeof Receita_has_restricoes,
 
-    @InjectModel(DoencaEntity)
-    private doencaDB: typeof DoencaEntity,
+    @InjectModel(Receita_has_categoria)
+    private constraintCategoria: typeof Receita_has_categoria
 
-    @InjectModel(RestricaoEntity)
-    private restricaoDB: typeof RestricaoEntity,
+  
   ) { }
 
-  async criarReceita(receita: ReceitaEntity, doencas: DoencaDto[], restricoes: RestricaoDto[], categorias: CategoriaEntity[]) {
+  async criarReceita(receita: ReceitaEntity, doencas: number[], restricoes: number[], categorias: number[]) {
 
     await this.receitaDB.create({
       id: receita.id,
       nome: receita.nome,
       ingredientes: receita.ingredientes,
       modoPreparo: receita.modoPreparo,
+      imagem : receita.imagem
     });
 
-    const id = await this.receitaDB.findOne({ where: { nome: receita.nome } })
+    const receitaNova = await this.receitaDB.findOne({ where: { nome: receita.nome } })
 
     for (let i = 0; i < restricoes.length; i++) {
       await this.constraintRestricoes.create({
-        receita_id: id.id,
-        restricoes_idRestricao: restricoes[i].idRestricao,
+        receita_id: receitaNova.id,
+        restricoes_idRestricao: restricoes[i],
       });
     }
     for (let i = 0; i < doencas.length; i++) {
       await this.constraintDoencas.create({
-        receita_id: id.id,
-        doencas_idDoenca: doencas[i].idDoenca
+        receita_id: receitaNova.id,
+        doencas_idDoenca: doencas[i]
+      });
+    }
+
+    for (let i = 0; i < categorias.length; i++) {
+      await this.constraintCategoria.create({
+        receita_id: receitaNova.id,
+        categoria_idCategoria: categorias[i]
       });
     }
 
@@ -75,21 +88,24 @@ export class ReceitasRepository {
     const receita = await this.receitaDB.findAll({
       include: [
         {
-          required: false,
-          model: RestricaoEntity,
-          
-
+         
+          model: Receita_has_restricoes,
+          required: true,
+          include: [RestricaoEntity],
         },
         {
-          required: false,
-          model: DoencaEntity,
-          
-
+         
+          model: Receita_has_doencas,
+          required: true,
+          include: [DoencaEntity],
         },
         {
-          required: false,
-          model: CategoriaEntity,
-
+          
+          required: true,
+          
+          model: Receita_has_categoria,
+         
+          include: [CategoriaEntity],
         }
       ],
     });
@@ -100,9 +116,62 @@ export class ReceitasRepository {
   async procurarReceita(id: number) {
     const Receita: any = this.receitaDB.findOne({
       where: {
-        id: id,
+       id : id
       },
-      include: [{ required: false, model: DoencaEntity }, { model: RestricaoEntity, required: false }, { model: CategoriaEntity, required: false }],
+      include: [
+        {
+         
+          model: Receita_has_restricoes,
+          required: true,
+          include: [RestricaoEntity],
+        },
+        {
+         
+          model: Receita_has_doencas,
+          required: true,
+          include: [DoencaEntity],
+        },
+        {
+          
+          required: true,
+          
+          model: Receita_has_categoria,
+         
+          include: [CategoriaEntity],
+        }
+      ],
+    });
+
+    return Receita;
+  }
+
+  async procurarReceitaPorNome(nome: string) {
+    const Receita: any = this.receitaDB.findOne({
+      where: {
+        nome: {[Op.like] : `%${nome}%`}
+      },
+      include: [
+        {
+         
+          model: Receita_has_restricoes,
+          required: true,
+          include: [RestricaoEntity],
+        },
+        {
+         
+          model: Receita_has_doencas,
+          required: true,
+          include: [DoencaEntity],
+        },
+        {
+          
+          required: true,
+          
+          model: Receita_has_categoria,
+         
+          include: [CategoriaEntity],
+        }
+      ],
     });
 
     return Receita;
@@ -128,23 +197,16 @@ export class ReceitasRepository {
     };
   }
 
-  async deletarReceita(id: number) {
-    let receitaDoencas: Receita_has_doencas[] =
-      await this.constraintDoencas.findAll({ where: { receita_id: id } });
+  async deletarReceita(idReceita: number) {
+   
+    await this.constraintRestricoes.destroy({where:{receita_id : idReceita}})
+    
+    await this.constraintDoencas.destroy({where:{receita_id : idReceita}})
 
-    let receitaRestrioes: Receita_has_restricoes[] =
-      await this.constraintRestricoes.findAll({ where: { receita_id: id } });
+    await this.constraintCategoria.destroy({where:{receita_id : idReceita}})
 
-    receitaDoencas.forEach((n) => n.destroy());
-    receitaRestrioes.forEach((n) => n.destroy());
+    const resultado = await this.receitaDB.destroy({where:{id : idReceita}});
 
-    const receita = await this.receitaDB.findOne({
-      where: {
-        id,
-      },
-    });
-
-    const resultado = await receita.destroy();
     return {
       mensagem: 'Exclusão da receita foi realizada com sucesso!',
       receita: resultado,

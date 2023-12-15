@@ -1,41 +1,45 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/sequelize';
-import { UsuarioEntity } from 'src/usuario/entity/UsuarioEntity.entity';
-import { UsuarioRepository } from 'src/usuario/repository/Usuario.repository';
+import { UsuarioEntity } from '../../usuario/entity/UsuarioEntity.entity';
+import { UsuarioRepository } from '../../usuario/repository/Usuario.repository';
+import { criptografia } from '../../usuario/criptografia';
 
 @Injectable()
 export class AuthService {
 
-    constructor(
-      
-      private jwtService : JwtService,
-      
+   constructor(
+
+      private jwtService: JwtService,
+      private cripto : criptografia,
       @InjectModel(UsuarioEntity)
-      private usuarioBD: typeof UsuarioEntity ){
+      private usuarioBD: typeof UsuarioEntity) {
 
-    }
+   }
 
 
-    async verificarLogin(email: String, senha : String){
+   async verificarLogin(email: string, senha: string) {
 
-        const user = await this.usuarioBD.findOne({
-         where:{
-            email : email,
-            senha : senha
+      const user = await this.usuarioBD.findOne({
+         where: {
+            email: email,
          }
-        })
-         if(user?.senha != senha){
+      })
 
-            throw new UnauthorizedException("Email/senha incorretos")
-         }
+      const senhaVerificada =  await this.cripto.verificarSenha(senha, user.senha)
 
-         const payload = {email : user.email, senha : user.senha}
-        
-         return{
-            acess_token : await this.jwtService.signAsync(payload)
-         }
-    }
+      if (!senhaVerificada) {
+
+         throw new UnauthorizedException("Email/senha incorretos")
+         
+      }
+
+      const payload = { email: user.email, senha: user.senha }
+
+      return {
+         acess_token:  this.jwtService.sign(payload)
+      }
+   }
 
 
 }

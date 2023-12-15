@@ -12,6 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ionic/storage-angular": "^4.0.0"
+    "@ionic/storage-angular": "^4.0.0"}
+    ,
+  "devDependencies": {
+    "sequelize-cli": "^6.6.2"
   }
 }

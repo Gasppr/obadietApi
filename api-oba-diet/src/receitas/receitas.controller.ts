@@ -10,7 +10,7 @@ import {
 import { ReceitasRepository } from './repository/Receitas.repository';
 import { ReceitaEntity } from './entities/Receita.entity';
 import { ReceitaDto } from './dto/Receita.dto';
-import { IsPublic } from 'src/auth/guard/isPublic.decorator';
+import { IsPublic } from '../auth/guard/isPublic.decorator';
 import { ApiBody, ApiTags} from "@nestjs/swagger"
 
 @ApiTags('Receitas')
@@ -37,8 +37,14 @@ export class ReceitasController {
 
   @IsPublic()
   @Get('receita/:id')
-  getReceita(@Param('id') id : number) {
+  getReceitaId(@Param('id') id : number) {
     return this._repository.procurarReceita(id);
+  }
+
+  @IsPublic()
+  @Get('receita/nome/:nome')
+  getReceitaNome(@Param('nome') nome : string) {
+    return this._repository.procurarReceitaPorNome(nome);
   }
 
   @IsPublic()
@@ -50,6 +56,7 @@ export class ReceitasController {
     receitaEntity.nome = receita.nome;
     receitaEntity.ingredientes = receita.ingredientes;
     receitaEntity.modoPreparo = receita.modoPreparo;
+    receitaEntity.imagem = receita.imagem
 
     return this._repository.criarReceita(receitaEntity, receita.doencas, receita.restricoes, receita.categorias);
   }

@@ -8,10 +8,14 @@ import {
   HasMany,
   ForeignKey,
   BelongsTo,
+  IsNull,
 } from 'sequelize-typescript';
-import { DoencaEntity } from 'src/receitas/entities/Doenca.entity';
-import { ReceitaEntity } from 'src/receitas/entities/Receita.entity';
-import { RestricaoEntity } from 'src/receitas/entities/Restricao.entity';
+import { DoencaEntity } from '../../receitas/entities/Doenca.entity';
+import { ReceitaEntity } from '../../receitas/entities/Receita.entity';
+import { RestricaoEntity } from '../../receitas/entities/Restricao.entity';
+import { IncludeThroughOptions } from 'sequelize';
+import { usuarios_has_horarios_refeicoes } from './horarios/RefeicoesHorario.entity';
+import { usuarios_has_horarios_remedios } from './horarios/RemediosHorario.entity';
 
 export enum sexoEnum {
   'MASCULINO' = 'Masculino',
@@ -20,6 +24,7 @@ export enum sexoEnum {
 
 @Table({ tableName: 'usuarios', deletedAt: false, createdAt: false })
 export class UsuarioEntity extends Model {
+  
   @IsUUID('all')
   @PrimaryKey
   @ForeignKey(() => ReceitaEntity)
@@ -27,10 +32,10 @@ export class UsuarioEntity extends Model {
   id: string;
 
   @Column
-  nome: String;
+  nome: string;
 
   @Column
-  email: String;
+  email: string;
 
   @Column
   sexo: sexoEnum;
@@ -45,16 +50,45 @@ export class UsuarioEntity extends Model {
   altura: number;
 
   @Column
-  senha: String;
+  senha: string;
 
-  @BelongsToMany(()=> RestricaoEntity , ()=> Usuario_Has_Restricoes)
-  restricoes : RestricaoEntity[]
+  @HasMany(()=> Usuario_Has_Restricoes)
+  restricoes : Usuario_Has_Restricoes[]
 
-  @BelongsToMany(() => DoencaEntity , ()=> Usuario_Has_Doencas)
-  doencas: DoencaEntity[]
+  @HasMany( ()=> Usuario_Has_Doencas)  
+  doencas : Usuario_Has_Doencas[]
 
-  @HasMany(() => ReceitaEntity, { onDelete: 'cascade' })
-  receitas: ReceitaEntity[]
+  @HasMany(()=> Usuario_Has_Receitas)
+  receitasSalvas : Usuario_Has_Receitas[]
+  
+  @HasMany(()=> usuarios_has_horarios_refeicoes)
+  horarios_refeicoes : usuarios_has_horarios_refeicoes[]
+
+  @HasMany(()=> usuarios_has_horarios_remedios)
+  horarios_remedios : usuarios_has_horarios_remedios[]
+
+  
+}
+
+@Table({modelName : 'usuarios_has_receita' , createdAt:false, deletedAt: false})
+export class Usuario_Has_Receitas extends Model{
+
+  @ForeignKey(() => UsuarioEntity)
+  @PrimaryKey
+  @Column
+  usuarios_id : number
+
+  @ForeignKey(() => ReceitaEntity)
+  @PrimaryKey
+  @Column
+  receita_id : number
+
+
+  @BelongsTo(()=> UsuarioEntity)
+  usuarios: UsuarioEntity[]
+
+  @BelongsTo(()=> ReceitaEntity)
+  restricoes: ReceitaEntity[]
 }
 
 @Table({modelName:'usuarios_has_restricoes', createdAt:false, deletedAt:false})
@@ -62,12 +96,21 @@ export class Usuario_Has_Restricoes extends Model{
 
  
   @ForeignKey(() => UsuarioEntity)
+  @PrimaryKey
   @Column
   usuarios_id : number
 
   @ForeignKey(()=> RestricaoEntity)
+  @PrimaryKey
   @Column
-  restricoes_idRestricoes:number
+  restricoes_idRestricao:number
+
+  @BelongsTo(()=> UsuarioEntity)
+  usuarios: UsuarioEntity[]
+
+  @BelongsTo(()=> RestricaoEntity)
+  restricoes: RestricaoEntity[]
+
 
 }
 
@@ -76,11 +119,21 @@ export class Usuario_Has_Doencas extends Model{
 
  
   @ForeignKey(() => UsuarioEntity)
+  @PrimaryKey
   @Column
   usuarios_id : number
 
   @ForeignKey(()=> DoencaEntity)
+  @PrimaryKey
   @Column
   doencas_idDoenca:number
+
+  @BelongsTo(()=> UsuarioEntity)
+  usuarios: UsuarioEntity[]
+
+  @BelongsTo(()=> DoencaEntity)
+  doencas: DoencaEntity[]
+
+
 
 }
